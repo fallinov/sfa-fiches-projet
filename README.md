@@ -1,19 +1,32 @@
 # SFA Fiches Projet
 
-Application web permettant aux apprentis ESIG de remplir, sauvegarder et partager des fiches de cadrage projet.
+Application web permettant aux apprentis ESIG de remplir, sauvegarder et partager des fiches de projet web.
 
 **[Ouvrir l'application](https://fallinov.github.io/sfa-fiches-projet/)**
 
+## Fiches disponibles
+
+| Route | Fiche | Phase |
+|-------|-------|-------|
+| `/cadrage` | Fiche de cadrage | Phase 1 — Objectif, personas, MoSCoW, contraintes, critères |
+| `/card-sorting` | Card Sorting | Phase 2 — Cartes, participants, résultats, architecture |
+| `/design` | Design & identité visuelle | Phase 3 — Couleurs, typographie, espacements |
+| `/maquettes` | Maquettes | Phase 5 — Pages, tests utilisateurs, itérations |
+| `/checklist` | Checklist finale | Phase 9 — 91 items, 11 catégories, 3 niveaux de priorité |
+
 ## Fonctionnalités
 
-- Formulaire interactif avec 5 sections : objectif, personas, fonctionnalités MoSCoW, contraintes, critères de succès
-- Sections dynamiques (ajouter/supprimer des personas, fonctionnalités, critères)
-- Sauvegarde automatique dans le navigateur (localStorage)
+- Dashboard avec accès à toutes les fiches
+- Sauvegarde automatique dans le navigateur (localStorage indépendant par fiche)
 - Partage par lien (URL encodée base64)
 - Export/import JSON
+- Impression optimisée (print styles)
+- Validation client (champs obligatoires)
+- Compteur de progression par fiche
+- Raccourcis clavier (Ctrl+Entrée pour ajouter un élément)
 - Compatible avec l'ancien format de la fiche devjs.ch
+- Accessible WCAG AA
 - Responsive mobile-first
-- Compatible impression
 
 ## Stack technique
 
@@ -47,32 +60,34 @@ npm run test         # Tous les tests
 
 ```
 app/
-  assets/css/main.css     # Styles globaux + print
-  components/
-    ActionsBar.vue        # Barre d'actions (partager, export, import, reset)
-    form/
-      FormHeader.vue      # En-tête : nom, prénom, date
-      SectionObjective.vue
-      SectionPersonas.vue + PersonaBlock.vue
-      SectionFeatures.vue + FeatureRow.vue (tableau MoSCoW)
-      SectionConstraints.vue
-      SectionCriteria.vue + CriterionRow.vue
+  types/forms.ts                # Types partagés (ChecklistItem)
   composables/
-    useFormData.ts        # State réactif + CRUD
-    useFormPersistence.ts # localStorage + URL decoding
-    useFormExport.ts      # JSON export + URL sharing
-  i18n/fr.ts              # Chaînes UI en français
-  utils/url-encoding.ts   # Encodage/décodage base64 + legacy format
-  pages/index.vue         # Page unique
-  app.vue                 # Layout racine
+    useCadrageData.ts           # State fiche cadrage (Phase 1)
+    useCardSortingData.ts       # State card sorting (Phase 2)
+    useDesignData.ts            # State design (Phase 3)
+    useMaquettesData.ts         # State maquettes (Phase 5)
+    useChecklistData.ts         # State checklist (Phase 9, 91 items)
+    use*Validation.ts           # Validation + progression par fiche
+    useFormPersistence.ts       # Générique : localStorage + URL
+    useFormExport.ts            # Générique : JSON export + URL sharing
+  components/
+    ActionsBar.vue              # Barre d'actions générique
+    cadrage/                    # Composants Phase 1
+    card-sorting/               # Composants Phase 2
+    design/                     # Composants Phase 3
+    maquettes/                  # Composants Phase 5
+    checklist/                  # Composants Phase 9
+  utils/url-encoding.ts         # Encodage base64 + conversion legacy
+  i18n/fr.ts                    # Chaînes UI en français
+  pages/                        # Dashboard + une page par fiche
 tests/
-  unit/                   # Tests unitaires Vitest
-  e2e/                    # Tests e2e Playwright
+  unit/                         # Tests unitaires (Vitest)
+  e2e/                          # Tests e2e (Playwright)
 ```
 
 ## Déploiement
 
-Le site est déployé automatiquement sur [GitHub Pages](https://fallinov.github.io/sfa-fiches-projet/) via GitHub Actions à chaque push sur `main`.
+Déployé automatiquement sur [GitHub Pages](https://fallinov.github.io/sfa-fiches-projet/) via GitHub Actions à chaque push sur `main`.
 
 ```bash
 # Build local pour GitHub Pages
@@ -81,9 +96,9 @@ NUXT_APP_BASE_URL=/sfa-fiches-projet/ npx nuxt build --preset github_pages
 
 ## Versions
 
-- **v1 (actuelle)** : client-side uniquement, pas de backend
+- **v1 (actuelle)** : client-side uniquement, 5 fiches, 32 tests
 - **v2 (futur)** : comptes élèves/enseignant, BDD MySQL, hébergement Infomaniak
 
 ## Lien avec devjs.ch
 
-Cette application remplace la [fiche de cadrage HTML statique](https://devjs.ch/preparer-projet-web/fiche-cadrage-projet.html) sur devjs.ch. Les liens partagés depuis l'ancienne fiche sont automatiquement compatibles grâce à la conversion du format legacy.
+Les fiches reprennent les phases 1, 2, 3, 5 et 9 du cours [« Préparer un projet web »](https://devjs.ch/preparer-projet-web/) sur devjs.ch. Les liens partagés depuis l'ancienne fiche HTML sont automatiquement compatibles.
