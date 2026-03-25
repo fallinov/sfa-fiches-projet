@@ -24,7 +24,7 @@ const fiches = [
     phase: 'Phase 3',
     icon: 'i-lucide-palette',
     to: '/design',
-    active: false
+    active: true
   },
   {
     title: t.dashboard.maquettes.title,
@@ -64,10 +64,13 @@ const fiches = [
         v-for="fiche in fiches"
         :key="fiche.to"
         :to="fiche.active ? fiche.to : undefined"
-        :class="fiche.active ? 'hover:ring-2 hover:ring-primary cursor-pointer' : 'opacity-50 cursor-not-allowed'"
-        class="block"
+        :class="fiche.active ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'"
+        class="block rounded-lg"
       >
-        <UCard class="h-full transition-shadow">
+        <UCard
+          class="h-full transition-all"
+          :class="fiche.active ? 'hover:ring-2 hover:ring-primary hover:shadow-md' : ''"
+        >
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <UIcon

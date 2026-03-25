@@ -161,6 +161,63 @@ export default {
       }
     }
   },
+  design: {
+    title: 'Design & identité visuelle',
+    subtitle: 'Phase 3 — Charte graphique',
+    projectName: 'Nom du projet',
+    projectNamePlaceholder: 'Ex : CoiffurePro',
+    sections: {
+      colors: {
+        title: '1. Palette de couleurs',
+        description: 'Choisissez 3-4 couleurs et vérifiez les contrastes (ratio ≥ 4.5:1 pour WCAG AA). Règle 60-30-10.',
+        colorName: 'Nom',
+        colorNamePlaceholder: 'Ex : Principale',
+        colorHex: 'Code hex',
+        colorHexPlaceholder: 'Ex : #0F766E',
+        colorUsage: 'Utilisation',
+        colorUsagePlaceholder: 'Ex : Boutons, liens',
+        add: 'Ajouter une couleur',
+        contrastNotes: 'Notes sur les contrastes',
+        contrastNotesPlaceholder: 'Résultats du test WebAIM, ratios calculés…'
+      },
+      typography: {
+        title: '2. Typographie',
+        description: 'Maximum 2 polices. Taille minimale : 16px. Interligne : 1.5 à 1.7.',
+        fontName: 'Police',
+        fontNamePlaceholder: 'Ex : Inter',
+        fontUsage: 'Rôle',
+        fontUsagePlaceholder: 'Choisir…',
+        usageOptions: {
+          headings: 'Titres',
+          body: 'Corps de texte',
+          code: 'Code',
+          other: 'Autre'
+        },
+        fontUrl: 'URL ou source',
+        fontUrlPlaceholder: 'Ex : Google Fonts, self-hosted',
+        addFont: 'Ajouter une police',
+        typeScale: 'Échelle typographique',
+        typeScalePlaceholder: 'h1 : 32px / h2 : 24px / h3 : 20px / body : 16px / small : 14px'
+      },
+      spacings: {
+        title: '3. Espacements',
+        description: 'Définissez une grille d\'espacements cohérente (multiples de 4 ou 8).',
+        namePlaceholder: 'Nom (xs, sm…)',
+        valuePlaceholder: 'Valeur (8px…)',
+        add: 'Ajouter un espacement'
+      },
+      identity: {
+        title: '4. Identité visuelle',
+        description: 'Décrivez le style global, l\'ambiance et les principes de design.',
+        label: 'Description de l\'identité visuelle',
+        placeholder: 'Décrivez le style recherché : ambiance, inspirations, ton visuel.\n\nEx :\n- Style minimaliste et professionnel\n- Tons sarcelle et gris ardoise\n- Espace blanc généreux\n- Bordures arrondies et ombres subtiles'
+      },
+      checklist: {
+        title: '5. Checklist de validation',
+        description: 'Vérifiez que toutes les étapes du design ont été réalisées.'
+      }
+    }
+  },
   actions: {
     copyLink: 'Partager',
     copyLinkTooltip: 'Copie un lien partageable dans le presse-papier',
@@ -179,6 +236,7 @@ export default {
     objectiveRequired: 'L\'objectif principal est obligatoire.',
     projectNameRequired: 'Le nom du projet est obligatoire.',
     cardsRequired: 'Ajoutez au moins une carte avec un nom.',
+    colorsRequired: 'Définissez au moins une couleur.',
     fixErrors: 'Corrigez les champs obligatoires avant de partager.'
   },
   toasts: {
