@@ -23,5 +23,7 @@ logs
 .env.*
 !.env.example
 
-# Playwright screenshots
+# Playwright
 playwright/
+test-results/
+playwright-report/
