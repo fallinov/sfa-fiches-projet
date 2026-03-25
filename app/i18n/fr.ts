@@ -218,6 +218,90 @@ export default {
       }
     }
   },
+  maquettes: {
+    title: 'Maquettes',
+    subtitle: 'Phase 5 — Wireframes et prototypes',
+    projectName: 'Nom du projet',
+    projectNamePlaceholder: 'Ex : CoiffurePro',
+    sections: {
+      pages: {
+        title: '1. Pages maquettées',
+        description: 'Listez les pages principales avec leur niveau de fidélité et l\'outil utilisé.',
+        pageLabel: 'Page',
+        pageName: 'Nom de la page',
+        pageNamePlaceholder: 'Ex : Page d\'accueil',
+        pageType: 'Type',
+        pageTypePlaceholder: 'Choisir…',
+        types: {
+          sketch: 'Croquis (basse fidélité)',
+          wireframe: 'Wireframe (moyenne fidélité)',
+          mockup: 'Mockup (haute fidélité)'
+        },
+        pageTool: 'Outil',
+        pageToolPlaceholder: 'Ex : Figma, papier',
+        pageNotes: 'Notes / interactions',
+        pageNotesPlaceholder: 'Annotations, interactions documentées…',
+        add: 'Ajouter une page',
+        gridSystem: 'Grille de mise en page',
+        gridSystemPlaceholder: 'Ex : Grille 12 colonnes, base 8px, gouttières 16px'
+      },
+      tests: {
+        title: '2. Tests utilisateurs',
+        description: 'Documentez les tests effectués sur vos maquettes (test 5 secondes, premier clic, etc.).',
+        testLabel: 'Test',
+        participant: 'Participant',
+        participantPlaceholder: 'Ex : Alice (élève)',
+        testType: 'Type de test',
+        testTypePlaceholder: 'Ex : Test 5 secondes, premier clic',
+        findings: 'Résultats / observations',
+        findingsPlaceholder: 'Ce que le participant a trouvé, ses hésitations…',
+        add: 'Ajouter un test',
+        iterations: 'Résumé des itérations',
+        iterationsPlaceholder: 'Quelles modifications avez-vous faites suite aux tests ?'
+      },
+      checklist: {
+        title: '3. Checklist de validation',
+        description: 'Vérifiez que toutes les étapes du maquettage ont été réalisées.'
+      }
+    }
+  },
+  checklist: {
+    title: 'Checklist finale',
+    subtitle: 'Phase 9 — Validation avant mise en ligne',
+    projectName: 'Nom du projet',
+    projectNamePlaceholder: 'Ex : CoiffurePro',
+    stats: {
+      title: 'Progression',
+      essential: 'Essentiels',
+      important: 'Importants',
+      recommended: 'Recommandés',
+      required: 'requis',
+      optional: 'optionnel'
+    },
+    priorities: {
+      essential: '🔴',
+      important: '🟠',
+      recommended: '🟢'
+    },
+    validation: {
+      title: 'Validation finale',
+      exceptions: 'Exceptions justifiées',
+      exceptionsPlaceholder: 'Éléments non conformes avec justification…',
+      knownBugs: 'Bugs connus acceptés',
+      knownBugsPlaceholder: 'Bugs identifiés mais acceptés avec justification…',
+      testedDevices: 'Appareils testés',
+      testedDevicesPlaceholder: 'iPhone 15, Samsung S24, MacBook Pro…',
+      testedBrowsers: 'Navigateurs testés',
+      testedBrowsersPlaceholder: 'Chrome, Safari, Firefox…',
+      decision: 'Décision finale',
+      decisionPlaceholder: 'Choisir…'
+    },
+    decisions: {
+      ready: '✅ Prêt pour la mise en ligne',
+      reservations: '⚠️ Prêt avec réserves',
+      corrections: '❌ Corrections nécessaires'
+    }
+  },
   actions: {
     copyLink: 'Partager',
     copyLinkTooltip: 'Copie un lien partageable dans le presse-papier',
