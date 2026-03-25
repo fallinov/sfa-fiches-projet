@@ -7,9 +7,14 @@ const { formData, addPersona, removePersona } = useFormData()
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-base font-bold">
-        {{ t.sections.personas.title }}
-      </h2>
+      <div>
+        <h2 class="text-base font-bold">
+          {{ t.sections.personas.title }}
+        </h2>
+        <p class="text-sm text-muted mt-0.5">
+          {{ t.sections.personas.description }}
+        </p>
+      </div>
     </template>
 
     <div class="space-y-4">
@@ -24,6 +29,7 @@ const { formData, addPersona, removePersona } = useFormData()
 
       <UButton
         :label="t.sections.personas.add"
+        icon="i-lucide-plus"
         variant="outline"
         color="primary"
         @click="addPersona()"

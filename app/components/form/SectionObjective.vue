@@ -7,9 +7,14 @@ const { formData } = useFormData()
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-base font-bold">
-        {{ t.sections.objective.title }}
-      </h2>
+      <div>
+        <h2 class="text-base font-bold">
+          {{ t.sections.objective.title }}
+        </h2>
+        <p class="text-sm text-muted mt-0.5">
+          {{ t.sections.objective.description }}
+        </p>
+      </div>
     </template>
 
     <div class="space-y-4">

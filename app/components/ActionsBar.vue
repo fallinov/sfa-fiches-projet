@@ -8,12 +8,6 @@ const { copyShareLink, downloadJson, importJsonFile } = useFormExport()
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const showResetModal = ref(false)
-const saveStatus = ref('')
-
-function showSaveStatus() {
-  saveStatus.value = t.actions.saved
-  setTimeout(() => { saveStatus.value = '' }, 2000)
-}
 
 async function handleCopyLink() {
   const success = await copyShareLink()
@@ -47,83 +41,97 @@ async function handleFileChange(event: Event) {
   input.value = ''
 }
 
-function handleReset() {
-  showResetModal.value = true
-}
-
 function confirmReset() {
   clearStorage()
   resetForm()
   showResetModal.value = false
   toast.add({ title: t.toasts.reset, color: 'neutral' })
 }
-
-defineExpose({ showSaveStatus })
 </script>
 
 <template>
-  <div class="print-hidden sticky top-0 z-10 flex flex-wrap items-center gap-2 p-3 bg-gray-900 dark:bg-gray-800 rounded-lg mb-6 shadow-lg">
-    <UButton
-      :label="t.actions.copyLink"
-      icon="i-lucide-link"
-      color="primary"
-      size="sm"
-      @click="handleCopyLink"
-    />
+  <nav
+    class="print-hidden sticky top-0 z-10 rounded-lg mb-6 shadow-lg bg-gray-900 dark:bg-gray-800"
+    aria-label="Actions de la fiche"
+  >
+    <!-- Main actions row -->
+    <div class="flex flex-wrap items-center gap-2 p-3">
+      <!-- Primary action: share -->
+      <UButton
+        :label="t.actions.copyLink"
+        icon="i-lucide-share-2"
+        color="primary"
+        size="sm"
+        :title="t.actions.copyLinkTooltip"
+        @click="handleCopyLink"
+      />
 
-    <UButton
-      :label="t.actions.download"
-      icon="i-lucide-download"
-      color="neutral"
-      variant="subtle"
-      size="sm"
-      @click="handleDownload"
-    />
+      <!-- Secondary actions: export/import -->
+      <div class="flex items-center gap-1 ml-1">
+        <UButton
+          :label="t.actions.download"
+          icon="i-lucide-download"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          @click="handleDownload"
+        />
 
-    <UButton
-      :label="t.actions.import"
-      icon="i-lucide-upload"
-      color="neutral"
-      variant="subtle"
-      size="sm"
-      @click="handleImportClick"
-    />
+        <UButton
+          :label="t.actions.import"
+          icon="i-lucide-upload"
+          color="neutral"
+          variant="ghost"
+          size="sm"
+          @click="handleImportClick"
+        />
+      </div>
 
-    <input
-      ref="fileInput"
-      type="file"
-      accept=".json"
-      class="hidden"
-      @change="handleFileChange"
-    >
+      <input
+        ref="fileInput"
+        type="file"
+        accept=".json"
+        class="hidden"
+        @change="handleFileChange"
+      >
 
-    <span
-      v-if="saveStatus"
-      class="text-xs text-emerald-400 ml-1 transition-opacity"
-    >
-      &#10003; {{ saveStatus }}
-    </span>
+      <div class="flex-1" />
 
-    <div class="flex-1" />
+      <!-- Auto-save indicator -->
+      <span class="hidden sm:inline text-xs text-gray-500 mr-2">
+        {{ t.actions.autoSaved }}
+      </span>
 
-    <UButton
-      :label="t.actions.reset"
-      icon="i-lucide-trash-2"
-      color="neutral"
-      variant="ghost"
-      size="sm"
-      @click="handleReset"
-    />
+      <!-- Destructive action: reset — visually separated -->
+      <UButton
+        :label="t.actions.reset"
+        icon="i-lucide-trash-2"
+        color="error"
+        variant="ghost"
+        size="sm"
+        @click="showResetModal = true"
+      />
+    </div>
 
     <UModal v-model:open="showResetModal">
       <template #content>
         <div class="p-6 space-y-4">
-          <h3 class="text-lg font-bold">
-            {{ t.modals.resetTitle }}
-          </h3>
-          <p class="text-muted">
-            {{ t.modals.resetDescription }}
-          </p>
+          <div class="flex items-start gap-4">
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 dark:bg-red-950 flex items-center justify-center">
+              <UIcon
+                name="i-lucide-alert-triangle"
+                class="text-red-600 dark:text-red-400 w-5 h-5"
+              />
+            </div>
+            <div>
+              <h3 class="text-lg font-bold">
+                {{ t.modals.resetTitle }}
+              </h3>
+              <p class="text-muted mt-1">
+                {{ t.modals.resetDescription }}
+              </p>
+            </div>
+          </div>
           <div class="flex justify-end gap-3 mt-6">
             <UButton
               :label="t.modals.resetCancel"
@@ -140,5 +148,5 @@ defineExpose({ showSaveStatus })
         </div>
       </template>
     </UModal>
-  </div>
+  </nav>
 </template>

@@ -7,21 +7,17 @@ const { formData, addCriterion, removeCriterion } = useFormData()
 <template>
   <UCard>
     <template #header>
-      <h2 class="text-base font-bold">
-        {{ t.sections.criteria.title }}
-      </h2>
+      <div>
+        <h2 class="text-base font-bold">
+          {{ t.sections.criteria.title }}
+        </h2>
+        <p class="text-sm text-muted mt-0.5">
+          {{ t.sections.criteria.description }}
+        </p>
+      </div>
     </template>
 
     <div class="space-y-4">
-      <div>
-        <p class="font-semibold text-sm text-default">
-          {{ t.sections.criteria.description }}
-        </p>
-        <p class="text-sm text-muted mt-1">
-          {{ t.sections.criteria.hint }}
-        </p>
-      </div>
-
       <div class="space-y-3">
         <FormCriterionRow
           v-for="(criterion, index) in formData.criteria"
@@ -33,6 +29,7 @@ const { formData, addCriterion, removeCriterion } = useFormData()
 
       <UButton
         :label="t.sections.criteria.add"
+        icon="i-lucide-plus"
         variant="outline"
         color="primary"
         @click="addCriterion()"

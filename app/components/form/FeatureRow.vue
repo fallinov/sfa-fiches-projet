@@ -23,7 +23,7 @@ const priorityColors: Record<string, string> = {
   must: 'bg-red-50 dark:bg-red-950/50',
   should: 'bg-amber-50 dark:bg-amber-950/50',
   could: 'bg-blue-50 dark:bg-blue-950/50',
-  wont: 'bg-gray-50 dark:bg-gray-900/50'
+  wont: 'bg-gray-50 dark:bg-gray-800/50'
 }
 </script>
 
@@ -40,7 +40,7 @@ const priorityColors: Record<string, string> = {
         class="w-full"
       />
     </td>
-    <td class="py-2.5 px-2 w-32 sm:w-36">
+    <td class="py-2.5 px-2 w-32 sm:w-44">
       <USelect
         v-model="feature.priority"
         :items="priorityItems"

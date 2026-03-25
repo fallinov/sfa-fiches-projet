@@ -7,9 +7,14 @@ const { formData, addFeature, removeFeature } = useFormData()
 <template>
   <UCard :ui="{ body: 'p-0 sm:p-0' }">
     <template #header>
-      <h2 class="text-base font-bold">
-        {{ t.sections.features.title }}
-      </h2>
+      <div>
+        <h2 class="text-base font-bold">
+          {{ t.sections.features.title }}
+        </h2>
+        <p class="text-sm text-muted mt-0.5">
+          {{ t.sections.features.description }}
+        </p>
+      </div>
     </template>
 
     <div class="overflow-x-auto">
@@ -22,7 +27,7 @@ const { formData, addFeature, removeFeature } = useFormData()
             <th class="py-2.5 px-2 text-left font-semibold">
               {{ t.sections.features.columnFeature }}
             </th>
-            <th class="py-2.5 px-2 text-left font-semibold w-32 sm:w-36">
+            <th class="py-2.5 px-2 text-left font-semibold w-32 sm:w-44">
               {{ t.sections.features.columnPriority }}
             </th>
             <th class="w-10" />
@@ -43,6 +48,7 @@ const { formData, addFeature, removeFeature } = useFormData()
     <div class="p-4">
       <UButton
         :label="t.sections.features.add"
+        icon="i-lucide-plus"
         variant="outline"
         color="primary"
         @click="addFeature()"

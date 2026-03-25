@@ -1,9 +1,11 @@
 export default {
   app: {
-    title: 'ESIG — Fiche de cadrage projet web',
-    subtitle: 'Phase 1 — Clarification du projet'
+    title: 'Fiche de cadrage projet web',
+    subtitle: 'Phase 1 — Clarification du projet',
+    institution: 'ESIG'
   },
   header: {
+    sectionTitle: 'Identification',
     lastName: 'Nom',
     lastNamePlaceholder: 'Dupont',
     firstName: 'Prénom',
@@ -13,15 +15,17 @@ export default {
   sections: {
     objective: {
       title: '1. Objectif du projet',
+      description: 'Définissez clairement ce que votre projet doit accomplir.',
       mainObjective: 'Objectif principal',
-      mainObjectiveHint: 'Décrivez l\'objectif principal de votre projet en une phrase claire et mesurable.',
+      mainObjectiveHint: 'Une phrase claire et mesurable qui résume le but du projet.',
       mainObjectivePlaceholder: 'Ex : Créer un site vitrine pour un salon de coiffure permettant la prise de rendez-vous en ligne.',
       projectName: 'Nom du projet',
       projectNamePlaceholder: 'Ex : CoiffurePro'
     },
     personas: {
-      title: '2. Personas (utilisateurs cibles)',
-      add: '+ Ajouter un persona',
+      title: '2. Personas',
+      description: 'Qui sont les utilisateurs de votre site ? Décrivez au moins un profil type.',
+      add: 'Ajouter un persona',
       label: 'Persona',
       name: 'Nom fictif',
       namePlaceholder: 'Ex : Marie Dupont',
@@ -36,28 +40,30 @@ export default {
         intermediate: 'Intermédiaire',
         expert: 'Expert'
       },
-      goal: 'Objectif principal sur le site',
+      goal: 'Objectif sur le site',
       goalPlaceholder: 'Que cherche cette personne en visitant votre site ?',
       frustrations: 'Frustrations potentielles',
       frustrationsPlaceholder: 'Qu\'est-ce qui pourrait l\'agacer ou la bloquer ?'
     },
     features: {
       title: '3. Fonctionnalités (MoSCoW)',
-      add: '+ Ajouter une fonctionnalité',
+      description: 'Listez les fonctionnalités et classez-les par priorité.',
+      add: 'Ajouter une fonctionnalité',
       columnNumber: '#',
       columnFeature: 'Fonctionnalité',
       columnPriority: 'Priorité',
       descriptionPlaceholder: 'Décrire la fonctionnalité…',
       priorityPlaceholder: '—',
       priorities: {
-        must: 'Must',
-        should: 'Should',
-        could: 'Could',
-        wont: 'Won\'t'
+        must: 'Must — indispensable',
+        should: 'Should — important',
+        could: 'Could — souhaitable',
+        wont: 'Won\'t — exclu'
       }
     },
     constraints: {
       title: '4. Contraintes',
+      description: 'Quelles sont les limites du projet ? Délais, ressources, technologies.',
       deadline: 'Date de livraison',
       hours: 'Heures disponibles',
       hoursPlaceholder: 'Ex : 40',
@@ -66,41 +72,41 @@ export default {
       accessibility: 'Niveau d\'accessibilité',
       accessibilityPlaceholder: 'Non défini',
       accessibilityOptions: {
-        a: 'WCAG A',
-        aa: 'WCAG AA',
-        aaa: 'WCAG AAA'
+        a: 'WCAG A — minimum',
+        aa: 'WCAG AA — recommandé',
+        aaa: 'WCAG AAA — exigeant'
       },
       legal: 'Contraintes légales',
       legalPlaceholder: 'Ex : RGPD, mentions légales, droit à l\'image…'
     },
     criteria: {
       title: '5. Critères de succès',
-      description: 'Comment saurez-vous que le projet est réussi ?',
-      hint: 'Définissez des critères concrets et vérifiables.',
-      add: '+ Ajouter un critère',
+      description: 'Comment saurez-vous que le projet est réussi ? Définissez des critères concrets et vérifiables.',
+      add: 'Ajouter un critère',
       textPlaceholder: 'Ex : Le site est accessible sur mobile et desktop'
     }
   },
   actions: {
-    copyLink: 'Copier le lien',
-    download: 'Télécharger',
-    import: 'Importer',
-    reset: 'Réinitialiser',
-    saved: 'Sauvegardé'
+    copyLink: 'Partager',
+    copyLinkTooltip: 'Copie un lien partageable dans le presse-papier',
+    download: 'Exporter JSON',
+    import: 'Importer JSON',
+    reset: 'Tout effacer',
+    autoSaved: 'Sauvegarde auto activée'
   },
   toasts: {
     saved: 'Sauvegardé',
-    linkCopied: 'Lien copié dans le presse-papier !',
-    downloaded: 'Fiche téléchargée !',
+    linkCopied: 'Lien copié — collez-le pour partager votre fiche !',
+    downloaded: 'Fiche exportée au format JSON',
     imported: 'Fiche importée avec succès !',
     importError: 'Erreur : le fichier n\'est pas un JSON valide.',
     loadedFromLink: 'Fiche chargée depuis le lien partagé',
     reset: 'Fiche réinitialisée'
   },
   modals: {
-    resetTitle: 'Réinitialiser la fiche',
-    resetDescription: 'Effacer tous les champs ? Cette action est irréversible.',
-    resetConfirm: 'Réinitialiser',
+    resetTitle: 'Tout effacer ?',
+    resetDescription: 'Tous les champs seront vidés et la sauvegarde locale supprimée. Cette action est irréversible.',
+    resetConfirm: 'Oui, tout effacer',
     resetCancel: 'Annuler'
   },
   footer: {
