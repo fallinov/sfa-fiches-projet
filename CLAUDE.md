@@ -1,6 +1,6 @@
-# SFA Fiches Projet — Fiches de cadrage interactives
+# SFA Fiches Projet — Fiches de projet web interactives
 
-Application web permettant aux apprentis ESIG de remplir, sauvegarder et partager des fiches de cadrage projet.
+Application web permettant aux apprentis ESIG de remplir, sauvegarder et partager des fiches de projet web (cadrage, card sorting, design, maquettes, checklist).
 
 ## Versions
 
@@ -20,51 +20,72 @@ Application web permettant aux apprentis ESIG de remplir, sauvegarder et partage
 
 | Technologie | Rôle |
 |-------------|------|
-| Nuxt 3 | Framework (SSG pour GitHub Pages) |
-| Nuxt UI | Composants UI (formulaires, boutons, notifications) |
-| Tailwind CSS | Styles (inclus via Nuxt UI) |
+| Nuxt 4 | Framework (SSG pour GitHub Pages) |
+| Nuxt UI v4 | Composants UI (Reka UI + Tailwind) |
+| Tailwind CSS v4 | Styles utilitaires |
+| Vitest | Tests unitaires |
+| Playwright | Tests e2e |
 | GitHub Pages | Hébergement statique |
 
-## Types de fiches
+## Routes et fiches
 
-| Fiche | Phase | Statut |
-|-------|-------|--------|
-| Fiche de cadrage | Phase 1 — Clarification | Existante (à migrer depuis devjs.ch) |
-| Fiche maquettes | Phase 5 — Maquettes | À créer |
-| Checklist finale | Phase 9 — Validation | À créer |
+| Route | Fiche | Phase du cours |
+|-------|-------|----------------|
+| `/` | Dashboard | — |
+| `/cadrage` | Fiche de cadrage | Phase 1 — Clarification |
+| `/card-sorting` | Card Sorting | Phase 2 — Architecture info |
+| `/design` | Design & identité visuelle | Phase 3 — Charte graphique |
+| `/maquettes` | Maquettes | Phase 5 — Wireframes |
+| `/checklist` | Checklist finale (91 items, 11 catégories) | Phase 9 — Validation |
 
-## Fonctionnalités v1
+## Architecture
 
-- Formulaire interactif avec sections dynamiques (personas, fonctionnalités, critères)
-- Auto-save localStorage à chaque modification
-- Bouton « Copier le lien » : URL encodée base64 partageable
-- Bouton « Télécharger JSON » : export fichier
-- Bouton « Importer JSON » : restaurer depuis un fichier
-- Bouton « Réinitialiser » avec confirmation
-- Responsive (mobile-first)
-- Compatible impression (barre cachée en print)
+```
+app/
+  types/forms.ts              # Types partagés (ChecklistItem, BaseFormData)
+  composables/
+    useCadrageData.ts          # State + CRUD fiche cadrage
+    useCardSortingData.ts      # State + CRUD card sorting
+    useDesignData.ts           # State + CRUD design
+    useMaquettesData.ts        # State + CRUD maquettes
+    useChecklistData.ts        # State + CRUD checklist (91 items)
+    use*Validation.ts          # Validation + progression par fiche
+    useFormPersistence.ts      # Générique : localStorage + URL (paramétrisé par storageKey)
+    useFormExport.ts           # Générique : JSON export + URL sharing
+  components/
+    ActionsBar.vue             # Barre d'actions générique (props)
+    cadrage/                   # Composants Phase 1
+    card-sorting/              # Composants Phase 2
+    design/                    # Composants Phase 3
+    maquettes/                 # Composants Phase 5
+    checklist/                 # Composants Phase 9
+  utils/url-encoding.ts        # Encodage/décodage base64 + conversion legacy
+  i18n/fr.ts                   # Toutes les chaînes UI
+  pages/                       # Une page par fiche + dashboard index
+```
+
+## Conventions
+
+- **Composables par fiche** : chaque fiche a son propre `use*Data.ts` avec types, defaults, CRUD
+- **Composables génériques** : `useFormPersistence` et `useFormExport` reçoivent `formData` + `importData` en paramètres
+- **ActionsBar** : générique, reçoit les fonctions via props (pas d'import direct de composables)
+- **localStorage** : une clé par fiche (`fiche-cadrage-data`, `card-sorting-data`, `design-data`, `maquettes-data`, `checklist-data`)
+- **Auto-save** : debounce 500ms + beforeunload + visibilitychange
+- **Palette** : teal devjs.ch (`primary` = `#0F766E`), utiliser `text-primary` / `bg-primary/5` (pas emerald/green)
 
 ## Liens avec les autres projets
 
 | Projet | Chemin local | Relation |
 |--------|-------------|----------|
-| **devjs.ch** | `~/WebstormProjects/devjs` | Contient la fiche actuelle en HTML statique (`docs/public/preparer-projet-web/fiche-cadrage-projet.html`). Sera remplacée par un lien vers cette app. |
-| **ESIG** | `~/ESIG` | Dossier pédagogique. Les fiches sont utilisées dans les cours 113, 122, 141, 741, 822. |
+| **devjs.ch** | `~/WebstormProjects/devjs` | Cours source. Les fiches reprennent les phases 1, 2, 3, 5, 9. |
+| **ESIG** | `~/ESIG` | Dossier pédagogique. Cours 113, 122, 141, 741, 822. |
 
 ## Contraintes
 
-- **Pas de CDN externe** : polices et assets self-hosted
+- **Pas de CDN externe** : polices et assets self-hosted (polices système)
 - **Accessibilité** : WCAG AA (formulaires accessibles, contraste, navigation clavier)
 - **Mobile-first** : les apprentis utilisent souvent leur téléphone
 - **Code en anglais**, interface en français
-
-## Migration depuis devjs.ch
-
-La fiche HTML actuelle sur devjs.ch reste en place. Une fois cette app déployée :
-1. Reprendre les mêmes champs et la même structure
-2. Ajouter le routage Nuxt (une page par type de fiche)
-3. Rediriger l'ancienne URL vers la nouvelle app
-4. Supprimer le fichier HTML de devjs.ch
 
 ## Commandes
 
