@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData, addCriterion, removeCriterion } = useFormData()
+const { formData, addCriterion, removeCriterion } = useCadrageData()
 
 function handleKeydown(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -26,7 +26,7 @@ function handleKeydown(e: KeyboardEvent) {
 
     <div class="space-y-4">
       <div class="space-y-3">
-        <FormCriterionRow
+        <CadrageCriterionRow
           v-for="(criterion, index) in formData.criteria"
           :key="criterion.id"
           v-model="formData.criteria[index]!"

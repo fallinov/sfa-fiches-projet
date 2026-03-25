@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Persona } from '~/composables/useFormData'
+import type { Persona } from '~/composables/useCadrageData'
 import t from '~/i18n/fr'
 
 const persona = defineModel<Persona>({ required: true })

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Criterion } from '~/composables/useFormData'
+import type { Criterion } from '~/composables/useCadrageData'
 import t from '~/i18n/fr'
 
 const criterion = defineModel<Criterion>({ required: true })

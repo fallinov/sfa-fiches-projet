@@ -1,10 +1,15 @@
 import { encodeFormData } from '~/utils/url-encoding'
 
-export function useFormExport() {
-  const { formData, importData } = useFormData()
+interface FormExportOptions {
+  formData: Ref<unknown>
+  importData: (data: unknown) => void
+}
+
+export function useFormExport(options: FormExportOptions) {
+  const { formData, importData } = options
 
   function generateShareUrl(): string {
-    const encoded = encodeFormData(formData.value)
+    const encoded = encodeFormData(formData.value as Record<string, unknown>)
     return `${window.location.origin}${window.location.pathname}?d=${encoded}`
   }
 
@@ -14,21 +19,16 @@ export function useFormExport() {
       await navigator.clipboard.writeText(url)
       return true
     } catch {
-      // Fallback: prompt
       prompt('Copiez ce lien :', url)
       return false
     }
   }
 
-  function downloadJson() {
-    const data = formData.value
-    const lastName = data.studentLastName || ''
-    const firstName = data.studentFirstName || ''
-    const namePart = `${lastName}-${firstName}`.trim().replace(/\s+/g, '-').toLowerCase() || 'fiche'
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  function downloadJson(filename: string) {
+    const blob = new Blob([JSON.stringify(formData.value, null, 2)], { type: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
-    a.download = `fiche-cadrage-${namePart}.json`
+    a.download = filename
     a.click()
     URL.revokeObjectURL(a.href)
   }

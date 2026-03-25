@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData } = useFormData()
+const { formData } = useCadrageData()
 
 const accessibilityItems = [
   { label: t.sections.constraints.accessibilityOptions.a, value: 'a' },

@@ -1,9 +1,14 @@
 import { isLegacyFormat, convertLegacyData, decodeFormData } from '~/utils/url-encoding'
 
-const STORAGE_KEY = 'fiche-cadrage-data'
+interface FormPersistenceOptions {
+  storageKey: string
+  formData: Ref<unknown>
+  importData: (data: unknown) => void
+  supportLegacy?: boolean
+}
 
-export function useFormPersistence() {
-  const { formData, importData } = useFormData()
+export function useFormPersistence(options: FormPersistenceOptions) {
+  const { storageKey, formData, importData, supportLegacy = false } = options
 
   let saveTimeout: ReturnType<typeof setTimeout> | null = null
   let autoSaveEnabled = false
@@ -11,7 +16,7 @@ export function useFormPersistence() {
   function saveToStorage() {
     if (import.meta.server) return
     if (!autoSaveEnabled) return
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData.value))
+    localStorage.setItem(storageKey, JSON.stringify(formData.value))
   }
 
   function debouncedSave() {
@@ -29,12 +34,12 @@ export function useFormPersistence() {
 
   function loadFromStorage(): boolean {
     if (import.meta.server) return false
-    const saved = localStorage.getItem(STORAGE_KEY)
+    const saved = localStorage.getItem(storageKey)
     if (!saved) return false
 
     try {
       const parsed = JSON.parse(saved)
-      if (isLegacyFormat(parsed)) {
+      if (supportLegacy && isLegacyFormat(parsed)) {
         importData(convertLegacyData(parsed))
       } else {
         importData(parsed)
@@ -48,7 +53,7 @@ export function useFormPersistence() {
 
   function clearStorage() {
     if (import.meta.server) return
-    localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(storageKey)
   }
 
   function loadFromUrl(): boolean {
@@ -60,10 +65,10 @@ export function useFormPersistence() {
     const parsed = decodeFormData(encoded)
     if (!parsed) return false
 
-    if (isLegacyFormat(parsed)) {
+    if (supportLegacy && isLegacyFormat(parsed)) {
       importData(convertLegacyData(parsed))
     } else {
-      importData(parsed as ReturnType<typeof convertLegacyData>)
+      importData(parsed as Record<string, unknown>)
     }
     return true
   }

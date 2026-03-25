@@ -94,8 +94,8 @@ function createDefaultFormData(): BriefFormData {
   }
 }
 
-export function useFormData() {
-  const formData = useState<BriefFormData>('brief-form-data', () => createDefaultFormData())
+export function useCadrageData() {
+  const formData = useState<BriefFormData>('cadrage-data', () => createDefaultFormData())
 
   function addPersona() {
     formData.value.personas.push(createPersona())

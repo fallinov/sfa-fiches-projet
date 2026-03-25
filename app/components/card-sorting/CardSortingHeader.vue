@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData } = useFormData()
+const { formData } = useCardSortingData()
 
 onMounted(() => {
   if (!formData.value.date) {
@@ -17,10 +17,10 @@ onMounted(() => {
         {{ t.app.institution }}
       </p>
       <h1 class="text-2xl sm:text-3xl font-bold text-default mt-1">
-        {{ t.app.title }}
+        {{ t.cardSorting.title }}
       </h1>
       <p class="text-base font-semibold text-primary mt-1">
-        {{ t.app.subtitle }}
+        {{ t.cardSorting.subtitle }}
       </p>
     </div>
 
@@ -61,6 +61,17 @@ onMounted(() => {
           />
         </UFormField>
       </div>
+
+      <UFormField
+        :label="t.cardSorting.projectName"
+        class="mt-4"
+      >
+        <UInput
+          v-model="formData.projectName"
+          :placeholder="t.cardSorting.projectNamePlaceholder"
+          class="w-full"
+        />
+      </UFormField>
     </UCard>
   </header>
 </template>
