@@ -14,7 +14,8 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/cadrage': { prerender: true },
-    '/card-sorting': { prerender: true }
+    '/card-sorting': { prerender: true },
+    '/design': { prerender: true }
   },
 
   compatibilityDate: '2025-03-25',
