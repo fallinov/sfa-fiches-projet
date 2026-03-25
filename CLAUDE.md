@@ -68,10 +68,15 @@ La fiche HTML actuelle sur devjs.ch reste en place. Une fois cette app déployé
 
 ## Commandes
 
-```
-npx nuxi@latest init sfa-fiches-projet
-cd sfa-fiches-projet
-npx nuxi module add ui
-npm run dev
-npm run generate    # Build statique pour GitHub Pages
+```bash
+npm run dev          # Serveur de développement
+npm run build        # Build production
+npm run lint         # Vérification ESLint
+npm run typecheck    # Vérification TypeScript
+npm run test:unit    # Tests unitaires (Vitest)
+npm run test:e2e     # Tests e2e (Playwright)
+npm run test         # Tous les tests
+
+# Build pour GitHub Pages
+NUXT_APP_BASE_URL=/sfa-fiches-projet/ npx nuxt build --preset github_pages
 ```

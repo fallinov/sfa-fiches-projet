@@ -32,7 +32,10 @@ onMounted(() => {
       </template>
 
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <UFormField :label="t.header.lastName">
+        <UFormField
+          :label="t.header.lastName"
+          required
+        >
           <UInput
             v-model="formData.studentLastName"
             :placeholder="t.header.lastNamePlaceholder"

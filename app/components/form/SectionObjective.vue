@@ -21,6 +21,7 @@ const { formData } = useFormData()
       <UFormField
         :label="t.sections.objective.mainObjective"
         :help="t.sections.objective.mainObjectiveHint"
+        required
       >
         <UTextarea
           v-model="formData.objective"
@@ -30,7 +31,10 @@ const { formData } = useFormData()
         />
       </UFormField>
 
-      <UFormField :label="t.sections.objective.projectName">
+      <UFormField
+        :label="t.sections.objective.projectName"
+        required
+      >
         <UInput
           v-model="formData.projectName"
           :placeholder="t.sections.objective.projectNamePlaceholder"

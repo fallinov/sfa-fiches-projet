@@ -5,11 +5,22 @@ const toast = useToast()
 const { resetForm } = useFormData()
 const { saveToStorage, clearStorage } = useFormPersistence()
 const { copyShareLink, downloadJson, importJsonFile } = useFormExport()
+const { validate, sectionProgress } = useFormValidation()
 
 const fileInput = ref<HTMLInputElement | null>(null)
 const showResetModal = ref(false)
 
+const progress = computed(() => sectionProgress())
+const progressLabel = computed(() =>
+  t.actions.progress.replace('{filled}', String(progress.value.filled)).replace('{total}', String(progress.value.total))
+)
+
 async function handleCopyLink() {
+  const errors = validate()
+  if (errors.length > 0) {
+    toast.add({ title: t.validation.fixErrors, color: 'warning' })
+    return
+  }
   const success = await copyShareLink()
   if (success) {
     toast.add({ title: t.toasts.linkCopied, color: 'success' })
@@ -19,6 +30,10 @@ async function handleCopyLink() {
 function handleDownload() {
   downloadJson()
   toast.add({ title: t.toasts.downloaded, color: 'success' })
+}
+
+function handlePrint() {
+  window.print()
 }
 
 function handleImportClick() {
@@ -64,7 +79,7 @@ function confirmReset() {
         @click="handleCopyLink"
       />
 
-      <!-- Secondary actions: export/import — R1: libellés moins techniques -->
+      <!-- Secondary actions -->
       <div class="flex items-center gap-1 ml-1">
         <UButton
           :label="t.actions.download"
@@ -83,6 +98,15 @@ function confirmReset() {
           :title="t.actions.importTooltip"
           @click="handleImportClick"
         />
+
+        <UButton
+          :label="t.actions.print"
+          icon="i-lucide-printer"
+          color="neutral"
+          variant="subtle"
+          :title="t.actions.printTooltip"
+          @click="handlePrint"
+        />
       </div>
 
       <input
@@ -95,7 +119,20 @@ function confirmReset() {
 
       <div class="flex-1" />
 
-      <!-- R2: Auto-save indicator — visible, with icon -->
+      <!-- Progress indicator -->
+      <div class="hidden sm:flex items-center gap-2 text-sm mr-2">
+        <div class="flex gap-0.5">
+          <div
+            v-for="i in progress.total"
+            :key="i"
+            class="w-2 h-2 rounded-full transition-colors"
+            :class="i <= progress.filled ? 'bg-emerald-400' : 'bg-gray-600'"
+          />
+        </div>
+        <span class="text-gray-400 text-xs">{{ progressLabel }}</span>
+      </div>
+
+      <!-- Auto-save indicator -->
       <div class="flex items-center gap-1 text-sm text-emerald-400">
         <UIcon
           name="i-lucide-check-circle"
@@ -104,7 +141,7 @@ function confirmReset() {
         <span class="hidden sm:inline">{{ t.actions.autoSaved }}</span>
       </div>
 
-      <!-- Destructive action: reset — visually separated -->
+      <!-- Destructive action: reset -->
       <UButton
         :label="t.actions.reset"
         icon="i-lucide-trash-2"

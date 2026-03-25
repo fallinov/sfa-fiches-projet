@@ -2,13 +2,13 @@ import { expect, test } from '@nuxt/test-utils/playwright'
 
 const STORAGE_KEY = 'fiche-cadrage-data'
 
-// Helper: target the "Nom" field in the Identification section (exact match)
+// Helper: target fields by autocomplete attribute (most stable selector)
 function nomField(page: import('@playwright/test').Page) {
-  return page.getByRole('textbox', { name: 'Nom', exact: true })
+  return page.locator('input[autocomplete="family-name"]')
 }
 
 function prenomField(page: import('@playwright/test').Page) {
-  return page.getByRole('textbox', { name: 'Prénom', exact: true })
+  return page.locator('input[autocomplete="given-name"]')
 }
 
 test.describe('Auto-save localStorage', () => {

@@ -2,10 +2,17 @@
 import t from '~/i18n/fr'
 
 const { formData, addPersona, removePersona } = useFormData()
+
+function handleKeydown(e: KeyboardEvent) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault()
+    addPersona()
+  }
+}
 </script>
 
 <template>
-  <UCard>
+  <UCard @keydown="handleKeydown">
     <template #header>
       <div>
         <h2 class="text-lg font-bold">
