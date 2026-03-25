@@ -1,0 +1,39 @@
+<script setup lang="ts">
+import t from '~/i18n/fr'
+
+const { formData, addCriterion, removeCriterion } = useFormData()
+</script>
+
+<template>
+  <UCard>
+    <template #header>
+      <div>
+        <h2 class="text-base font-bold">
+          {{ t.sections.criteria.title }}
+        </h2>
+        <p class="text-sm text-muted mt-0.5">
+          {{ t.sections.criteria.description }}
+        </p>
+      </div>
+    </template>
+
+    <div class="space-y-4">
+      <div class="space-y-3">
+        <FormCriterionRow
+          v-for="(criterion, index) in formData.criteria"
+          :key="criterion.id"
+          v-model="formData.criteria[index]!"
+          @remove="removeCriterion(criterion.id)"
+        />
+      </div>
+
+      <UButton
+        :label="t.sections.criteria.add"
+        icon="i-lucide-plus"
+        variant="outline"
+        color="primary"
+        @click="addCriterion()"
+      />
+    </div>
+  </UCard>
+</template>
