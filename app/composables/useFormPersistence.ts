@@ -73,15 +73,25 @@ export function useFormPersistence() {
   const { formData, importData } = useFormData()
 
   let saveTimeout: ReturnType<typeof setTimeout> | null = null
+  let autoSaveEnabled = false
 
   function saveToStorage() {
     if (import.meta.server) return
+    if (!autoSaveEnabled) return
     localStorage.setItem(STORAGE_KEY, JSON.stringify(formData.value))
   }
 
   function debouncedSave() {
     if (saveTimeout) clearTimeout(saveTimeout)
     saveTimeout = setTimeout(saveToStorage, 500)
+  }
+
+  function flushSave() {
+    if (saveTimeout) {
+      clearTimeout(saveTimeout)
+      saveTimeout = null
+    }
+    saveToStorage()
   }
 
   function loadFromStorage(): boolean {
@@ -130,7 +140,22 @@ export function useFormPersistence() {
   }
 
   function startAutoSave() {
-    watch(formData, debouncedSave, { deep: true })
+    // Enable auto-save flag AFTER loading is done
+    // This prevents the watch from saving empty/default data
+    nextTick(() => {
+      autoSaveEnabled = true
+      watch(formData, debouncedSave, { deep: true })
+    })
+
+    // Save immediately on page unload (reload, close tab, navigate away)
+    window.addEventListener('beforeunload', flushSave)
+
+    // Save on visibility change (user switches tab on mobile)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        flushSave()
+      }
+    })
   }
 
   return {
