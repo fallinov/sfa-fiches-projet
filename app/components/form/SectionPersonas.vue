@@ -13,7 +13,7 @@ const { formData, addPersona, removePersona } = useFormData()
     </template>
 
     <div class="space-y-4">
-      <PersonaBlock
+      <FormPersonaBlock
         v-for="(persona, index) in formData.personas"
         :key="persona.id"
         v-model="formData.personas[index]"

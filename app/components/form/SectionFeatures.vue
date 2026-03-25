@@ -28,7 +28,7 @@ const { formData, addFeature, removeFeature } = useFormData()
         </tr>
       </thead>
       <tbody>
-        <FeatureRow
+        <FormFeatureRow
           v-for="(feature, index) in formData.features"
           :key="feature.id"
           v-model="formData.features[index]"

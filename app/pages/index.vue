@@ -18,7 +18,7 @@ onMounted(() => {
 <template>
   <div class="space-y-6">
     <ActionsBar />
-    <FormFormHeader />
+    <FormHeader />
     <FormSectionObjective />
     <FormSectionPersonas />
     <FormSectionFeatures />

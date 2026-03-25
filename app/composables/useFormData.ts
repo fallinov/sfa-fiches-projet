@@ -40,9 +40,15 @@ export interface BriefFormData {
   criteria: Criterion[]
 }
 
+let idCounter = 0
+
+function generateId(): string {
+  return `id-${++idCounter}`
+}
+
 function createPersona(): Persona {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     name: '',
     age: null,
     job: '',
@@ -54,7 +60,7 @@ function createPersona(): Persona {
 
 function createFeature(): Feature {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     description: '',
     priority: ''
   }
@@ -62,7 +68,7 @@ function createFeature(): Feature {
 
 function createCriterion(): Criterion {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     checked: false,
     text: ''
   }
@@ -129,17 +135,17 @@ export function useFormData() {
     // Ensure all arrays have IDs
     if (raw.personas) {
       raw.personas.forEach((p) => {
-        if (!p.id) p.id = crypto.randomUUID()
+        if (!p.id) p.id = generateId()
       })
     }
     if (raw.features) {
       raw.features.forEach((f) => {
-        if (!f.id) f.id = crypto.randomUUID()
+        if (!f.id) f.id = generateId()
       })
     }
     if (raw.criteria) {
       raw.criteria.forEach((c) => {
-        if (!c.id) c.id = crypto.randomUUID()
+        if (!c.id) c.id = generateId()
       })
     }
     Object.assign(formData.value, raw)

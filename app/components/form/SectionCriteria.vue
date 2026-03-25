@@ -23,7 +23,7 @@ const { formData, addCriterion, removeCriterion } = useFormData()
       </div>
 
       <div class="space-y-3">
-        <CriterionRow
+        <FormCriterionRow
           v-for="(criterion, index) in formData.criteria"
           :key="criterion.id"
           v-model="formData.criteria[index]"
