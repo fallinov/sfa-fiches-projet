@@ -32,7 +32,7 @@ const fiches = [
     phase: 'Phase 5',
     icon: 'i-lucide-frame',
     to: '/maquettes',
-    active: false
+    active: true
   },
   {
     title: t.dashboard.checklist.title,
@@ -40,7 +40,7 @@ const fiches = [
     phase: 'Phase 9',
     icon: 'i-lucide-check-square',
     to: '/checklist',
-    active: false
+    active: true
   }
 ]
 </script>

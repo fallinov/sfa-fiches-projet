@@ -15,7 +15,9 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/cadrage': { prerender: true },
     '/card-sorting': { prerender: true },
-    '/design': { prerender: true }
+    '/design': { prerender: true },
+    '/maquettes': { prerender: true },
+    '/checklist': { prerender: true }
   },
 
   compatibilityDate: '2025-03-25',

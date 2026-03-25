@@ -1,3 +1,5 @@
+import type { ChecklistItem } from '~/types/forms'
+
 export interface Card {
   id: string
   label: string
@@ -15,12 +17,6 @@ export interface SortingGroup {
   id: string
   groupName: string
   cardLabels: string
-}
-
-export interface ChecklistItem {
-  id: string
-  checked: boolean
-  text: string
 }
 
 export interface CardSortingData {

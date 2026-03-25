@@ -1,3 +1,5 @@
+import type { ChecklistItem } from '~/types/forms'
+
 export interface ColorEntry {
   id: string
   hex: string
@@ -16,12 +18,6 @@ export interface SpacingEntry {
   id: string
   name: string
   value: string
-}
-
-export interface ChecklistItem {
-  id: string
-  checked: boolean
-  text: string
 }
 
 export interface DesignData {
