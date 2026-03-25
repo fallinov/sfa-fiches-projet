@@ -21,11 +21,12 @@ const priorityBadge: Record<string, { label: string, class: string }> = {
       </h2>
     </template>
 
-    <div class="space-y-2.5">
+    <div class="space-y-1">
       <div
         v-for="item in category.items"
         :key="item.id"
-        class="flex items-start gap-3"
+        class="flex items-start gap-3 px-3 py-2 rounded-md transition-colors"
+        :class="item.checked ? 'bg-primary/5' : 'hover:bg-gray-50 dark:hover:bg-gray-900/30'"
       >
         <UCheckbox
           v-model="item.checked"
@@ -35,17 +36,23 @@ const priorityBadge: Record<string, { label: string, class: string }> = {
         <div class="flex-1 min-w-0">
           <span
             class="text-sm"
-            :class="{ 'line-through opacity-70 text-muted': item.checked }"
+            :class="item.checked ? 'line-through text-muted' : ''"
           >
             {{ item.text }}
           </span>
         </div>
         <span
+          v-if="!item.checked"
           class="text-xs font-bold shrink-0"
           :class="priorityBadge[item.priority]?.class"
         >
           {{ priorityBadge[item.priority]?.label }}
         </span>
+        <UIcon
+          v-else
+          name="i-lucide-check"
+          class="w-4 h-4 text-primary shrink-0 mt-0.5"
+        />
       </div>
     </div>
   </UCard>
