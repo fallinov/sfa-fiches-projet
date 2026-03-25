@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Feature } from '~/composables/useFormData'
+import type { Feature } from '~/composables/useCadrageData'
 import t from '~/i18n/fr'
 
 const feature = defineModel<Feature>({ required: true })

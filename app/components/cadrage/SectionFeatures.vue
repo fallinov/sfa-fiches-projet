@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData, addFeature, removeFeature } = useFormData()
+const { formData, addFeature, removeFeature } = useCadrageData()
 
 function handleKeydown(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -47,7 +47,7 @@ function handleKeydown(e: KeyboardEvent) {
           </tr>
         </thead>
         <tbody>
-          <FormFeatureRow
+          <CadrageFeatureRow
             v-for="(feature, index) in formData.features"
             :key="feature.id"
             v-model="formData.features[index]!"

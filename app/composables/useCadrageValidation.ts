@@ -5,8 +5,8 @@ interface ValidationError {
   message: string
 }
 
-export function useFormValidation() {
-  const { formData } = useFormData()
+export function useCadrageValidation() {
+  const { formData } = useCadrageData()
 
   function validate(): ValidationError[] {
     const errors: ValidationError[] = []

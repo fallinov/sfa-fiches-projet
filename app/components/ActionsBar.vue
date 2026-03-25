@@ -1,34 +1,40 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const toast = useToast()
-const { resetForm } = useFormData()
-const { saveToStorage, clearStorage } = useFormPersistence()
-const { copyShareLink, downloadJson, importJsonFile } = useFormExport()
-const { validate, sectionProgress } = useFormValidation()
+const props = defineProps<{
+  copyShareLink: () => Promise<boolean>
+  downloadJson: () => void
+  importJsonFile: (file: File) => Promise<void>
+  saveToStorage: () => void
+  clearStorage: () => void
+  resetForm: () => void
+  validate: () => { field: string, message: string }[]
+  sectionProgress: () => { filled: number, total: number }
+}>()
 
+const toast = useToast()
 const fileInput = ref<HTMLInputElement | null>(null)
 const showResetModal = ref(false)
 
-const progress = computed(() => sectionProgress())
+const progress = computed(() => props.sectionProgress())
 const progressLabel = computed(() =>
   t.actions.progress.replace('{filled}', String(progress.value.filled)).replace('{total}', String(progress.value.total))
 )
 
 async function handleCopyLink() {
-  const errors = validate()
+  const errors = props.validate()
   if (errors.length > 0) {
     toast.add({ title: t.validation.fixErrors, color: 'warning' })
     return
   }
-  const success = await copyShareLink()
+  const success = await props.copyShareLink()
   if (success) {
     toast.add({ title: t.toasts.linkCopied, color: 'success' })
   }
 }
 
 function handleDownload() {
-  downloadJson()
+  props.downloadJson()
   toast.add({ title: t.toasts.downloaded, color: 'success' })
 }
 
@@ -46,8 +52,8 @@ async function handleFileChange(event: Event) {
   if (!file) return
 
   try {
-    await importJsonFile(file)
-    saveToStorage()
+    await props.importJsonFile(file)
+    props.saveToStorage()
     toast.add({ title: t.toasts.imported, color: 'success' })
   } catch {
     toast.add({ title: t.toasts.importError, color: 'error' })
@@ -57,8 +63,8 @@ async function handleFileChange(event: Event) {
 }
 
 function confirmReset() {
-  clearStorage()
-  resetForm()
+  props.clearStorage()
+  props.resetForm()
   showResetModal.value = false
   toast.add({ title: t.toasts.reset, color: 'neutral' })
 }
@@ -70,7 +76,6 @@ function confirmReset() {
     aria-label="Actions de la fiche"
   >
     <div class="flex flex-wrap items-center gap-2 p-3">
-      <!-- Primary action: share -->
       <UButton
         :label="t.actions.copyLink"
         icon="i-lucide-share-2"
@@ -79,7 +84,6 @@ function confirmReset() {
         @click="handleCopyLink"
       />
 
-      <!-- Secondary actions -->
       <div class="flex items-center gap-1 ml-1">
         <UButton
           :label="t.actions.download"
@@ -119,7 +123,6 @@ function confirmReset() {
 
       <div class="flex-1" />
 
-      <!-- Progress indicator -->
       <div class="hidden sm:flex items-center gap-2 text-sm mr-2">
         <div class="flex gap-0.5">
           <div
@@ -132,7 +135,6 @@ function confirmReset() {
         <span class="text-gray-400 text-xs">{{ progressLabel }}</span>
       </div>
 
-      <!-- Auto-save indicator -->
       <div class="flex items-center gap-1 text-sm text-emerald-400">
         <UIcon
           name="i-lucide-check-circle"
@@ -141,7 +143,6 @@ function confirmReset() {
         <span class="hidden sm:inline">{{ t.actions.autoSaved }}</span>
       </div>
 
-      <!-- Destructive action: reset -->
       <UButton
         :label="t.actions.reset"
         icon="i-lucide-trash-2"

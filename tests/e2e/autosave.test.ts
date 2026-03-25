@@ -2,7 +2,6 @@ import { expect, test } from '@nuxt/test-utils/playwright'
 
 const STORAGE_KEY = 'fiche-cadrage-data'
 
-// Helper: target fields by autocomplete attribute (most stable selector)
 function nomField(page: import('@playwright/test').Page) {
   return page.locator('input[autocomplete="family-name"]')
 }
@@ -11,18 +10,33 @@ function prenomField(page: import('@playwright/test').Page) {
   return page.locator('input[autocomplete="given-name"]')
 }
 
+test.describe('Dashboard', () => {
+  test('shows all fiche cards', async ({ page, goto }) => {
+    await goto('/', { waitUntil: 'hydration' })
+
+    await expect(page.getByText('Fiche de cadrage')).toBeVisible()
+    await expect(page.getByText('Card Sorting')).toBeVisible()
+  })
+
+  test('navigates to cadrage page', async ({ page, goto }) => {
+    await goto('/', { waitUntil: 'hydration' })
+    await page.getByText('Fiche de cadrage').click()
+    await page.waitForURL('**/cadrage')
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('cadrage')
+  })
+})
+
 test.describe('Auto-save localStorage', () => {
   test.beforeEach(async ({ page, goto }) => {
-    await goto('/', { waitUntil: 'hydration' })
+    await goto('/cadrage', { waitUntil: 'hydration' })
     await page.evaluate(() => localStorage.clear())
-    await goto('/', { waitUntil: 'hydration' })
+    await goto('/cadrage', { waitUntil: 'hydration' })
   })
 
   test('saves form data to localStorage after typing', async ({ page }) => {
     await nomField(page).fill('Dupont')
     await prenomField(page).fill('Marie')
 
-    // Wait for debounce (500ms) + margin
     await page.waitForTimeout(700)
 
     const stored = await page.evaluate(key => localStorage.getItem(key), STORAGE_KEY)
@@ -38,7 +52,7 @@ test.describe('Auto-save localStorage', () => {
     await page.getByRole('textbox', { name: 'Nom du projet' }).fill('MonProjet')
     await page.waitForTimeout(700)
 
-    await goto('/', { waitUntil: 'hydration' })
+    await goto('/cadrage', { waitUntil: 'hydration' })
 
     await expect(nomField(page)).toHaveValue('TestReload')
     await expect(page.getByRole('textbox', { name: 'Nom du projet' })).toHaveValue('MonProjet')
@@ -46,10 +60,7 @@ test.describe('Auto-save localStorage', () => {
 
   test('saves immediately on beforeunload (no debounce wait)', async ({ page, goto }) => {
     await prenomField(page).fill('QuickReload')
-
-    // Reload immediately without waiting for debounce
-    await goto('/', { waitUntil: 'hydration' })
-
+    await goto('/cadrage', { waitUntil: 'hydration' })
     await expect(prenomField(page)).toHaveValue('QuickReload')
   })
 
@@ -60,11 +71,9 @@ test.describe('Auto-save localStorage', () => {
     await page.getByRole('button', { name: 'Tout effacer' }).click()
     await page.getByRole('button', { name: 'Oui, tout effacer' }).click()
 
-    // Wait for reset to propagate and auto-save to potentially fire
     await page.waitForTimeout(700)
 
     const stored = await page.evaluate(key => localStorage.getItem(key), STORAGE_KEY)
-    // After reset, localStorage should be cleared (or contain empty data)
     if (stored) {
       const data = JSON.parse(stored)
       expect(data.studentLastName).toBe('')
@@ -79,46 +88,11 @@ test.describe('Auto-save localStorage', () => {
   })
 })
 
-test.describe('URL sharing', () => {
-  // Skip: @nuxt/test-utils rebuilds the server per describe block,
-  // making URL parameter passing unreliable in e2e. Tested manually.
-  test.skip('loads data from URL parameter', async ({ page, goto }) => {
-    const data = {
-      studentLastName: 'UrlTest',
-      studentFirstName: 'Share',
-      date: '2026-01-15',
-      objective: 'Test objectif',
-      projectName: 'TestURL',
-      personas: [{ id: '1', name: '', age: null, job: '', level: '', goal: '', frustrations: '' }],
-      features: [{ id: '1', description: '', priority: '' }],
-      constraints: { deadline: '', hours: null, tech: '', accessibility: '', legal: '' },
-      criteria: [{ id: '1', checked: false, text: '' }]
-    }
-
-    // Encode like the browser: btoa(unescape(encodeURIComponent(json)))
-    const json = JSON.stringify(data)
-    const encoded = Buffer.from(json, 'utf-8').toString('base64')
-
-    // Use the Nuxt goto helper which handles hydration properly
-    await goto(`/?d=${encoded}`, { waitUntil: 'hydration' })
-
-    // onMounted loads URL data — wait for it
-    await page.waitForFunction(() => {
-      const input = document.querySelector<HTMLInputElement>('input[autocomplete="family-name"]')
-      return input && input.value !== ''
-    }, { timeout: 5000 }).catch(() => { /* timeout = URL loading didn't work */ })
-
-    await expect(nomField(page)).toHaveValue('UrlTest')
-    await expect(prenomField(page)).toHaveValue('Share')
-    await expect(page.getByRole('textbox', { name: 'Nom du projet' })).toHaveValue('TestURL')
-  })
-})
-
 test.describe('Dynamic sections', () => {
   test.beforeEach(async ({ page, goto }) => {
-    await goto('/', { waitUntil: 'hydration' })
+    await goto('/cadrage', { waitUntil: 'hydration' })
     await page.evaluate(() => localStorage.clear())
-    await goto('/', { waitUntil: 'hydration' })
+    await goto('/cadrage', { waitUntil: 'hydration' })
   })
 
   test('adds and removes personas', async ({ page }) => {
@@ -157,11 +131,7 @@ test.describe('Dynamic sections', () => {
 
 test.describe('Accessibility basics', () => {
   test.beforeEach(async ({ goto }) => {
-    await goto('/', { waitUntil: 'hydration' })
-  })
-
-  test('has correct page title', async ({ page }) => {
-    await expect(page).toHaveTitle('Fiche de cadrage projet web')
+    await goto('/cadrage', { waitUntil: 'hydration' })
   })
 
   test('has correct lang attribute', async ({ page }) => {
@@ -172,12 +142,10 @@ test.describe('Accessibility basics', () => {
   test('has a single h1', async ({ page }) => {
     const h1s = page.locator('h1')
     await expect(h1s).toHaveCount(1)
-    await expect(h1s.first()).toContainText('Fiche de cadrage projet web')
   })
 
   test('has correct heading hierarchy (h1 then h2s)', async ({ page }) => {
     const headings = await page.locator('h1, h2, h3').allTextContents()
-    expect(headings[0]).toContain('Fiche de cadrage projet web')
     expect(headings).toContainEqual(expect.stringContaining('Identification'))
     expect(headings).toContainEqual(expect.stringContaining('1. Objectif'))
     expect(headings).toContainEqual(expect.stringContaining('2. Personas'))

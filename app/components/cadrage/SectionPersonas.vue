@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData, addPersona, removePersona } = useFormData()
+const { formData, addPersona, removePersona } = useCadrageData()
 
 function handleKeydown(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
@@ -25,7 +25,7 @@ function handleKeydown(e: KeyboardEvent) {
     </template>
 
     <div class="space-y-4">
-      <FormPersonaBlock
+      <CadragePersonaBlock
         v-for="(persona, index) in formData.personas"
         :key="persona.id"
         v-model="formData.personas[index]!"

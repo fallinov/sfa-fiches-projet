@@ -1,10 +1,10 @@
-import type { BriefFormData, Persona, Feature, Criterion } from '~/composables/useFormData'
+import type { BriefFormData, Persona, Feature, Criterion } from '~/composables/useCadrageData'
 
 /**
  * Encode form data to a base64 string for URL sharing.
  * Uses the same encoding as the original devjs.ch HTML form.
  */
-export function encodeFormData(data: BriefFormData): string {
+export function encodeFormData(data: unknown): string {
   const json = JSON.stringify(data)
   return btoa(unescape(encodeURIComponent(json)))
 }

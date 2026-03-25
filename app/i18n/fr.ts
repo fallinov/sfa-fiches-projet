@@ -4,6 +4,31 @@ export default {
     subtitle: 'Phase 1 — Clarification du projet',
     institution: 'ESIG'
   },
+  dashboard: {
+    title: 'Fiches de projet web',
+    subtitle: 'Sélectionnez une fiche pour commencer ou continuer votre travail.',
+    comingSoon: 'Bientôt',
+    cadrage: {
+      title: 'Fiche de cadrage',
+      description: 'Objectif, personas, fonctionnalités MoSCoW, contraintes, critères de succès.'
+    },
+    cardSorting: {
+      title: 'Card Sorting',
+      description: 'Organiser l\'information selon la logique des utilisateurs.'
+    },
+    design: {
+      title: 'Design & identité visuelle',
+      description: 'Palette de couleurs, typographie, charte graphique.'
+    },
+    maquettes: {
+      title: 'Maquettes',
+      description: 'Sitemap, wireframes, prototypes interactifs.'
+    },
+    checklist: {
+      title: 'Checklist finale',
+      description: 'Validation complète avant la livraison du projet.'
+    }
+  },
   header: {
     sectionTitle: 'Identification',
     lastName: 'Nom',
@@ -89,6 +114,53 @@ export default {
       textPlaceholder: 'Ex : Le site est accessible sur mobile et desktop'
     }
   },
+  cardSorting: {
+    title: 'Card Sorting',
+    subtitle: 'Phase 2 — Organisation de l\'information',
+    projectName: 'Nom du projet',
+    projectNamePlaceholder: 'Ex : CoiffurePro',
+    sections: {
+      cards: {
+        title: '1. Cartes d\'information',
+        description: 'Listez toutes les pages, contenus ou fonctionnalités de votre site (1 carte = 1 élément).',
+        labelPlaceholder: 'Nom de la carte (ex : Page d\'accueil)',
+        descriptionPlaceholder: 'Description courte (optionnel)',
+        add: 'Ajouter une carte'
+      },
+      participants: {
+        title: '2. Participants',
+        description: 'Notez les personnes qui ont participé au tri (minimum 5 recommandé).',
+        label: 'Participant',
+        name: 'Nom / pseudo',
+        namePlaceholder: 'Ex : Alice',
+        profile: 'Profil',
+        profilePlaceholder: 'Ex : Élève, Parent, Enseignant',
+        notes: 'Observations pendant le tri',
+        notesPlaceholder: 'Hésitations, commentaires, comportements observés…',
+        add: 'Ajouter un participant'
+      },
+      results: {
+        title: '3. Résultats du tri',
+        description: 'Identifiez les groupes récurrents formés par les participants.',
+        groupLabel: 'Groupe',
+        groupName: 'Nom du groupe',
+        groupNamePlaceholder: 'Ex : Navigation principale',
+        groupCards: 'Cartes dans ce groupe',
+        groupCardsPlaceholder: 'Listez les cartes regroupées ici (une par ligne)',
+        add: 'Ajouter un groupe'
+      },
+      architecture: {
+        title: '4. Architecture de navigation',
+        description: 'Décrivez la structure de navigation finale de votre site.',
+        label: 'Structure de navigation',
+        placeholder: 'Décrivez l\'arborescence du site basée sur les résultats du tri.\n\nEx :\n- Accueil\n- Services\n  - Coupe\n  - Coloration\n- Rendez-vous\n- Contact'
+      },
+      checklist: {
+        title: '5. Checklist de validation',
+        description: 'Vérifiez que toutes les étapes du card sorting ont été réalisées.'
+      }
+    }
+  },
   actions: {
     copyLink: 'Partager',
     copyLinkTooltip: 'Copie un lien partageable dans le presse-papier',
@@ -106,6 +178,7 @@ export default {
     lastNameRequired: 'Le nom est obligatoire.',
     objectiveRequired: 'L\'objectif principal est obligatoire.',
     projectNameRequired: 'Le nom du projet est obligatoire.',
+    cardsRequired: 'Ajoutez au moins une carte avec un nom.',
     fixErrors: 'Corrigez les champs obligatoires avant de partager.'
   },
   toasts: {
@@ -124,6 +197,6 @@ export default {
     resetCancel: 'Annuler'
   },
   footer: {
-    text: 'devjs.ch — Phase 1 : Clarification du projet'
+    text: 'devjs.ch — Préparer un projet web'
   }
 }
