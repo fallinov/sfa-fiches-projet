@@ -18,17 +18,111 @@
   --color-teal-950: #042F2E;
 }
 
-/* M2: Interligne explicite pour lisibilité WCAG */
+/* Interligne explicite pour lisibilité WCAG */
 body {
-  line-height: 1.625; /* leading-relaxed */
+  line-height: 1.625;
 }
 
 h1, h2, h3 {
-  line-height: 1.25; /* leading-tight */
+  line-height: 1.25;
 }
 
+/* ─── Print styles (migrés depuis la fiche HTML originale de devjs.ch) ─── */
 @media print {
   .print-hidden {
     display: none !important;
+  }
+
+  body {
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+    background: #fff;
+    color: #1F2937;
+  }
+
+  /* Sections ne coupent pas entre les pages */
+  [data-slot="root"] {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: none;
+    border-color: #CBD5E1;
+  }
+
+  /* Section headers : pas de fond sombre, juste une bordure */
+  [data-slot="header"] {
+    background: none !important;
+    color: #1F2937 !important;
+    border-bottom: 2px solid #0F766E;
+  }
+
+  /* Inputs soulignés au lieu de boxés */
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  textarea,
+  select,
+  [data-slot="leading"],
+  [role="combobox"] {
+    border: none !important;
+    border-bottom: 1px solid #94A3B8 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0.3rem 0.1rem !important;
+    background: none !important;
+  }
+
+  /* Tableau MoSCoW */
+  thead th {
+    background: none !important;
+    color: #1F2937 !important;
+    border-bottom: 2px solid #1F2937;
+  }
+
+  tbody tr {
+    background: none !important;
+  }
+
+  tbody td {
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  /* Checkbox simple */
+  input[type="checkbox"],
+  [role="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 1px solid #94A3B8;
+    border-radius: 2px;
+    background: none;
+  }
+
+  /* Boutons (tous cachés sauf dans le contenu) */
+  button {
+    display: none !important;
+  }
+
+  /* Footer sobre */
+  footer {
+    border-top-color: #CBD5E1;
+  }
+
+  /* Persona blocks */
+  .border {
+    border-color: #E2E8F0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Badges MoSCoW restent visibles */
+  [aria-hidden="true"] {
+    display: inline !important;
+  }
+
+  /* Pas de sticky en impression */
+  nav {
+    position: static !important;
   }
 }

@@ -1,60 +1,89 @@
-# Nuxt Starter Template
+# SFA Fiches Projet
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Application web permettant aux apprentis ESIG de remplir, sauvegarder et partager des fiches de cadrage projet.
 
-Use this template to get started with [Nuxt UI](https://ui.nuxt.com) quickly.
+**[Ouvrir l'application](https://fallinov.github.io/sfa-fiches-projet/)**
 
-- [Live demo](https://starter-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation/nuxt)
+## Fonctionnalités
 
-<a href="https://starter-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png">
-    <img alt="Nuxt Starter Template" src="https://ui.nuxt.com/assets/templates/nuxt/starter-light.png" width="830" height="466">
-  </picture>
-</a>
+- Formulaire interactif avec 5 sections : objectif, personas, fonctionnalités MoSCoW, contraintes, critères de succès
+- Sections dynamiques (ajouter/supprimer des personas, fonctionnalités, critères)
+- Sauvegarde automatique dans le navigateur (localStorage)
+- Partage par lien (URL encodée base64)
+- Export/import JSON
+- Compatible avec l'ancien format de la fiche devjs.ch
+- Responsive mobile-first
+- Compatible impression
 
-> The starter template for Vue is on https://github.com/nuxt-ui-templates/starter-vue.
+## Stack technique
 
-## Quick Start
+| Technologie | Rôle |
+|-------------|------|
+| [Nuxt 4](https://nuxt.com/) | Framework (SSG pour GitHub Pages) |
+| [Nuxt UI v4](https://ui.nuxt.com/) | Composants UI |
+| [Tailwind CSS v4](https://tailwindcss.com/) | Styles utilitaires |
+| [Playwright](https://playwright.dev/) | Tests e2e |
+| [Vitest](https://vitest.dev/) | Tests unitaires |
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui
-```
-
-## Deploy your own
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=starter&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fstarter&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fstarter-dark.png&demo-url=https%3A%2F%2Fstarter-template.nuxt.dev%2F&demo-title=Nuxt%20Starter%20Template&demo-description=A%20minimal%20template%20to%20get%20started%20with%20Nuxt%20UI.)
-
-## Setup
-
-Make sure to install the dependencies:
+## Installation
 
 ```bash
-pnpm install
+npm install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+## Commandes
 
 ```bash
-pnpm dev
+npm run dev          # Serveur de développement
+npm run build        # Build production
+npm run lint         # Vérification ESLint
+npm run typecheck    # Vérification TypeScript
+npm run test:unit    # Tests unitaires (Vitest)
+npm run test:e2e     # Tests e2e (Playwright)
+npm run test         # Tous les tests
 ```
 
-## Production
+## Structure du projet
 
-Build the application for production:
+```
+app/
+  assets/css/main.css     # Styles globaux + print
+  components/
+    ActionsBar.vue        # Barre d'actions (partager, export, import, reset)
+    form/
+      FormHeader.vue      # En-tête : nom, prénom, date
+      SectionObjective.vue
+      SectionPersonas.vue + PersonaBlock.vue
+      SectionFeatures.vue + FeatureRow.vue (tableau MoSCoW)
+      SectionConstraints.vue
+      SectionCriteria.vue + CriterionRow.vue
+  composables/
+    useFormData.ts        # State réactif + CRUD
+    useFormPersistence.ts # localStorage + URL decoding
+    useFormExport.ts      # JSON export + URL sharing
+  i18n/fr.ts              # Chaînes UI en français
+  utils/url-encoding.ts   # Encodage/décodage base64 + legacy format
+  pages/index.vue         # Page unique
+  app.vue                 # Layout racine
+tests/
+  unit/                   # Tests unitaires Vitest
+  e2e/                    # Tests e2e Playwright
+```
+
+## Déploiement
+
+Le site est déployé automatiquement sur [GitHub Pages](https://fallinov.github.io/sfa-fiches-projet/) via GitHub Actions à chaque push sur `main`.
 
 ```bash
-pnpm build
+# Build local pour GitHub Pages
+NUXT_APP_BASE_URL=/sfa-fiches-projet/ npx nuxt build --preset github_pages
 ```
 
-Locally preview production build:
+## Versions
 
-```bash
-pnpm preview
-```
+- **v1 (actuelle)** : client-side uniquement, pas de backend
+- **v2 (futur)** : comptes élèves/enseignant, BDD MySQL, hébergement Infomaniak
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Lien avec devjs.ch
+
+Cette application remplace la [fiche de cadrage HTML statique](https://devjs.ch/preparer-projet-web/fiche-cadrage-projet.html) sur devjs.ch. Les liens partagés depuis l'ancienne fiche sont automatiquement compatibles grâce à la conversion du format legacy.

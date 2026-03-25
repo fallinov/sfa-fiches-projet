@@ -1,9 +1,10 @@
+import { encodeFormData } from '~/utils/url-encoding'
+
 export function useFormExport() {
   const { formData, importData } = useFormData()
 
   function generateShareUrl(): string {
-    const json = JSON.stringify(formData.value)
-    const encoded = btoa(unescape(encodeURIComponent(json)))
+    const encoded = encodeFormData(formData.value)
     return `${window.location.origin}${window.location.pathname}?d=${encoded}`
   }
 
