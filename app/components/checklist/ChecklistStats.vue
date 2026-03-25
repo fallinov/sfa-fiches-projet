@@ -24,11 +24,11 @@ const importantOk = computed(() => importantPercent.value >= 70)
       <!-- Essential -->
       <div
         class="text-center p-4 rounded-lg"
-        :class="essentialOk ? 'bg-emerald-50 dark:bg-emerald-950/30' : 'bg-red-50 dark:bg-red-950/30'"
+        :class="essentialOk ? 'bg-primary/10' : 'bg-red-50 dark:bg-red-950/30'"
       >
         <p
           class="text-3xl font-bold"
-          :class="essentialOk ? 'text-emerald-600' : 'text-red-600'"
+          :class="essentialOk ? 'text-primary' : 'text-red-600'"
         >
           {{ s.essentialChecked }}/{{ s.essential }}
         </p>
@@ -43,11 +43,11 @@ const importantOk = computed(() => importantPercent.value >= 70)
       <!-- Important -->
       <div
         class="text-center p-4 rounded-lg"
-        :class="importantOk ? 'bg-emerald-50 dark:bg-emerald-950/30' : 'bg-amber-50 dark:bg-amber-950/30'"
+        :class="importantOk ? 'bg-primary/10' : 'bg-amber-50 dark:bg-amber-950/30'"
       >
         <p
           class="text-3xl font-bold"
-          :class="importantOk ? 'text-emerald-600' : 'text-amber-600'"
+          :class="importantOk ? 'text-primary' : 'text-amber-600'"
         >
           {{ s.importantChecked }}/{{ s.important }}
         </p>
