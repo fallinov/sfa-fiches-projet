@@ -4,14 +4,15 @@
 @theme static {
   --font-sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
 
+  /* Palette devjs.ch — sarcelle décalée pour que le 500 = #0F766E */
   --color-teal-50: #F0FDFA;
   --color-teal-100: #CCFBF1;
   --color-teal-200: #99F6E4;
   --color-teal-300: #5EEAD4;
-  --color-teal-400: #2DD4BF;
-  --color-teal-500: #14B8A6;
-  --color-teal-600: #0D9488;
-  --color-teal-700: #0F766E;
+  --color-teal-400: #0D9488;
+  --color-teal-500: #0F766E;
+  --color-teal-600: #0D6D66;
+  --color-teal-700: #0B635D;
   --color-teal-800: #115E59;
   --color-teal-900: #134E4A;
   --color-teal-950: #042F2E;
