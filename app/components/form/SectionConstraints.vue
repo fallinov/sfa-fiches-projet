@@ -14,10 +14,10 @@ const accessibilityItems = [
   <UCard>
     <template #header>
       <div>
-        <h2 class="text-base font-bold">
+        <h2 class="text-lg font-bold">
           {{ t.sections.constraints.title }}
         </h2>
-        <p class="text-sm text-muted mt-0.5">
+        <p class="text-sm lg:text-base text-muted mt-0.5">
           {{ t.sections.constraints.description }}
         </p>
       </div>

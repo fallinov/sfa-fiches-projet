@@ -18,6 +18,15 @@
   --color-teal-950: #042F2E;
 }
 
+/* M2: Interligne explicite pour lisibilité WCAG */
+body {
+  line-height: 1.625; /* leading-relaxed */
+}
+
+h1, h2, h3 {
+  line-height: 1.25; /* leading-tight */
+}
+
 @media print {
   .print-hidden {
     display: none !important;

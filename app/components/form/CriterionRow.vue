@@ -11,18 +11,21 @@ defineEmits<{
 
 <template>
   <div class="flex items-center gap-3">
-    <UCheckbox v-model="criterion.checked" />
+    <UCheckbox
+      v-model="criterion.checked"
+      :aria-label="t.sections.criteria.checkboxLabel"
+    />
     <UInput
       v-model="criterion.text"
       :placeholder="t.sections.criteria.textPlaceholder"
       class="flex-1"
-      :class="{ 'line-through opacity-60': criterion.checked }"
+      :class="{ 'line-through opacity-70 text-muted': criterion.checked }"
     />
     <UButton
       icon="i-lucide-trash-2"
       color="neutral"
       variant="ghost"
-      size="xs"
+      size="sm"
       aria-label="Supprimer le critère"
       @click="$emit('remove')"
     />

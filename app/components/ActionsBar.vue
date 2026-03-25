@@ -54,26 +54,24 @@ function confirmReset() {
     class="print-hidden sticky top-0 z-10 rounded-lg mb-6 shadow-lg bg-gray-900 dark:bg-gray-800"
     aria-label="Actions de la fiche"
   >
-    <!-- Main actions row -->
     <div class="flex flex-wrap items-center gap-2 p-3">
       <!-- Primary action: share -->
       <UButton
         :label="t.actions.copyLink"
         icon="i-lucide-share-2"
         color="primary"
-        size="sm"
         :title="t.actions.copyLinkTooltip"
         @click="handleCopyLink"
       />
 
-      <!-- Secondary actions: export/import -->
+      <!-- Secondary actions: export/import — R1: libellés moins techniques -->
       <div class="flex items-center gap-1 ml-1">
         <UButton
           :label="t.actions.download"
           icon="i-lucide-download"
           color="neutral"
-          variant="ghost"
-          size="sm"
+          variant="subtle"
+          :title="t.actions.downloadTooltip"
           @click="handleDownload"
         />
 
@@ -81,8 +79,8 @@ function confirmReset() {
           :label="t.actions.import"
           icon="i-lucide-upload"
           color="neutral"
-          variant="ghost"
-          size="sm"
+          variant="subtle"
+          :title="t.actions.importTooltip"
           @click="handleImportClick"
         />
       </div>
@@ -97,10 +95,14 @@ function confirmReset() {
 
       <div class="flex-1" />
 
-      <!-- Auto-save indicator -->
-      <span class="hidden sm:inline text-xs text-gray-500 mr-2">
-        {{ t.actions.autoSaved }}
-      </span>
+      <!-- R2: Auto-save indicator — visible, with icon -->
+      <div class="flex items-center gap-1 text-sm text-emerald-400">
+        <UIcon
+          name="i-lucide-check-circle"
+          class="w-4 h-4"
+        />
+        <span class="hidden sm:inline">{{ t.actions.autoSaved }}</span>
+      </div>
 
       <!-- Destructive action: reset — visually separated -->
       <UButton
@@ -108,7 +110,6 @@ function confirmReset() {
         icon="i-lucide-trash-2"
         color="error"
         variant="ghost"
-        size="sm"
         @click="showResetModal = true"
       />
     </div>
