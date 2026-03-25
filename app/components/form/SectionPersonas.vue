@@ -21,7 +21,7 @@ const { formData, addPersona, removePersona } = useFormData()
       <FormPersonaBlock
         v-for="(persona, index) in formData.personas"
         :key="persona.id"
-        v-model="formData.personas[index]"
+        v-model="formData.personas[index]!"
         :index="index"
         :can-remove="formData.personas.length > 1"
         @remove="removePersona(persona.id)"

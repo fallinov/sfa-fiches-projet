@@ -22,7 +22,7 @@ const { formData, addCriterion, removeCriterion } = useFormData()
         <FormCriterionRow
           v-for="(criterion, index) in formData.criteria"
           :key="criterion.id"
-          v-model="formData.criteria[index]"
+          v-model="formData.criteria[index]!"
           @remove="removeCriterion(criterion.id)"
         />
       </div>
