@@ -21,27 +21,29 @@ const levelItems = [
 </script>
 
 <template>
-  <div class="border border-default rounded-lg p-4 relative">
-    <div class="flex justify-between items-center mb-3">
+  <div class="border border-default rounded-lg p-4 sm:p-5 relative">
+    <div class="flex justify-between items-center mb-4">
       <span class="font-bold text-sm text-primary">
         {{ t.sections.personas.label }} {{ index + 1 }}
       </span>
       <UButton
         v-if="canRemove"
-        icon="i-lucide-x"
-        color="error"
+        icon="i-lucide-trash-2"
+        color="neutral"
         variant="ghost"
         size="xs"
-        aria-label="Supprimer"
+        :aria-label="`Supprimer ${t.sections.personas.label} ${index + 1}`"
         @click="$emit('remove')"
       />
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <UFormField :label="t.sections.personas.name">
         <UInput
           v-model="persona.name"
           :placeholder="t.sections.personas.namePlaceholder"
+          class="w-full"
+          autocomplete="off"
         />
       </UFormField>
 
@@ -52,6 +54,7 @@ const levelItems = [
           :min="1"
           :max="120"
           :placeholder="t.sections.personas.agePlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -59,6 +62,8 @@ const levelItems = [
         <UInput
           v-model="persona.job"
           :placeholder="t.sections.personas.jobPlaceholder"
+          class="w-full"
+          autocomplete="off"
         />
       </UFormField>
 
@@ -67,6 +72,7 @@ const levelItems = [
           v-model="persona.level"
           :items="levelItems"
           :placeholder="t.sections.personas.levelPlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -78,6 +84,7 @@ const levelItems = [
           v-model="persona.goal"
           :rows="2"
           :placeholder="t.sections.personas.goalPlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -89,6 +96,7 @@ const levelItems = [
           v-model="persona.frustrations"
           :rows="2"
           :placeholder="t.sections.personas.frustrationsPlaceholder"
+          class="w-full"
         />
       </UFormField>
     </div>

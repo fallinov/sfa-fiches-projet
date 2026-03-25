@@ -23,6 +23,7 @@ const accessibilityItems = [
         <UInput
           v-model="formData.constraints.deadline"
           type="date"
+          class="w-full"
         />
       </UFormField>
 
@@ -32,6 +33,7 @@ const accessibilityItems = [
           type="number"
           :min="0"
           :placeholder="t.sections.constraints.hoursPlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -39,6 +41,7 @@ const accessibilityItems = [
         <UInput
           v-model="formData.constraints.tech"
           :placeholder="t.sections.constraints.techPlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -47,6 +50,7 @@ const accessibilityItems = [
           v-model="formData.constraints.accessibility"
           :items="accessibilityItems"
           :placeholder="t.sections.constraints.accessibilityPlaceholder"
+          class="w-full"
         />
       </UFormField>
 
@@ -58,6 +62,7 @@ const accessibilityItems = [
           v-model="formData.constraints.legal"
           :rows="2"
           :placeholder="t.sections.constraints.legalPlaceholder"
+          class="w-full"
         />
       </UFormField>
     </div>

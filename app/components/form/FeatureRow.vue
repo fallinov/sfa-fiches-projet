@@ -20,42 +20,42 @@ const priorityItems = [
 ]
 
 const priorityColors: Record<string, string> = {
-  must: 'bg-red-100 border-red-400 dark:bg-red-950 dark:border-red-700',
-  should: 'bg-amber-100 border-amber-400 dark:bg-amber-950 dark:border-amber-700',
-  could: 'bg-blue-100 border-blue-400 dark:bg-blue-950 dark:border-blue-700',
-  wont: 'bg-gray-100 border-gray-400 dark:bg-gray-950 dark:border-gray-600'
+  must: 'bg-red-50 dark:bg-red-950/50',
+  should: 'bg-amber-50 dark:bg-amber-950/50',
+  could: 'bg-blue-50 dark:bg-blue-950/50',
+  wont: 'bg-gray-50 dark:bg-gray-900/50'
 }
 </script>
 
 <template>
-  <tr>
-    <td class="text-center font-semibold text-muted text-sm py-2 px-2 w-12">
+  <tr :class="feature.priority ? priorityColors[feature.priority] : (index % 2 === 1 ? 'bg-gray-50 dark:bg-gray-900/30' : '')">
+    <td class="text-center font-semibold text-muted text-sm py-2.5 px-3 w-12 tabular-nums">
       {{ index + 1 }}
     </td>
-    <td class="py-2 px-2">
+    <td class="py-2.5 px-2">
       <UInput
         v-model="feature.description"
         :placeholder="t.sections.features.descriptionPlaceholder"
         size="sm"
+        class="w-full"
       />
     </td>
-    <td class="py-2 px-2 w-36">
+    <td class="py-2.5 px-2 w-32 sm:w-36">
       <USelect
         v-model="feature.priority"
         :items="priorityItems"
         :placeholder="t.sections.features.priorityPlaceholder"
         size="sm"
-        :class="feature.priority ? priorityColors[feature.priority] : ''"
-        class="rounded"
+        class="w-full"
       />
     </td>
-    <td class="py-2 px-2 w-10">
+    <td class="py-2.5 px-1 w-10 text-center">
       <UButton
-        icon="i-lucide-x"
-        color="error"
+        icon="i-lucide-trash-2"
+        color="neutral"
         variant="ghost"
         size="xs"
-        aria-label="Supprimer"
+        :aria-label="`Supprimer fonctionnalité ${index + 1}`"
         @click="$emit('remove')"
       />
     </td>

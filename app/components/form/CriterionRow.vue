@@ -16,13 +16,14 @@ defineEmits<{
       v-model="criterion.text"
       :placeholder="t.sections.criteria.textPlaceholder"
       class="flex-1"
+      :class="{ 'line-through opacity-60': criterion.checked }"
     />
     <UButton
-      icon="i-lucide-x"
-      color="error"
+      icon="i-lucide-trash-2"
+      color="neutral"
       variant="ghost"
       size="xs"
-      aria-label="Supprimer"
+      aria-label="Supprimer le critère"
       @click="$emit('remove')"
     />
   </div>

@@ -58,15 +58,14 @@ function confirmReset() {
   toast.add({ title: t.toasts.reset, color: 'neutral' })
 }
 
-// Expose save status for auto-save feedback
 defineExpose({ showSaveStatus })
 </script>
 
 <template>
-  <div class="print-hidden flex flex-wrap items-center gap-2 p-3 bg-gray-900 dark:bg-gray-800 rounded-lg mb-6">
+  <div class="print-hidden sticky top-0 z-10 flex flex-wrap items-center gap-2 p-3 bg-gray-900 dark:bg-gray-800 rounded-lg mb-6 shadow-lg">
     <UButton
       :label="t.actions.copyLink"
-      icon="i-lucide-clipboard"
+      icon="i-lucide-link"
       color="primary"
       size="sm"
       @click="handleCopyLink"
@@ -75,17 +74,17 @@ defineExpose({ showSaveStatus })
     <UButton
       :label="t.actions.download"
       icon="i-lucide-download"
-      color="info"
-      variant="solid"
+      color="neutral"
+      variant="subtle"
       size="sm"
       @click="handleDownload"
     />
 
     <UButton
       :label="t.actions.import"
-      icon="i-lucide-folder-open"
-      color="info"
-      variant="solid"
+      icon="i-lucide-upload"
+      color="neutral"
+      variant="subtle"
       size="sm"
       @click="handleImportClick"
     />
@@ -100,9 +99,9 @@ defineExpose({ showSaveStatus })
 
     <span
       v-if="saveStatus"
-      class="text-sm text-gray-400 ml-2"
+      class="text-xs text-emerald-400 ml-1 transition-opacity"
     >
-      {{ saveStatus }}
+      &#10003; {{ saveStatus }}
     </span>
 
     <div class="flex-1" />
@@ -111,7 +110,7 @@ defineExpose({ showSaveStatus })
       :label="t.actions.reset"
       icon="i-lucide-trash-2"
       color="neutral"
-      variant="solid"
+      variant="ghost"
       size="sm"
       @click="handleReset"
     />
@@ -125,7 +124,7 @@ defineExpose({ showSaveStatus })
           <p class="text-muted">
             {{ t.modals.resetDescription }}
           </p>
-          <div class="flex justify-end gap-2">
+          <div class="flex justify-end gap-3 mt-6">
             <UButton
               :label="t.modals.resetCancel"
               color="neutral"

@@ -21,6 +21,7 @@ const { formData } = useFormData()
           v-model="formData.objective"
           :placeholder="t.sections.objective.mainObjectivePlaceholder"
           :rows="3"
+          class="w-full"
         />
       </UFormField>
 
@@ -28,6 +29,7 @@ const { formData } = useFormData()
         <UInput
           v-model="formData.projectName"
           :placeholder="t.sections.objective.projectNamePlaceholder"
+          class="w-full"
         />
       </UFormField>
     </div>
