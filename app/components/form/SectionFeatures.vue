@@ -2,10 +2,20 @@
 import t from '~/i18n/fr'
 
 const { formData, addFeature, removeFeature } = useFormData()
+
+function handleKeydown(e: KeyboardEvent) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    e.preventDefault()
+    addFeature()
+  }
+}
 </script>
 
 <template>
-  <UCard :ui="{ body: 'p-0 sm:p-0' }">
+  <UCard
+    :ui="{ body: 'p-0 sm:p-0' }"
+    @keydown="handleKeydown"
+  >
     <template #header>
       <div>
         <h2 class="text-lg font-bold">

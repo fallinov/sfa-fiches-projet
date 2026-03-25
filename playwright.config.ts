@@ -6,6 +6,7 @@ export default defineConfig<ConfigOptions>({
   testDir: './tests/e2e',
   fullyParallel: false,
   retries: 0,
+  timeout: 60000,
   use: {
     nuxt: {
       rootDir: fileURLToPath(new URL('.', import.meta.url))

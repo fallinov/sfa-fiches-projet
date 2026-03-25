@@ -96,8 +96,17 @@ export default {
     downloadTooltip: 'Exporter la fiche au format JSON',
     import: 'Charger',
     importTooltip: 'Importer une fiche sauvegardée',
+    print: 'Imprimer',
+    printTooltip: 'Ouvrir l\'aperçu d\'impression',
     reset: 'Tout effacer',
-    autoSaved: 'Sauvegarde auto'
+    autoSaved: 'Sauvegarde auto',
+    progress: '{filled}/{total} sections'
+  },
+  validation: {
+    lastNameRequired: 'Le nom est obligatoire.',
+    objectiveRequired: 'L\'objectif principal est obligatoire.',
+    projectNameRequired: 'Le nom du projet est obligatoire.',
+    fixErrors: 'Corrigez les champs obligatoires avant de partager.'
   },
   toasts: {
     saved: 'Sauvegardé',
