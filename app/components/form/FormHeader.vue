@@ -26,7 +26,7 @@ onMounted(() => {
 
     <UCard>
       <template #header>
-        <h2 class="text-base font-bold">
+        <h2 class="text-lg font-bold">
           {{ t.header.sectionTitle }}
         </h2>
       </template>

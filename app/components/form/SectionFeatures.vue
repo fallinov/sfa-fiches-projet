@@ -8,10 +8,10 @@ const { formData, addFeature, removeFeature } = useFormData()
   <UCard :ui="{ body: 'p-0 sm:p-0' }">
     <template #header>
       <div>
-        <h2 class="text-base font-bold">
+        <h2 class="text-lg font-bold">
           {{ t.sections.features.title }}
         </h2>
-        <p class="text-sm text-muted mt-0.5">
+        <p class="text-sm text-muted mt-0.5 lg:text-base">
           {{ t.sections.features.description }}
         </p>
       </div>
@@ -27,10 +27,13 @@ const { formData, addFeature, removeFeature } = useFormData()
             <th class="py-2.5 px-2 text-left font-semibold">
               {{ t.sections.features.columnFeature }}
             </th>
-            <th class="py-2.5 px-2 text-left font-semibold w-32 sm:w-44">
+            <th class="py-2.5 px-2 text-left font-semibold w-32 sm:w-48">
               {{ t.sections.features.columnPriority }}
             </th>
-            <th class="w-10" />
+            <th
+              class="w-10"
+              aria-label="Actions"
+            />
           </tr>
         </thead>
         <tbody>

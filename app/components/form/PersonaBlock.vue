@@ -31,7 +31,7 @@ const levelItems = [
         icon="i-lucide-trash-2"
         color="neutral"
         variant="ghost"
-        size="xs"
+        size="sm"
         :aria-label="`Supprimer ${t.sections.personas.label} ${index + 1}`"
         @click="$emit('remove')"
       />

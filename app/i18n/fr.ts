@@ -52,8 +52,10 @@ export default {
       columnNumber: '#',
       columnFeature: 'Fonctionnalité',
       columnPriority: 'Priorité',
+      columnActions: 'Actions',
       descriptionPlaceholder: 'Décrire la fonctionnalité…',
-      priorityPlaceholder: '—',
+      priorityPlaceholder: 'Sélectionner…',
+      priorityLabel: 'Priorité fonctionnalité',
       priorities: {
         must: 'Must — indispensable',
         should: 'Should — important',
@@ -70,7 +72,7 @@ export default {
       tech: 'Technologies imposées',
       techPlaceholder: 'Ex : HTML, CSS, JavaScript',
       accessibility: 'Niveau d\'accessibilité',
-      accessibilityPlaceholder: 'Non défini',
+      accessibilityPlaceholder: 'Choisir un niveau WCAG',
       accessibilityOptions: {
         a: 'WCAG A — minimum',
         aa: 'WCAG AA — recommandé',
@@ -83,21 +85,24 @@ export default {
       title: '5. Critères de succès',
       description: 'Comment saurez-vous que le projet est réussi ? Définissez des critères concrets et vérifiables.',
       add: 'Ajouter un critère',
+      checkboxLabel: 'Marquer comme atteint',
       textPlaceholder: 'Ex : Le site est accessible sur mobile et desktop'
     }
   },
   actions: {
     copyLink: 'Partager',
     copyLinkTooltip: 'Copie un lien partageable dans le presse-papier',
-    download: 'Exporter JSON',
-    import: 'Importer JSON',
+    download: 'Télécharger',
+    downloadTooltip: 'Exporter la fiche au format JSON',
+    import: 'Charger',
+    importTooltip: 'Importer une fiche sauvegardée',
     reset: 'Tout effacer',
-    autoSaved: 'Sauvegarde auto activée'
+    autoSaved: 'Sauvegarde auto'
   },
   toasts: {
     saved: 'Sauvegardé',
     linkCopied: 'Lien copié — collez-le pour partager votre fiche !',
-    downloaded: 'Fiche exportée au format JSON',
+    downloaded: 'Fiche téléchargée',
     imported: 'Fiche importée avec succès !',
     importError: 'Erreur : le fichier n\'est pas un JSON valide.',
     loadedFromLink: 'Fiche chargée depuis le lien partagé',
