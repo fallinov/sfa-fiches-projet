@@ -13,9 +13,14 @@ export function useFormPersistence(options: FormPersistenceOptions) {
   let saveTimeout: ReturnType<typeof setTimeout> | null = null
   let autoSaveEnabled = false
 
+  // True when the page was opened via a shared URL (?d=)
+  // In this mode, auto-save is disabled to allow multiple tabs
+  const isSharedView = ref(false)
+
   function saveToStorage() {
     if (import.meta.server) return
     if (!autoSaveEnabled) return
+    if (isSharedView.value) return
     localStorage.setItem(storageKey, JSON.stringify(formData.value))
   }
 
@@ -70,10 +75,15 @@ export function useFormPersistence(options: FormPersistenceOptions) {
     } else {
       importData(parsed as Record<string, unknown>)
     }
+
+    // Mark as shared view — disable auto-save
+    isSharedView.value = true
     return true
   }
 
   function startAutoSave() {
+    if (isSharedView.value) return
+
     nextTick(() => {
       autoSaveEnabled = true
       watch(formData, debouncedSave, { deep: true })
@@ -92,6 +102,7 @@ export function useFormPersistence(options: FormPersistenceOptions) {
     loadFromStorage,
     clearStorage,
     loadFromUrl,
-    startAutoSave
+    startAutoSave,
+    isSharedView: readonly(isSharedView)
   }
 }

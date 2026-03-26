@@ -10,6 +10,7 @@ const props = defineProps<{
   resetForm: () => void
   validate: () => { field: string, message: string }[]
   sectionProgress: () => { filled: number, total: number }
+  readOnly?: boolean
 }>()
 
 const toast = useToast()
@@ -76,7 +77,21 @@ function confirmReset() {
     aria-label="Actions de la fiche"
   >
     <div class="flex flex-wrap items-center gap-2 p-3">
+      <!-- Read-only badge when opened via shared URL -->
+      <div
+        v-if="readOnly"
+        class="flex items-center gap-1.5 text-sm text-amber-400"
+      >
+        <UIcon
+          name="i-lucide-eye"
+          class="w-4 h-4"
+        />
+        <span>{{ t.actions.readOnly }}</span>
+      </div>
+
+      <!-- Share button (hidden in read-only: data already comes from URL) -->
       <UButton
+        v-if="!readOnly"
         :label="t.actions.copyLink"
         icon="i-lucide-share-2"
         color="primary"
@@ -95,6 +110,7 @@ function confirmReset() {
         />
 
         <UButton
+          v-if="!readOnly"
           :label="t.actions.import"
           icon="i-lucide-upload"
           color="neutral"
@@ -123,33 +139,36 @@ function confirmReset() {
 
       <div class="flex-1" />
 
-      <div class="hidden sm:flex items-center gap-2 text-sm mr-2">
-        <div class="flex gap-0.5">
-          <div
-            v-for="i in progress.total"
-            :key="i"
-            class="w-2 h-2 rounded-full transition-colors"
-            :class="i <= progress.filled ? 'bg-emerald-400' : 'bg-gray-600'"
-          />
+      <!-- Progress + auto-save (only in edit mode) -->
+      <template v-if="!readOnly">
+        <div class="hidden sm:flex items-center gap-2 text-sm mr-2">
+          <div class="flex gap-0.5">
+            <div
+              v-for="i in progress.total"
+              :key="i"
+              class="w-2 h-2 rounded-full transition-colors"
+              :class="i <= progress.filled ? 'bg-primary' : 'bg-gray-600'"
+            />
+          </div>
+          <span class="text-gray-400 text-xs">{{ progressLabel }}</span>
         </div>
-        <span class="text-gray-400 text-xs">{{ progressLabel }}</span>
-      </div>
 
-      <div class="flex items-center gap-1 text-sm text-emerald-400">
-        <UIcon
-          name="i-lucide-check-circle"
-          class="w-4 h-4"
+        <div class="flex items-center gap-1 text-sm text-primary">
+          <UIcon
+            name="i-lucide-check-circle"
+            class="w-4 h-4"
+          />
+          <span class="hidden sm:inline">{{ t.actions.autoSaved }}</span>
+        </div>
+
+        <UButton
+          :label="t.actions.reset"
+          icon="i-lucide-trash-2"
+          color="error"
+          variant="ghost"
+          @click="showResetModal = true"
         />
-        <span class="hidden sm:inline">{{ t.actions.autoSaved }}</span>
-      </div>
-
-      <UButton
-        :label="t.actions.reset"
-        icon="i-lucide-trash-2"
-        color="error"
-        variant="ghost"
-        @click="showResetModal = true"
-      />
+      </template>
     </div>
 
     <UModal v-model:open="showResetModal">
