@@ -129,6 +129,7 @@ export function useDesignData() {
 
   function resetForm() {
     formData.value = createDefaultData()
+    triggerRef(formData)
   }
 
   function importData(raw: unknown) {
@@ -154,6 +155,7 @@ export function useDesignData() {
       })
     }
     formData.value = { ...formData.value, ...data }
+    triggerRef(formData)
   }
 
   return {

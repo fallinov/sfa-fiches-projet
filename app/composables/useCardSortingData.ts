@@ -108,6 +108,7 @@ export function useCardSortingData() {
 
   function resetForm() {
     formData.value = createDefaultData()
+    triggerRef(formData)
   }
 
   function importData(raw: unknown) {
@@ -133,6 +134,7 @@ export function useCardSortingData() {
       })
     }
     formData.value = { ...formData.value, ...data }
+    triggerRef(formData)
   }
 
   return {
