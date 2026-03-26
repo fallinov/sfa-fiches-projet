@@ -128,6 +128,7 @@ export function useCadrageData() {
 
   function resetForm() {
     formData.value = createDefaultFormData()
+    triggerRef(formData)
   }
 
   function exportData(): BriefFormData {
@@ -152,6 +153,7 @@ export function useCadrageData() {
       })
     }
     formData.value = { ...formData.value, ...raw }
+    triggerRef(formData)
   }
 
   return {
