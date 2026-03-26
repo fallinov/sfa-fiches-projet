@@ -10,7 +10,7 @@ export function useFormExport(options: FormExportOptions) {
 
   function generateShareUrl(): string {
     const encoded = encodeFormData(formData.value as Record<string, unknown>)
-    return `${window.location.origin}${window.location.pathname}?d=${encoded}`
+    return `${window.location.origin}${window.location.pathname}?d=${encodeURIComponent(encoded)}`
   }
 
   async function copyShareLink(): Promise<boolean> {

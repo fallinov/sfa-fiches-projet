@@ -128,7 +128,7 @@ export function useDesignData() {
   }
 
   function resetForm() {
-    Object.assign(formData.value, createDefaultData())
+    formData.value = createDefaultData()
   }
 
   function importData(raw: unknown) {
@@ -153,7 +153,7 @@ export function useDesignData() {
         if (!c.id) c.id = generateId()
       })
     }
-    Object.assign(formData.value, data)
+    formData.value = { ...formData.value, ...data }
   }
 
   return {

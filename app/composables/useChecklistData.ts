@@ -216,7 +216,7 @@ export function useChecklistData() {
   const formData = useState<ChecklistData>('checklist-data', () => createDefaultData())
 
   function resetForm() {
-    Object.assign(formData.value, createDefaultData())
+    formData.value = createDefaultData()
   }
 
   function importData(raw: unknown) {
@@ -231,7 +231,7 @@ export function useChecklistData() {
         }
       })
     }
-    Object.assign(formData.value, data)
+    formData.value = { ...formData.value, ...data }
   }
 
   function stats() {
