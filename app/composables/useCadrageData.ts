@@ -90,7 +90,11 @@ function createDefaultFormData(): BriefFormData {
       accessibility: '',
       legal: ''
     },
-    criteria: Array.from({ length: 3 }, () => createCriterion())
+    criteria: [
+      { id: generateId(), checked: false, text: 'Le site s\'affiche correctement sur mobile (375px) et desktop (1280px)' },
+      { id: generateId(), checked: false, text: 'Toutes les pages sont accessibles et sans erreur dans la console navigateur' },
+      { id: generateId(), checked: false, text: 'Le code HTML est valide (W3C Validator) et le score Lighthouse > 70' }
+    ]
   }
 }
 
@@ -123,8 +127,7 @@ export function useCadrageData() {
   }
 
   function resetForm() {
-    const fresh = createDefaultFormData()
-    Object.assign(formData.value, fresh)
+    formData.value = createDefaultFormData()
   }
 
   function exportData(): BriefFormData {
@@ -148,7 +151,7 @@ export function useCadrageData() {
         if (!c.id) c.id = generateId()
       })
     }
-    Object.assign(formData.value, raw)
+    formData.value = { ...formData.value, ...raw }
   }
 
   return {
