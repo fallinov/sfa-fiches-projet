@@ -45,6 +45,7 @@ onMounted(() => {
       :reset-form="resetForm"
       :validate="validate"
       :section-progress="sectionProgress"
+      :read-only="persistence.isSharedView.value"
     />
     <CadrageHeader />
     <CadrageSectionObjective />

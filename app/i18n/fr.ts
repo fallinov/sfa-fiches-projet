@@ -313,6 +313,7 @@ export default {
     printTooltip: 'Ouvrir l\'aperçu d\'impression',
     reset: 'Tout effacer',
     autoSaved: 'Sauvegarde auto',
+    readOnly: 'Consultation',
     progress: '{filled}/{total} sections'
   },
   validation: {
