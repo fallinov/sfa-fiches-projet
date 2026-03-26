@@ -42,7 +42,7 @@ export default {
       title: '1. Objectif du projet',
       description: 'Définissez clairement ce que votre projet doit accomplir.',
       mainObjective: 'Objectif principal',
-      mainObjectiveHint: 'Une phrase claire et mesurable qui résume le but du projet.',
+      mainObjectiveHint: 'Formulez toujours avec « Permettre à [qui] de [faire quoi] pour [quel résultat] ».',
       mainObjectivePlaceholder: 'Ex : Créer un site vitrine pour un salon de coiffure permettant la prise de rendez-vous en ligne.',
       projectName: 'Nom du projet',
       projectNamePlaceholder: 'Ex : CoiffurePro'
