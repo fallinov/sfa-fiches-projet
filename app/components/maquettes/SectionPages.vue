@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
+defineProps<{
+  readOnly?: boolean
+}>()
+
 const { formData, addPage, removePage } = useMaquettesData()
 
 const typeItems = [
@@ -92,7 +96,10 @@ function handleKeydown(e: KeyboardEvent) {
             :label="t.maquettes.sections.pages.screenshot"
             class="sm:col-span-1"
           >
-            <ImageUpload v-model="page.screenshotUrl" />
+            <ImageUpload
+              v-model="page.screenshotUrl"
+              :read-only="readOnly"
+            />
           </UFormField>
         </div>
       </div>

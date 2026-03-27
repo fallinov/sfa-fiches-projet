@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
+defineProps<{
+  readOnly?: boolean
+}>()
+
 const { formData } = useCardSortingData()
+
+const lightboxUrl = ref('')
 
 function addPhoto(url: string) {
   formData.value = {
@@ -49,7 +55,8 @@ watch(tempUpload, (url) => {
       <div
         v-for="(photo, index) in formData.photos"
         :key="index"
-        class="relative group rounded-lg overflow-hidden border border-default"
+        class="relative group rounded-lg overflow-hidden border border-default cursor-pointer"
+        @click="lightboxUrl = photo"
       >
         <img
           :src="photo"
@@ -57,23 +64,65 @@ watch(tempUpload, (url) => {
           class="w-full h-32 object-cover"
           loading="lazy"
         >
-        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+        <!-- Delete overlay (edit mode only) -->
+        <div
+          v-if="!readOnly"
+          class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+        >
           <UButton
             icon="i-lucide-trash-2"
             color="error"
             variant="solid"
             size="xs"
             :aria-label="`Supprimer photo ${index + 1}`"
-            @click="removePhoto(index)"
+            @click.stop="removePhoto(index)"
+          />
+        </div>
+        <!-- Zoom overlay (read-only mode) -->
+        <div
+          v-else
+          class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+        >
+          <UIcon
+            name="i-lucide-zoom-in"
+            class="w-6 h-6 text-white"
           />
         </div>
       </div>
     </div>
 
-    <!-- Upload new photo -->
+    <p
+      v-else-if="readOnly"
+      class="text-sm text-muted"
+    >
+      {{ t.upload.noImage }}
+    </p>
+
+    <!-- Upload (edit mode only) -->
     <ImageUpload
+      v-if="!readOnly"
       v-model="tempUpload"
       :label="t.cardSorting.sections.photos.uploadLabel"
     />
+
+    <!-- Lightbox -->
+    <UModal
+      :open="!!lightboxUrl"
+      class="max-w-4xl"
+      @update:open="lightboxUrl = ''"
+    >
+      <template #content>
+        <div
+          class="p-2 bg-black flex items-center justify-center min-h-[50vh] cursor-pointer"
+          @click="lightboxUrl = ''"
+        >
+          <img
+            :src="lightboxUrl"
+            alt="Photo en grand"
+            class="max-w-full max-h-[85vh] object-contain"
+          >
+        </div>
+      </template>
+    </UModal>
   </UCard>
 </template>

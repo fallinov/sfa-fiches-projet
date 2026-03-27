@@ -47,7 +47,7 @@ onMounted(() => {
       :read-only="persistence.isSharedView.value"
     />
     <MaquettesHeader />
-    <MaquettesSectionPages />
+    <MaquettesSectionPages :read-only="persistence.isSharedView.value" />
     <MaquettesSectionTests />
     <MaquettesSectionChecklist />
   </div>

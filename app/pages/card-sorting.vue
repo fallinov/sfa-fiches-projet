@@ -50,7 +50,7 @@ onMounted(() => {
     <CardSortingSectionCards />
     <CardSortingSectionParticipants />
     <CardSortingSectionResults />
-    <CardSortingSectionPhotos />
+    <CardSortingSectionPhotos :read-only="persistence.isSharedView.value" />
     <CardSortingSectionArchitecture />
     <CardSortingSectionChecklist />
   </div>
