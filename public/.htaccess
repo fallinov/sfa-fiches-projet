@@ -1,0 +1,23 @@
+# HTML : toujours revalider (pas de cache navigateur)
+<FilesMatch "\.(html|json)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>
+
+# Assets avec hash (_nuxt/) : cache longue duree (1 an)
+<FilesMatch "\.(js|css|woff2?|ttf|eot|svg|png|jpg|jpeg|webp|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Uploads : cache moyen (1 jour)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^uploads/ - [E=CACHE_UPLOADS:1]
+</IfModule>
+<IfModule mod_headers.c>
+    Header set Cache-Control "public, max-age=86400" env=CACHE_UPLOADS
+</IfModule>
+
+# Pas de listing des dossiers
+Options -Indexes
