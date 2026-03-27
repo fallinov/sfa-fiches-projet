@@ -50,6 +50,7 @@ onMounted(() => {
     <CardSortingSectionCards />
     <CardSortingSectionParticipants />
     <CardSortingSectionResults />
+    <CardSortingSectionPhotos />
     <CardSortingSectionArchitecture />
     <CardSortingSectionChecklist />
   </div>
