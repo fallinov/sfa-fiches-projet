@@ -4,6 +4,7 @@ export interface Persona {
   age: number | null
   job: string
   level: '' | 'novice' | 'intermediate' | 'expert'
+  device: '' | 'smartphone' | 'tablet' | 'desktop'
   goal: string
   frustrations: string
 }
@@ -17,6 +18,7 @@ export interface Feature {
 export interface Constraints {
   deadline: string
   hours: number | null
+  budget: string
   tech: string
   accessibility: '' | 'a' | 'aa' | 'aaa'
   legal: string
@@ -26,6 +28,7 @@ export interface Criterion {
   id: string
   checked: boolean
   text: string
+  verification: string
 }
 
 export interface BriefFormData {
@@ -53,6 +56,7 @@ function createPersona(): Persona {
     age: null,
     job: '',
     level: '',
+    device: '',
     goal: '',
     frustrations: ''
   }
@@ -70,7 +74,8 @@ function createCriterion(): Criterion {
   return {
     id: generateId(),
     checked: false,
-    text: ''
+    text: '',
+    verification: ''
   }
 }
 
@@ -86,14 +91,15 @@ function createDefaultFormData(): BriefFormData {
     constraints: {
       deadline: '',
       hours: null,
+      budget: '',
       tech: '',
       accessibility: '',
       legal: ''
     },
     criteria: [
-      { id: generateId(), checked: false, text: 'Le site s\'affiche correctement sur mobile (375px) et desktop (1280px)' },
-      { id: generateId(), checked: false, text: 'Toutes les pages sont accessibles et sans erreur dans la console navigateur' },
-      { id: generateId(), checked: false, text: 'Le code HTML est valide (W3C Validator) et le score Lighthouse > 70' }
+      { id: generateId(), checked: false, text: 'Le site s\'affiche correctement sur mobile (375px) et desktop (1280px)', verification: '' },
+      { id: generateId(), checked: false, text: 'Toutes les pages sont accessibles et sans erreur dans la console navigateur', verification: '' },
+      { id: generateId(), checked: false, text: 'Le code HTML est valide (W3C Validator) et le score Lighthouse > 70', verification: '' }
     ]
   }
 }

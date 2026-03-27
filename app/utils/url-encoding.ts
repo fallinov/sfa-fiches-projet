@@ -47,6 +47,7 @@ export function convertLegacyData(legacy: LegacyFormData): BriefFormData {
       age: legacy[`persona-${i}-age`] ? Number(legacy[`persona-${i}-age`]) : null,
       job: (legacy[`persona-${i}-job`] as string) || '',
       level: (legacy[`persona-${i}-level`] as Persona['level']) || '',
+      device: (legacy[`persona-${i}-device`] as Persona['device']) || '',
       goal: (legacy[`persona-${i}-goal`] as string) || '',
       frustrations: (legacy[`persona-${i}-frustrations`] as string) || ''
     })
@@ -66,7 +67,8 @@ export function convertLegacyData(legacy: LegacyFormData): BriefFormData {
     criteria.push({
       id: crypto.randomUUID(),
       checked: Boolean(legacy[`criterion-${i}-checked`]),
-      text: (legacy[`criterion-${i}-text`] as string) || ''
+      text: (legacy[`criterion-${i}-text`] as string) || '',
+      verification: (legacy[`criterion-${i}-verification`] as string) || ''
     })
   }
 
@@ -81,6 +83,7 @@ export function convertLegacyData(legacy: LegacyFormData): BriefFormData {
     constraints: {
       deadline: (legacy['field-deadline'] as string) || '',
       hours: legacy['hours'] ? Number(legacy['hours']) : null,
+      budget: (legacy['budget'] as string) || '',
       tech: (legacy['tech'] as string) || '',
       accessibility: (legacy['accessibility'] as BriefFormData['constraints']['accessibility']) || '',
       legal: (legacy['legal'] as string) || ''

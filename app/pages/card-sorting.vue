@@ -2,6 +2,12 @@
 import t from '~/i18n/fr'
 
 const { formData, importData, resetForm } = useCardSortingData()
+
+const sortingTypeItems = [
+  { label: t.cardSorting.sections.sortingType.options.open, value: 'open' },
+  { label: t.cardSorting.sections.sortingType.options.closed, value: 'closed' },
+  { label: t.cardSorting.sections.sortingType.options.hybrid, value: 'hybrid' }
+]
 const { validate, sectionProgress } = useCardSortingValidation()
 
 const persistence = useFormPersistence({
@@ -47,6 +53,26 @@ onMounted(() => {
       :read-only="persistence.isSharedView.value"
     />
     <CardSortingHeader />
+
+    <UCard>
+      <template #header>
+        <div>
+          <h2 class="text-lg font-bold">
+            {{ t.cardSorting.sections.sortingType.title }}
+          </h2>
+        </div>
+      </template>
+
+      <UFormField :label="t.cardSorting.sections.sortingType.title">
+        <USelect
+          v-model="formData.sortingType"
+          :items="sortingTypeItems"
+          :placeholder="t.cardSorting.sections.sortingType.placeholder"
+          class="w-full sm:w-1/2"
+        />
+      </UFormField>
+    </UCard>
+
     <CardSortingSectionCards />
     <CardSortingSectionParticipants />
     <CardSortingSectionResults />
