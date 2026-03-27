@@ -30,6 +30,8 @@ onMounted(() => {
     persistence.loadFromStorage()
   }
   persistence.startAutoSave()
+  useStudentIdentity().applyTo(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
+  useStudentIdentity().watchAndSave(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
 })
 </script>
 
@@ -50,5 +52,6 @@ onMounted(() => {
     <MaquettesSectionPages :read-only="persistence.isSharedView.value" />
     <MaquettesSectionTests />
     <MaquettesSectionChecklist />
+    <FormNavigation />
   </div>
 </template>

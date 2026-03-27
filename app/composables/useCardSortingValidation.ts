@@ -28,8 +28,11 @@ export function useCardSortingValidation() {
   }
 
   function sectionProgress(): { filled: number, total: number } {
-    const total = 5
+    const total = 6
     let filled = 0
+
+    // Sorting type
+    if (formData.value.sortingType) filled++
 
     // Section 1: Cards
     if (formData.value.cards.some(c => c.label.trim())) filled++
@@ -37,14 +40,14 @@ export function useCardSortingValidation() {
     // Section 2: Participants
     if (formData.value.participants.some(p => p.name.trim())) filled++
 
-    // Section 3: Groups/Results
-    if (formData.value.groups.some(g => g.groupName.trim())) filled++
+    // Section 3: Results summary
+    if (formData.value.resultsSummary.trim()) filled++
 
-    // Section 4: Architecture
+    // Section 4: Photos
+    if (formData.value.photos.length > 0) filled++
+
+    // Section 5: Architecture
     if (formData.value.architecture.trim()) filled++
-
-    // Section 5: Checklist
-    if (formData.value.checklist.some(c => c.checked)) filled++
 
     return { filled, total }
   }

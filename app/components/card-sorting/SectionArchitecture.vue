@@ -20,7 +20,7 @@ const { formData } = useCardSortingData()
     <UFormField :label="t.cardSorting.sections.architecture.label">
       <UTextarea
         v-model="formData.architecture"
-        :rows="6"
+        :rows="12"
         :placeholder="t.cardSorting.sections.architecture.placeholder"
         class="w-full"
       />

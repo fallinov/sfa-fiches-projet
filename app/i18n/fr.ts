@@ -65,6 +65,13 @@ export default {
         intermediate: 'Intermédiaire',
         expert: 'Expert'
       },
+      device: 'Appareil principal',
+      devicePlaceholder: 'Choisir…',
+      deviceOptions: {
+        smartphone: 'Smartphone',
+        tablet: 'Tablette',
+        desktop: 'Ordinateur'
+      },
       goal: 'Objectif sur le site',
       goalPlaceholder: 'Que cherche cette personne en visitant votre site ?',
       frustrations: 'Frustrations potentielles',
@@ -94,6 +101,8 @@ export default {
       deadline: 'Date de livraison',
       hours: 'Heures disponibles',
       hoursPlaceholder: 'Ex : 40',
+      budget: 'Budget',
+      budgetPlaceholder: 'Ex : 0 CHF (hébergement scolaire)',
       tech: 'Technologies imposées',
       techPlaceholder: 'Ex : HTML, CSS, JavaScript',
       accessibility: 'Niveau d\'accessibilité',
@@ -111,7 +120,8 @@ export default {
       description: 'Comment saurez-vous que le projet est réussi ? Définissez des critères concrets et vérifiables.',
       add: 'Ajouter un critère',
       checkboxLabel: 'Marquer comme atteint',
-      textPlaceholder: 'Ex : Le site est accessible sur mobile et desktop'
+      textPlaceholder: 'Ex : Le site est accessible sur mobile et desktop',
+      verificationPlaceholder: 'Comment vérifier ? (ex : Lighthouse, test 5 personnes…)'
     }
   },
   cardSorting: {
@@ -120,6 +130,15 @@ export default {
     projectName: 'Nom du projet',
     projectNamePlaceholder: 'Ex : CoiffurePro',
     sections: {
+      sortingType: {
+        title: 'Type de tri utilisé',
+        placeholder: 'Choisir…',
+        options: {
+          open: 'Ouvert — l\'utilisateur crée les catégories',
+          closed: 'Fermé — catégories prédéfinies',
+          hybrid: 'Hybride — catégories + liberté d\'en créer'
+        }
+      },
       cards: {
         title: '1. Cartes d\'information',
         description: 'Listez toutes les pages, contenus ou fonctionnalités de votre site (1 carte = 1 élément).',
@@ -141,13 +160,9 @@ export default {
       },
       results: {
         title: '3. Résultats du tri',
-        description: 'Identifiez les groupes récurrents formés par les participants.',
-        groupLabel: 'Groupe',
-        groupName: 'Nom du groupe',
-        groupNamePlaceholder: 'Ex : Navigation principale',
-        groupCards: 'Cartes dans ce groupe',
-        groupCardsPlaceholder: 'Listez les cartes regroupées ici (une par ligne)',
-        add: 'Ajouter un groupe'
+        description: 'Décrivez les tendances et regroupements récurrents observés lors des tris.',
+        summaryLabel: 'Synthèse des résultats',
+        summaryPlaceholder: 'Quels regroupements récurrents avez-vous identifiés ?\nQuelles catégories reviennent chez la majorité des participants ?\nY a-t-il eu des hésitations ou des surprises ?'
       },
       photos: {
         title: '4. Photos du tri',

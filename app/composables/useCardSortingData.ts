@@ -13,20 +13,15 @@ export interface Participant {
   notes: string
 }
 
-export interface SortingGroup {
-  id: string
-  groupName: string
-  cardLabels: string
-}
-
 export interface CardSortingData {
   studentLastName: string
   studentFirstName: string
   date: string
   projectName: string
+  sortingType: '' | 'open' | 'closed' | 'hybrid'
   cards: Card[]
   participants: Participant[]
-  groups: SortingGroup[]
+  resultsSummary: string
   photos: string[]
   architecture: string
   checklist: ChecklistItem[]
@@ -46,10 +41,6 @@ function createParticipant(): Participant {
   return { id: generateId(), name: '', profile: '', notes: '' }
 }
 
-function createGroup(): SortingGroup {
-  return { id: generateId(), groupName: '', cardLabels: '' }
-}
-
 const DEFAULT_CHECKLIST = [
   'Cartes préparées (1 carte = 1 contenu/fonctionnalité)',
   'Termes compréhensibles (pas de jargon technique)',
@@ -67,9 +58,10 @@ function createDefaultData(): CardSortingData {
     studentFirstName: '',
     date: '',
     projectName: '',
+    sortingType: '',
     cards: Array.from({ length: 5 }, () => createCard()),
     participants: [createParticipant()],
-    groups: [createGroup()],
+    resultsSummary: '',
     photos: [],
     architecture: '',
     checklist: DEFAULT_CHECKLIST.map(text => ({
@@ -100,14 +92,6 @@ export function useCardSortingData() {
     formData.value.participants = formData.value.participants.filter(p => p.id !== id)
   }
 
-  function addGroup() {
-    formData.value.groups.push(createGroup())
-  }
-
-  function removeGroup(id: string) {
-    formData.value.groups = formData.value.groups.filter(g => g.id !== id)
-  }
-
   function resetForm() {
     formData.value = createDefaultData()
     triggerRef(formData)
@@ -125,11 +109,6 @@ export function useCardSortingData() {
         if (!p.id) p.id = generateId()
       })
     }
-    if (data.groups) {
-      data.groups.forEach((g) => {
-        if (!g.id) g.id = generateId()
-      })
-    }
     if (data.checklist) {
       data.checklist.forEach((c) => {
         if (!c.id) c.id = generateId()
@@ -145,8 +124,6 @@ export function useCardSortingData() {
     removeCard,
     addParticipant,
     removeParticipant,
-    addGroup,
-    removeGroup,
     resetForm,
     importData
   }
