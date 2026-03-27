@@ -152,8 +152,11 @@ export function useCadrageData() {
         if (!c.id) c.id = generateId()
       })
     }
+    console.log('[importData] raw.studentLastName:', (raw as Record<string, unknown>).studentLastName)
+    console.log('[importData] formData.value BEFORE:', formData.value.studentLastName)
     formData.value = { ...formData.value, ...raw }
     triggerRef(formData)
+    console.log('[importData] formData.value AFTER:', formData.value.studentLastName)
   }
 
   return {

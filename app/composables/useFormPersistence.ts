@@ -62,19 +62,34 @@ export function useFormPersistence(options: FormPersistenceOptions) {
   }
 
   function loadFromUrl(): boolean {
-    if (import.meta.server) return false
-    const params = new URLSearchParams(window.location.search)
+    if (import.meta.server) {
+      console.log('[loadFromUrl] skipped: server-side')
+      return false
+    }
+
+    const search = window.location.search
+    console.log('[loadFromUrl] search:', search.substring(0, 50))
+
+    const params = new URLSearchParams(search)
     const encoded = params.get('d')
+    console.log('[loadFromUrl] encoded param:', encoded ? `${encoded.length} chars` : 'null')
+
     if (!encoded) return false
 
     const parsed = decodeFormData(encoded)
+    console.log('[loadFromUrl] decoded:', parsed ? 'OK' : 'FAILED')
+
     if (!parsed) return false
 
     if (supportLegacy && isLegacyFormat(parsed)) {
+      console.log('[loadFromUrl] legacy format detected, converting')
       importData(convertLegacyData(parsed))
     } else {
+      console.log('[loadFromUrl] modern format, importing')
       importData(parsed as Record<string, unknown>)
     }
+
+    console.log('[loadFromUrl] formData.value after import:', JSON.stringify(formData.value).substring(0, 100))
 
     // Mark as shared view — disable auto-save
     isSharedView.value = true

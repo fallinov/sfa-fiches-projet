@@ -25,12 +25,16 @@ function handleDownload() {
 }
 
 onMounted(() => {
-  if (persistence.loadFromUrl()) {
+  console.log('[cadrage] onMounted fired, search:', window.location.search.substring(0, 30))
+  const urlLoaded = persistence.loadFromUrl()
+  console.log('[cadrage] loadFromUrl returned:', urlLoaded)
+  if (urlLoaded) {
     toast.add({ title: t.toasts.loadedFromLink, color: 'success' })
   } else {
     persistence.loadFromStorage()
   }
   persistence.startAutoSave()
+  console.log('[cadrage] formData.studentLastName:', formData.value.studentLastName)
 })
 </script>
 
