@@ -14,7 +14,6 @@ export function useFormPersistence(options: FormPersistenceOptions) {
   let autoSaveEnabled = false
 
   // True when the page was opened via a shared URL (?d=)
-  // In this mode, auto-save is disabled to allow multiple tabs
   const isSharedView = ref(false)
 
   function saveToStorage() {
@@ -62,36 +61,26 @@ export function useFormPersistence(options: FormPersistenceOptions) {
   }
 
   function loadFromUrl(): boolean {
-    if (import.meta.server) {
-      console.log('[loadFromUrl] skipped: server-side')
-      return false
-    }
+    if (import.meta.server) return false
 
-    const search = window.location.search
-    console.log('[loadFromUrl] search:', search.substring(0, 50))
+    // Read from useState (captured by plugin BEFORE vue-router strips query params)
+    const capturedData = useState<string | null>('url-shared-data', () => null)
+    const encoded = capturedData.value
 
-    const params = new URLSearchParams(search)
-    const encoded = params.get('d')
-    console.log('[loadFromUrl] encoded param:', encoded ? `${encoded.length} chars` : 'null')
+    // Fallback: try window.location.search (works in dev mode)
+    const fallback = encoded || new URLSearchParams(window.location.search).get('d')
 
-    if (!encoded) return false
+    if (!fallback) return false
 
-    const parsed = decodeFormData(encoded)
-    console.log('[loadFromUrl] decoded:', parsed ? 'OK' : 'FAILED')
-
+    const parsed = decodeFormData(fallback)
     if (!parsed) return false
 
     if (supportLegacy && isLegacyFormat(parsed)) {
-      console.log('[loadFromUrl] legacy format detected, converting')
       importData(convertLegacyData(parsed))
     } else {
-      console.log('[loadFromUrl] modern format, importing')
       importData(parsed as Record<string, unknown>)
     }
 
-    console.log('[loadFromUrl] formData.value after import:', JSON.stringify(formData.value).substring(0, 100))
-
-    // Mark as shared view — disable auto-save
     isSharedView.value = true
     return true
   }
