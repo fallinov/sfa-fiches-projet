@@ -31,6 +31,8 @@ onMounted(() => {
     persistence.loadFromStorage()
   }
   persistence.startAutoSave()
+  useStudentIdentity().applyTo(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
+  useStudentIdentity().watchAndSave(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
 })
 </script>
 
@@ -53,5 +55,6 @@ onMounted(() => {
     <CadrageSectionFeatures />
     <CadrageSectionConstraints />
     <CadrageSectionCriteria />
+    <FormNavigation />
   </div>
 </template>

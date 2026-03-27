@@ -166,9 +166,11 @@ test.describe('Accessibility basics', () => {
     }
   })
 
-  test('nav has aria-label', async ({ page }) => {
-    const nav = page.getByRole('navigation')
-    await expect(nav).toHaveAttribute('aria-label', 'Actions de la fiche')
+  test('nav elements have aria-labels', async ({ page }) => {
+    const actionsNav = page.getByRole('navigation', { name: 'Actions de la fiche' })
+    await expect(actionsNav).toBeVisible()
+    const ficheNav = page.getByRole('navigation', { name: 'Navigation entre les fiches' })
+    await expect(ficheNav).toBeVisible()
   })
 })
 

@@ -30,6 +30,8 @@ onMounted(() => {
     persistence.loadFromStorage()
   }
   persistence.startAutoSave()
+  useStudentIdentity().applyTo(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
+  useStudentIdentity().watchAndSave(formData as Ref<{ studentLastName: string, studentFirstName: string, projectName: string }>)
 })
 </script>
 
@@ -52,5 +54,6 @@ onMounted(() => {
     <DesignSectionSpacings />
     <DesignSectionIdentity />
     <DesignSectionChecklist />
+    <FormNavigation />
   </div>
 </template>
