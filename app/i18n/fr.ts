@@ -352,7 +352,8 @@ export default {
     error: 'Erreur lors de l\'upload',
     remove: 'Supprimer l\'image',
     replace: 'Remplacer l\'image',
-    imageAlt: 'Image uploadée'
+    imageAlt: 'Image uploadée',
+    noImage: 'Aucune image'
   },
   footer: {
     text: 'devjs.ch — Préparer un projet web'
