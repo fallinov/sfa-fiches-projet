@@ -17,6 +17,8 @@ Application web permettant aux apprentis ESIG de remplir, sauvegarder et partage
 ## Fonctionnalités
 
 - Dashboard avec accès à toutes les fiches
+- **Identité partagée** : Nom/Prénom/Projet saisis une fois, pré-remplis sur toutes les fiches
+- **Navigation entre fiches** : liens précédent/suivant en bas de chaque fiche
 - Sauvegarde automatique dans le navigateur (localStorage indépendant par fiche)
 - Partage par lien (URL encodée base64)
 - **Mode consultation** : l'enseignant ouvre le lien d'un élève en lecture seule (pas d'auto-save)
@@ -109,7 +111,7 @@ NUXT_APP_BASE_URL=/sfa-fiches-projet/ npx nuxt build --preset github_pages
 
 ## Versions
 
-- **v1.1** (actuelle) : 5 fiches, upload images, mode consultation, 33 tests
+- **v1.2** (actuelle) : 5 fiches, upload images, identité partagée, navigation, 33 tests
 - **v2** (futur) : comptes élèves/enseignant, BDD MySQL
 
 ## Lien avec devjs.ch
