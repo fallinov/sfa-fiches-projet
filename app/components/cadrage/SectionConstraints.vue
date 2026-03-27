@@ -42,6 +42,14 @@ const accessibilityItems = [
         />
       </UFormField>
 
+      <UFormField :label="t.sections.constraints.budget">
+        <UInput
+          v-model="formData.constraints.budget"
+          :placeholder="t.sections.constraints.budgetPlaceholder"
+          class="w-full"
+        />
+      </UFormField>
+
       <UFormField :label="t.sections.constraints.tech">
         <UInput
           v-model="formData.constraints.tech"

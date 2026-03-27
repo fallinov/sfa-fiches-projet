@@ -124,19 +124,23 @@ describe('convertLegacyData', () => {
       'persona-1-age': '34',
       'persona-1-job': 'Enseignante',
       'persona-1-level': 'novice',
+      'persona-1-device': 'smartphone',
       'persona-1-goal': 'Apprendre',
       'persona-1-frustrations': 'Trop complexe',
       'persona-2-nom': 'Bob',
       'persona-2-age': '25',
       'persona-2-job': 'Étudiant',
       'persona-2-level': 'expert',
+      'persona-2-device': '',
       'persona-2-goal': 'Coder',
       'persona-2-frustrations': '',
       'feature-1-text': 'Page accueil',
       'feature-1-priority': 'must',
       'criterion-1-checked': true,
       'criterion-1-text': 'Site responsive',
+      'criterion-1-verification': 'Tester sur mobile',
       'hours': '40',
+      'budget': '500 CHF',
       'tech': 'HTML',
       'accessibility': 'aa',
       'legal': 'RGPD',
@@ -155,8 +159,10 @@ describe('convertLegacyData', () => {
     expect(result.personas[0].name).toBe('Alice')
     expect(result.personas[0].age).toBe(34)
     expect(result.personas[0].level).toBe('novice')
+    expect(result.personas[0].device).toBe('smartphone')
     expect(result.personas[1].name).toBe('Bob')
     expect(result.personas[1].level).toBe('expert')
+    expect(result.personas[1].device).toBe('')
 
     expect(result.features).toHaveLength(1)
     expect(result.features[0].description).toBe('Page accueil')
@@ -165,8 +171,10 @@ describe('convertLegacyData', () => {
     expect(result.criteria).toHaveLength(1)
     expect(result.criteria[0].checked).toBe(true)
     expect(result.criteria[0].text).toBe('Site responsive')
+    expect(result.criteria[0].verification).toBe('Tester sur mobile')
 
     expect(result.constraints.hours).toBe(40)
+    expect(result.constraints.budget).toBe('500 CHF')
     expect(result.constraints.tech).toBe('HTML')
     expect(result.constraints.accessibility).toBe('aa')
     expect(result.constraints.deadline).toBe('2026-06-30')
@@ -189,7 +197,9 @@ describe('convertLegacyData', () => {
     expect(result.studentLastName).toBe('')
     expect(result.personas[0].name).toBe('')
     expect(result.personas[0].age).toBeNull()
+    expect(result.personas[0].device).toBe('')
     expect(result.constraints.hours).toBeNull()
+    expect(result.constraints.budget).toBe('')
   })
 
   it('roundtrip: legacy encode → decode → convert matches', () => {

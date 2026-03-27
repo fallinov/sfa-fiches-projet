@@ -18,6 +18,12 @@ const levelItems = [
   { label: t.sections.personas.levelOptions.intermediate, value: 'intermediate' },
   { label: t.sections.personas.levelOptions.expert, value: 'expert' }
 ]
+
+const deviceItems = [
+  { label: t.sections.personas.deviceOptions.smartphone, value: 'smartphone' },
+  { label: t.sections.personas.deviceOptions.tablet, value: 'tablet' },
+  { label: t.sections.personas.deviceOptions.desktop, value: 'desktop' }
+]
 </script>
 
 <template>
@@ -72,6 +78,15 @@ const levelItems = [
           v-model="persona.level"
           :items="levelItems"
           :placeholder="t.sections.personas.levelPlaceholder"
+          class="w-full"
+        />
+      </UFormField>
+
+      <UFormField :label="t.sections.personas.device">
+        <USelect
+          v-model="persona.device"
+          :items="deviceItems"
+          :placeholder="t.sections.personas.devicePlaceholder"
           class="w-full"
         />
       </UFormField>
