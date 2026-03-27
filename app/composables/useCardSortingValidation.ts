@@ -40,8 +40,8 @@ export function useCardSortingValidation() {
     // Section 2: Participants
     if (formData.value.participants.some(p => p.name.trim())) filled++
 
-    // Section 3: Groups/Results
-    if (formData.value.groups.some(g => g.groupName.trim())) filled++
+    // Section 3: Results summary
+    if (formData.value.resultsSummary.trim()) filled++
 
     // Section 4: Photos
     if (formData.value.photos.length > 0) filled++

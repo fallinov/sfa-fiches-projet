@@ -160,13 +160,9 @@ export default {
       },
       results: {
         title: '3. Résultats du tri',
-        description: 'Identifiez les groupes récurrents formés par les participants.',
-        groupLabel: 'Groupe',
-        groupName: 'Nom du groupe',
-        groupNamePlaceholder: 'Ex : Navigation principale',
-        groupCards: 'Cartes dans ce groupe',
-        groupCardsPlaceholder: 'Listez les cartes regroupées ici (une par ligne)',
-        add: 'Ajouter un groupe'
+        description: 'Décrivez les tendances et regroupements récurrents observés lors des tris.',
+        summaryLabel: 'Synthèse des résultats',
+        summaryPlaceholder: 'Quels regroupements récurrents avez-vous identifiés ?\nQuelles catégories reviennent chez la majorité des participants ?\nY a-t-il eu des hésitations ou des surprises ?'
       },
       photos: {
         title: '4. Photos du tri',
