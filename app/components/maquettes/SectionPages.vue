@@ -78,7 +78,7 @@ function handleKeydown(e: KeyboardEvent) {
 
           <UFormField
             :label="t.maquettes.sections.pages.pageNotes"
-            class="sm:col-span-3"
+            class="sm:col-span-2"
           >
             <UTextarea
               v-model="page.notes"
@@ -86,6 +86,13 @@ function handleKeydown(e: KeyboardEvent) {
               :placeholder="t.maquettes.sections.pages.pageNotesPlaceholder"
               class="w-full"
             />
+          </UFormField>
+
+          <UFormField
+            :label="t.maquettes.sections.pages.screenshot"
+            class="sm:col-span-1"
+          >
+            <ImageUpload v-model="page.screenshotUrl" />
           </UFormField>
         </div>
       </div>

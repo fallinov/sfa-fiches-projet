@@ -149,14 +149,19 @@ export default {
         groupCardsPlaceholder: 'Listez les cartes regroupées ici (une par ligne)',
         add: 'Ajouter un groupe'
       },
+      photos: {
+        title: '4. Photos du tri',
+        description: 'Prenez des photos de vos cartes triées par les participants.',
+        uploadLabel: 'Ajouter une photo'
+      },
       architecture: {
-        title: '4. Architecture de navigation',
+        title: '5. Architecture de navigation',
         description: 'Décrivez la structure de navigation finale de votre site.',
         label: 'Structure de navigation',
         placeholder: 'Décrivez l\'arborescence du site basée sur les résultats du tri.\n\nEx :\n- Accueil\n- Services\n  - Coupe\n  - Coloration\n- Rendez-vous\n- Contact'
       },
       checklist: {
-        title: '5. Checklist de validation',
+        title: '6. Checklist de validation',
         description: 'Vérifiez que toutes les étapes du card sorting ont été réalisées.'
       }
     }
@@ -241,6 +246,7 @@ export default {
         pageToolPlaceholder: 'Ex : Figma, papier',
         pageNotes: 'Notes / interactions',
         pageNotesPlaceholder: 'Annotations, interactions documentées…',
+        screenshot: 'Capture d\'écran',
         add: 'Ajouter une page',
         gridSystem: 'Grille de mise en page',
         gridSystemPlaceholder: 'Ex : Grille 12 colonnes, base 8px, gouttières 16px'
@@ -338,6 +344,15 @@ export default {
     resetDescription: 'Tous les champs seront vidés et la sauvegarde locale supprimée. Cette action est irréversible.',
     resetConfirm: 'Oui, tout effacer',
     resetCancel: 'Annuler'
+  },
+  upload: {
+    dropzone: 'Cliquer ou glisser une image ici',
+    uploading: 'Upload en cours…',
+    success: 'Image uploadée',
+    error: 'Erreur lors de l\'upload',
+    remove: 'Supprimer l\'image',
+    replace: 'Remplacer l\'image',
+    imageAlt: 'Image uploadée'
   },
   footer: {
     text: 'devjs.ch — Préparer un projet web'

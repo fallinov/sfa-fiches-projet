@@ -27,6 +27,7 @@ export interface CardSortingData {
   cards: Card[]
   participants: Participant[]
   groups: SortingGroup[]
+  photos: string[]
   architecture: string
   checklist: ChecklistItem[]
 }
@@ -69,6 +70,7 @@ function createDefaultData(): CardSortingData {
     cards: Array.from({ length: 5 }, () => createCard()),
     participants: [createParticipant()],
     groups: [createGroup()],
+    photos: [],
     architecture: '',
     checklist: DEFAULT_CHECKLIST.map(text => ({
       id: generateId(),
