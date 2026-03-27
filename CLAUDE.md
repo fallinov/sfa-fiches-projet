@@ -62,9 +62,11 @@ app/
     useFormPersistence.ts      # Générique : localStorage + URL (paramétrisé)
     useFormExport.ts           # Générique : JSON export + URL sharing
     useImageUpload.ts          # Compression canvas + POST vers API PHP
+    useStudentIdentity.ts      # Identité partagée entre fiches (localStorage)
   components/
     ActionsBar.vue             # Barre d'actions générique (props, mode consultation)
     ImageUpload.vue            # Upload image réutilisable (drop, preview, lightbox)
+    FormNavigation.vue         # Navigation précédent/suivant entre fiches
     cadrage/                   # Composants Phase 1
     card-sorting/              # Composants Phase 2 (+ SectionPhotos)
     design/                    # Composants Phase 3
@@ -84,7 +86,8 @@ public/
 - **Composables par fiche** : chaque fiche a son propre `use*Data.ts` avec types, defaults, CRUD
 - **Composables génériques** : `useFormPersistence` et `useFormExport` reçoivent `formData` + `importData` en paramètres
 - **ActionsBar** : générique, reçoit les fonctions via props (pas d'import direct de composables)
-- **localStorage** : une clé par fiche (`fiche-cadrage-data`, `card-sorting-data`, etc.)
+- **localStorage** : une clé par fiche (`fiche-cadrage-data`, `card-sorting-data`, etc.) + `student-identity` partagé
+- **Identité partagée** : `useStudentIdentity` sauve Nom/Prénom/Projet dans un localStorage commun, pré-remplit les nouvelles fiches
 - **Auto-save** : debounce 500ms + beforeunload + visibilitychange. Désactivé en mode consultation (?d=)
 - **Palette** : teal devjs.ch (`primary` = `#0F766E`), utiliser `text-primary` / `bg-primary/5` (pas emerald/green)
 - **useState = shallowRef** : toujours `formData.value = { ...formData.value, ...raw }` + `triggerRef(formData)`, jamais `Object.assign`
