@@ -35,7 +35,13 @@ export default {
     lastNamePlaceholder: 'Dupont',
     firstName: 'Prénom',
     firstNamePlaceholder: 'Marie',
-    date: 'Date de création'
+    date: 'Date de création',
+    repoUrl: 'URL du dépôt GitHub',
+    repoUrlPlaceholder: 'https://github.com/votre-pseudo/votre-projet',
+    repoUrlHint: 'Le lien vers votre code source',
+    siteUrl: 'URL du site en ligne',
+    siteUrlPlaceholder: 'https://votre-projet.vercel.app',
+    siteUrlHint: 'Vercel, GitHub Pages ou Infomaniak'
   },
   sections: {
     objective: {
@@ -198,7 +204,11 @@ export default {
         colorUsagePlaceholder: 'Ex : Boutons, liens',
         add: 'Ajouter une couleur',
         contrastNotes: 'Notes sur les contrastes',
-        contrastNotesPlaceholder: 'Résultats du test WebAIM, ratios calculés…'
+        contrastNotesPlaceholder: 'Résultats du test WebAIM, ratios calculés…',
+        realtimeColorsUrl: 'Lien Realtime Colors',
+        realtimeColorsUrlPlaceholder: 'https://www.realtimecolors.com/?colors=...&fonts=...',
+        realtimeColorsUrlDescription: 'Collez ici votre lien Realtime Colors avec vos couleurs et polices. L\'enseignant pourra voir votre palette appliquée sur un vrai site.',
+        realtimeColorsUrlButton: 'Voir la palette sur Realtime Colors'
       },
       typography: {
         title: '2. Typographie',
@@ -259,6 +269,9 @@ export default {
         },
         pageTool: 'Outil',
         pageToolPlaceholder: 'Ex : Figma, papier',
+        mockupUrl: 'Lien maquette',
+        mockupUrlPlaceholder: 'https://www.figma.com/file/...',
+        mockupUrlHint: 'Figma, Excalidraw, Penpot... Laissez vide si maquette papier (uploadez la photo ci-dessous)',
         pageNotes: 'Notes / interactions',
         pageNotesPlaceholder: 'Annotations, interactions documentées…',
         screenshot: 'Capture d\'écran',

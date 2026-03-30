@@ -37,6 +37,8 @@ export interface BriefFormData {
   date: string
   objective: string
   projectName: string
+  repoUrl: string
+  siteUrl: string
   personas: Persona[]
   features: Feature[]
   constraints: Constraints
@@ -86,6 +88,8 @@ function createDefaultFormData(): BriefFormData {
     date: '',
     objective: '',
     projectName: '',
+    repoUrl: '',
+    siteUrl: '',
     personas: [createPersona()],
     features: Array.from({ length: 5 }, () => createFeature()),
     constraints: {

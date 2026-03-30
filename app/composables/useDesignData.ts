@@ -27,6 +27,7 @@ export interface DesignData {
   projectName: string
   colors: ColorEntry[]
   contrastNotes: string
+  realtimeColorsUrl: string
   fonts: FontEntry[]
   typeScale: string
   spacings: SpacingEntry[]
@@ -85,6 +86,7 @@ function createDefaultData(): DesignData {
       { id: generateId(), hex: '', name: 'Statut', usage: 'Succès, erreur, avertissement' }
     ],
     contrastNotes: '',
+    realtimeColorsUrl: '',
     fonts: [
       { id: generateId(), name: '', usage: 'headings', sampleUrl: '' },
       { id: generateId(), name: '', usage: 'body', sampleUrl: '' }

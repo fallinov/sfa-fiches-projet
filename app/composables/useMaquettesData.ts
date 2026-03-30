@@ -6,6 +6,7 @@ export interface MaquettePage {
   type: '' | 'sketch' | 'wireframe' | 'mockup'
   breakpoints: string[]
   tool: string
+  mockupUrl: string
   notes: string
   screenshotUrl: string
 }
@@ -36,7 +37,7 @@ function generateId(): string {
 }
 
 function createPage(): MaquettePage {
-  return { id: generateId(), name: '', type: '', breakpoints: [], tool: '', notes: '', screenshotUrl: '' }
+  return { id: generateId(), name: '', type: '', breakpoints: [], tool: '', mockupUrl: '', notes: '', screenshotUrl: '' }
 }
 
 function createUserTest(): UserTest {
@@ -61,9 +62,9 @@ function createDefaultData(): MaquettesData {
     date: '',
     projectName: '',
     pages: [
-      { id: generateId(), name: 'Accueil', type: 'wireframe', breakpoints: [], tool: '', notes: '', screenshotUrl: '' },
-      { id: generateId(), name: '', type: '', breakpoints: [], tool: '', notes: '', screenshotUrl: '' },
-      { id: generateId(), name: '', type: '', breakpoints: [], tool: '', notes: '', screenshotUrl: '' }
+      { id: generateId(), name: 'Accueil', type: 'wireframe', breakpoints: [], tool: '', mockupUrl: '', notes: '', screenshotUrl: '' },
+      { id: generateId(), name: '', type: '', breakpoints: [], tool: '', mockupUrl: '', notes: '', screenshotUrl: '' },
+      { id: generateId(), name: '', type: '', breakpoints: [], tool: '', mockupUrl: '', notes: '', screenshotUrl: '' }
     ],
     gridSystem: '',
     userTests: [createUserTest()],

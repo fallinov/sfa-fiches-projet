@@ -98,7 +98,10 @@ function createDefaultData(): ChecklistData {
           item('Validation avec messages explicites', 'essential'),
           item('Nombre de champs minimisé', 'important'),
           item('Types de champs appropriés', 'important'),
-          item('Autocomplétion activée où pertinent', 'recommended')
+          item('Autocomplétion activée où pertinent', 'recommended'),
+          item('Placement des éléments clés suit le pattern Z (logo haut-gauche, CTA bas-droite)', 'important'),
+          item('Éléments liés regroupés visuellement — loi de proximité', 'important'),
+          item('Navigation limitée à 5-7 items principaux — loi de Miller', 'important')
         ]
       },
       {

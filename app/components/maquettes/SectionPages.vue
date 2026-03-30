@@ -81,6 +81,20 @@ function handleKeydown(e: KeyboardEvent) {
           </UFormField>
 
           <UFormField
+            :label="t.maquettes.sections.pages.mockupUrl"
+            :hint="t.maquettes.sections.pages.mockupUrlHint"
+            class="sm:col-span-3"
+          >
+            <UInput
+              v-model="page.mockupUrl"
+              type="url"
+              :placeholder="t.maquettes.sections.pages.mockupUrlPlaceholder"
+              icon="i-lucide-link"
+              class="w-full"
+            />
+          </UFormField>
+
+          <UFormField
             :label="t.maquettes.sections.pages.pageNotes"
             class="sm:col-span-2"
           >

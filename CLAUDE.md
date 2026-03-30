@@ -43,7 +43,7 @@ Application web permettant aux apprentis ESIG de remplir, sauvegarder et partage
 | `/card-sorting` | Card Sorting + photos | Phase 2 — Architecture info |
 | `/design` | Design & identité visuelle | Phase 3 — Charte graphique |
 | `/maquettes` | Maquettes + screenshots | Phase 5 — Wireframes |
-| `/checklist` | Checklist finale (91 items, 11 catégories) | Phase 9 — Validation |
+| `/checklist` | Checklist finale (101 items, 11 catégories) | Phase 9 — Validation |
 
 ## Architecture
 
@@ -53,11 +53,11 @@ app/
   plugins/
     capture-url-data.client.ts # Capture ?d= avant que vue-router ne le supprime
   composables/
-    useCadrageData.ts          # State + CRUD fiche cadrage
+    useCadrageData.ts          # State + CRUD fiche cadrage (+ repoUrl, siteUrl)
     useCardSortingData.ts      # State + CRUD card sorting (+ photos[])
-    useDesignData.ts           # State + CRUD design
-    useMaquettesData.ts        # State + CRUD maquettes (+ screenshotUrl)
-    useChecklistData.ts        # State + CRUD checklist (91 items)
+    useDesignData.ts           # State + CRUD design (+ realtimeColorsUrl)
+    useMaquettesData.ts        # State + CRUD maquettes (+ mockupUrl, screenshotUrl)
+    useChecklistData.ts        # State + CRUD checklist (101 items)
     use*Validation.ts          # Validation + progression par fiche
     useFormPersistence.ts      # Générique : localStorage + URL (paramétrisé)
     useFormExport.ts           # Générique : JSON export + URL sharing
@@ -66,7 +66,7 @@ app/
   components/
     ActionsBar.vue             # Barre d'actions générique (props, mode consultation)
     ImageUpload.vue            # Upload image réutilisable (drop, preview, lightbox)
-    FormNavigation.vue         # Navigation précédent/suivant entre fiches
+    FormNavigation.vue         # Navigation précédent/suivant + lien vers cours devjs.ch
     cadrage/                   # Composants Phase 1
     card-sorting/              # Composants Phase 2 (+ SectionPhotos)
     design/                    # Composants Phase 3

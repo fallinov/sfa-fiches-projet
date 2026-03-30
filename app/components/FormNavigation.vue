@@ -4,12 +4,14 @@ import t from '~/i18n/fr'
 const route = useRoute()
 
 const fiches = [
-  { path: '/cadrage', label: t.dashboard.cadrage.title, phase: 'Phase 1' },
-  { path: '/card-sorting', label: t.dashboard.cardSorting.title, phase: 'Phase 2' },
-  { path: '/design', label: t.dashboard.design.title, phase: 'Phase 3' },
-  { path: '/maquettes', label: t.dashboard.maquettes.title, phase: 'Phase 5' },
-  { path: '/checklist', label: t.dashboard.checklist.title, phase: 'Phase 9' }
+  { path: '/cadrage', label: t.dashboard.cadrage.title, phase: 'Phase 1', courseUrl: 'https://devjs.ch/preparer-projet-web/01-cadrage' },
+  { path: '/card-sorting', label: t.dashboard.cardSorting.title, phase: 'Phase 2', courseUrl: 'https://devjs.ch/preparer-projet-web/02-architecture' },
+  { path: '/design', label: t.dashboard.design.title, phase: 'Phase 3', courseUrl: 'https://devjs.ch/preparer-projet-web/03-design' },
+  { path: '/maquettes', label: t.dashboard.maquettes.title, phase: 'Phase 5', courseUrl: 'https://devjs.ch/preparer-projet-web/05-maquettes' },
+  { path: '/checklist', label: t.dashboard.checklist.title, phase: 'Phase 9', courseUrl: 'https://devjs.ch/preparer-projet-web/09-checklist' }
 ]
+
+const currentFiche = computed(() => currentIndex.value >= 0 ? fiches[currentIndex.value] : null)
 
 const currentIndex = computed(() =>
   fiches.findIndex(f => route.path.endsWith(f.path) || route.path.endsWith(`${f.path}/`))
@@ -64,4 +66,22 @@ const next = computed(() => currentIndex.value < fiches.length - 1 ? fiches[curr
     </NuxtLink>
     <div v-else />
   </nav>
+
+  <div
+    v-if="currentFiche"
+    class="print-hidden flex justify-center mt-3"
+  >
+    <a
+      :href="currentFiche.courseUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-xs text-muted hover:text-primary transition-colors inline-flex items-center gap-1"
+    >
+      Voir le cours sur devjs.ch
+      <UIcon
+        name="i-lucide-arrow-up-right"
+        class="w-3 h-3"
+      />
+    </a>
+  </div>
 </template>
