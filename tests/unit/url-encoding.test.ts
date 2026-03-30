@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import type { BriefFormData } from '../../app/composables/useFormData'
+import type { BriefFormData } from '../../app/composables/useCadrageData'
 import {
   convertLegacyData,
   decodeFormData,
@@ -13,12 +13,15 @@ const sampleData: BriefFormData = {
   date: '2026-03-25',
   objective: 'Créer un site vitrine',
   projectName: 'CoiffurePro',
+  repoUrl: '',
+  siteUrl: '',
   personas: [{
     id: 'p1',
     name: 'Alice',
     age: 34,
     job: 'Enseignante',
     level: 'intermediate',
+    device: 'smartphone',
     goal: 'Prendre rendez-vous',
     frustrations: 'Site trop lent'
   }],
@@ -30,6 +33,7 @@ const sampleData: BriefFormData = {
   constraints: {
     deadline: '2026-06-30',
     hours: 40,
+    budget: '',
     tech: 'HTML, CSS, JS',
     accessibility: 'aa',
     legal: 'RGPD'
@@ -37,7 +41,8 @@ const sampleData: BriefFormData = {
   criteria: [{
     id: 'c1',
     checked: false,
-    text: 'Site accessible mobile'
+    text: 'Site accessible mobile',
+    verification: ''
   }]
 }
 
