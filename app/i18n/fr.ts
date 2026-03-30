@@ -35,7 +35,13 @@ export default {
     lastNamePlaceholder: 'Dupont',
     firstName: 'Prénom',
     firstNamePlaceholder: 'Marie',
-    date: 'Date de création'
+    date: 'Date de création',
+    repoUrl: 'URL du dépôt GitHub',
+    repoUrlPlaceholder: 'https://github.com/votre-pseudo/votre-projet',
+    repoUrlHint: 'Le lien vers votre code source',
+    siteUrl: 'URL du site en ligne',
+    siteUrlPlaceholder: 'https://votre-projet.vercel.app',
+    siteUrlHint: 'Vercel, GitHub Pages ou Infomaniak'
   },
   sections: {
     objective: {
@@ -263,6 +269,9 @@ export default {
         },
         pageTool: 'Outil',
         pageToolPlaceholder: 'Ex : Figma, papier',
+        mockupUrl: 'Lien maquette',
+        mockupUrlPlaceholder: 'https://www.figma.com/file/...',
+        mockupUrlHint: 'Figma, Excalidraw, Penpot... Laissez vide si maquette papier (uploadez la photo ci-dessous)',
         pageNotes: 'Notes / interactions',
         pageNotesPlaceholder: 'Annotations, interactions documentées…',
         screenshot: 'Capture d\'écran',

@@ -61,6 +61,34 @@ onMounted(() => {
           />
         </UFormField>
       </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <UFormField
+          :label="t.header.repoUrl"
+          :hint="t.header.repoUrlHint"
+        >
+          <UInput
+            v-model="formData.repoUrl"
+            type="url"
+            :placeholder="t.header.repoUrlPlaceholder"
+            icon="i-lucide-github"
+            class="w-full"
+          />
+        </UFormField>
+
+        <UFormField
+          :label="t.header.siteUrl"
+          :hint="t.header.siteUrlHint"
+        >
+          <UInput
+            v-model="formData.siteUrl"
+            type="url"
+            :placeholder="t.header.siteUrlPlaceholder"
+            icon="i-lucide-globe"
+            class="w-full"
+          />
+        </UFormField>
+      </div>
     </UCard>
   </header>
 </template>

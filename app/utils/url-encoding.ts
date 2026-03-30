@@ -78,6 +78,8 @@ export function convertLegacyData(legacy: LegacyFormData): BriefFormData {
     date: (legacy['date'] as string) || '',
     objective: (legacy['field-objectif'] as string) || '',
     projectName: (legacy['field-nom-projet'] as string) || '',
+    repoUrl: '',
+    siteUrl: '',
     personas,
     features,
     constraints: {
