@@ -198,7 +198,11 @@ export default {
         colorUsagePlaceholder: 'Ex : Boutons, liens',
         add: 'Ajouter une couleur',
         contrastNotes: 'Notes sur les contrastes',
-        contrastNotesPlaceholder: 'Résultats du test WebAIM, ratios calculés…'
+        contrastNotesPlaceholder: 'Résultats du test WebAIM, ratios calculés…',
+        realtimeColorsUrl: 'Lien Realtime Colors',
+        realtimeColorsUrlPlaceholder: 'https://www.realtimecolors.com/?colors=...&fonts=...',
+        realtimeColorsUrlDescription: 'Collez ici votre lien Realtime Colors avec vos couleurs et polices. L\'enseignant pourra voir votre palette appliquée sur un vrai site.',
+        realtimeColorsUrlButton: 'Voir la palette sur Realtime Colors'
       },
       typography: {
         title: '2. Typographie',

@@ -92,6 +92,32 @@ function handleKeydown(e: KeyboardEvent) {
           class="w-full"
         />
       </UFormField>
+
+      <UFormField
+        :label="t.design.sections.colors.realtimeColorsUrl"
+        :description="t.design.sections.colors.realtimeColorsUrlDescription"
+        class="mt-4"
+      >
+        <UInput
+          v-model="formData.realtimeColorsUrl"
+          type="url"
+          :placeholder="t.design.sections.colors.realtimeColorsUrlPlaceholder"
+          icon="i-lucide-palette"
+          class="w-full"
+        />
+
+        <UButton
+          v-if="formData.realtimeColorsUrl"
+          :label="t.design.sections.colors.realtimeColorsUrlButton"
+          icon="i-lucide-external-link"
+          variant="soft"
+          color="primary"
+          :to="formData.realtimeColorsUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-2"
+        />
+      </UFormField>
     </div>
   </UCard>
 </template>
