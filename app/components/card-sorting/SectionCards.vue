@@ -9,6 +9,93 @@ function handleKeydown(e: KeyboardEvent) {
     addCard()
   }
 }
+
+function escapeHtml(str: string): string {
+  const div = document.createElement('div')
+  div.textContent = str
+  return div.innerHTML
+}
+
+function printCards() {
+  const cards = formData.value.cards.filter(c => c.label.trim())
+  if (cards.length === 0) return
+
+  const projectName = escapeHtml(formData.value.projectName || 'Card Sorting')
+
+  const cardsHtml = cards.map((c) => {
+    const label = escapeHtml(c.label)
+    const desc = c.description.trim() ? `<div class="card-desc">${escapeHtml(c.description)}</div>` : ''
+    return `<div class="card"><div class="card-label">${label}</div>${desc}</div>`
+  }).join('\n')
+
+  const html = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Cartes à découper — ${projectName}</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, sans-serif; padding: 12mm; }
+h1 { font-size: 14px; text-align: center; margin-bottom: 8mm; color: #555; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+.card {
+  border: 1px dashed #aaa;
+  padding: 6mm;
+  min-height: 35mm;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  page-break-inside: avoid;
+}
+.card-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1F2937;
+}
+.card-desc {
+  font-size: 11px;
+  color: #6B7280;
+  margin-top: 2mm;
+}
+.cut-info {
+  text-align: center;
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 6mm;
+  border-top: 1px dashed #ccc;
+  padding-top: 3mm;
+}
+@media print {
+  body { padding: 8mm; }
+  .cut-info { position: fixed; bottom: 5mm; left: 0; right: 0; }
+}
+</style>
+</head>
+<body>
+<h1>✂ Cartes à découper — ${projectName}</h1>
+<div class="grid">
+${cardsHtml}
+</div>
+<div class="cut-info">Découpez le long des pointillés — ${cards.length} carte${cards.length > 1 ? 's' : ''}</div>
+</body>
+</html>`
+
+  const blob = new Blob([html], { type: 'text/html' })
+  const url = URL.createObjectURL(blob)
+  const printWindow = window.open(url, '_blank')
+  if (printWindow) {
+    printWindow.onload = () => {
+      printWindow.print()
+      URL.revokeObjectURL(url)
+    }
+  }
+}
 </script>
 
 <template>
@@ -57,13 +144,20 @@ function handleKeydown(e: KeyboardEvent) {
       </div>
     </div>
 
-    <UButton
-      :label="t.cardSorting.sections.cards.add"
-      icon="i-lucide-plus"
-      variant="outline"
-      color="primary"
-      class="mt-4"
-      @click="addCard()"
-    />
+    <div class="flex items-center gap-2 mt-4">
+      <UButton
+        :label="t.cardSorting.sections.cards.add"
+        icon="i-lucide-plus"
+        variant="outline"
+        color="primary"
+        @click="addCard()"
+      />
+      <UButton
+        :label="t.cardSorting.sections.cards.printCards"
+        icon="i-lucide-printer"
+        color="primary"
+        @click="printCards"
+      />
+    </div>
   </UCard>
 </template>
