@@ -110,8 +110,14 @@ export function useCardSortingData() {
     formData.value.participants = formData.value.participants.filter(p => p.id !== id)
   }
 
-  function addArchitectureNode() {
-    formData.value.architecture.push(createArchitectureNode())
+  function addArchitectureNode(depth = 0, afterIndex?: number) {
+    const node = createArchitectureNode(depth)
+    if (afterIndex !== undefined && afterIndex < formData.value.architecture.length - 1) {
+      formData.value.architecture.splice(afterIndex + 1, 0, node)
+    } else {
+      formData.value.architecture.push(node)
+    }
+    return node
   }
 
   function removeArchitectureNode(id: string) {
