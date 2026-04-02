@@ -7,7 +7,59 @@ defineProps<{
 
 const { formData } = useCardSortingData()
 
-const lightboxUrl = ref('')
+const lightboxIndex = ref(-1)
+const lightboxUrl = computed(() => {
+  const idx = lightboxIndex.value
+  return idx >= 0 ? formData.value.photos[idx] ?? '' : ''
+})
+
+function openLightbox(index: number) {
+  lightboxIndex.value = index
+}
+
+function closeLightbox() {
+  lightboxIndex.value = -1
+}
+
+function lightboxPrev() {
+  if (lightboxIndex.value > 0) lightboxIndex.value--
+}
+
+function lightboxNext() {
+  if (lightboxIndex.value < formData.value.photos.length - 1) lightboxIndex.value++
+}
+
+watch(lightboxIndex, (idx) => {
+  if (idx >= 0) {
+    nextTick(() => {
+      const el = document.querySelector<HTMLElement>('[tabindex="0"].bg-black')
+      el?.focus()
+    })
+  }
+})
+
+const zoomed = ref(false)
+
+function toggleZoom() {
+  zoomed.value = !zoomed.value
+}
+
+// Reset zoom when changing photo
+watch(lightboxIndex, () => {
+  zoomed.value = false
+})
+
+function handleLightboxKeydown(e: KeyboardEvent) {
+  if (e.key === 'ArrowLeft') {
+    e.preventDefault()
+    lightboxPrev()
+  } else if (e.key === 'ArrowRight') {
+    e.preventDefault()
+    lightboxNext()
+  } else if (e.key === 'Escape') {
+    closeLightbox()
+  }
+}
 
 function addPhoto(url: string) {
   formData.value = {
@@ -56,7 +108,7 @@ watch(tempUpload, (url) => {
         v-for="(photo, index) in formData.photos"
         :key="index"
         class="relative group rounded-lg overflow-hidden border border-default cursor-pointer"
-        @click="lightboxUrl = photo"
+        @click="openLightbox(index)"
       >
         <img
           :src="photo"
@@ -105,22 +157,57 @@ watch(tempUpload, (url) => {
       :label="t.cardSorting.sections.photos.uploadLabel"
     />
 
-    <!-- Lightbox -->
+    <!-- Lightbox with keyboard navigation -->
     <UModal
-      :open="!!lightboxUrl"
+      :open="lightboxIndex >= 0"
       class="max-w-4xl"
-      @update:open="lightboxUrl = ''"
+      @update:open="closeLightbox"
     >
       <template #content>
         <div
-          class="p-2 bg-black flex items-center justify-center min-h-[50vh] cursor-pointer"
-          @click="lightboxUrl = ''"
+          class="relative bg-black flex items-center justify-center min-h-[50vh]"
+          :class="zoomed ? 'overflow-auto cursor-zoom-out' : 'cursor-zoom-in'"
+          tabindex="0"
+          @keydown="handleLightboxKeydown"
+          @click="closeLightbox"
         >
           <img
             :src="lightboxUrl"
             alt="Photo en grand"
-            class="max-w-full max-h-[85vh] object-contain"
+            :class="zoomed ? 'max-w-none p-2' : 'max-w-full max-h-[85vh] object-contain p-2'"
+            @click.stop="toggleZoom"
           >
+
+          <!-- Previous button -->
+          <button
+            v-if="lightboxIndex > 0"
+            class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-colors"
+            aria-label="Photo précédente"
+            @click.stop="lightboxPrev"
+          >
+            <UIcon
+              name="i-lucide-chevron-left"
+              class="w-6 h-6"
+            />
+          </button>
+
+          <!-- Next button -->
+          <button
+            v-if="lightboxIndex < formData.photos.length - 1"
+            class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-colors"
+            aria-label="Photo suivante"
+            @click.stop="lightboxNext"
+          >
+            <UIcon
+              name="i-lucide-chevron-right"
+              class="w-6 h-6"
+            />
+          </button>
+
+          <!-- Counter -->
+          <span class="absolute bottom-3 left-1/2 -translate-x-1/2 text-white/70 text-sm tabular-nums">
+            {{ lightboxIndex + 1 }} / {{ formData.photos.length }}
+          </span>
         </div>
       </template>
     </UModal>
