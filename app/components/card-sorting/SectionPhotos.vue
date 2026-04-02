@@ -165,22 +165,22 @@ watch(tempUpload, (url) => {
     >
       <template #content>
         <div
-          class="relative bg-black flex items-center justify-center min-h-[50vh]"
-          :class="zoomed ? 'overflow-auto cursor-zoom-out' : 'cursor-zoom-in'"
+          class="relative bg-black min-h-[50vh]"
+          :class="zoomed ? 'overflow-auto max-h-[90vh]' : 'flex items-center justify-center cursor-zoom-in'"
           tabindex="0"
           @keydown="handleLightboxKeydown"
-          @click="closeLightbox"
+          @click="zoomed ? undefined : closeLightbox()"
         >
           <img
             :src="lightboxUrl"
             alt="Photo en grand"
-            :class="zoomed ? 'max-w-none p-2' : 'max-w-full max-h-[85vh] object-contain p-2'"
+            :class="zoomed ? 'cursor-zoom-out p-2' : 'max-w-full max-h-[85vh] object-contain p-2'"
             @click.stop="toggleZoom"
           >
 
           <!-- Previous button -->
           <button
-            v-if="lightboxIndex > 0"
+            v-if="lightboxIndex > 0 && !zoomed"
             class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-colors"
             aria-label="Photo précédente"
             @click.stop="lightboxPrev"
@@ -193,7 +193,7 @@ watch(tempUpload, (url) => {
 
           <!-- Next button -->
           <button
-            v-if="lightboxIndex < formData.photos.length - 1"
+            v-if="lightboxIndex < formData.photos.length - 1 && !zoomed"
             class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black/80 text-white flex items-center justify-center transition-colors"
             aria-label="Photo suivante"
             @click.stop="lightboxNext"
@@ -205,7 +205,10 @@ watch(tempUpload, (url) => {
           </button>
 
           <!-- Counter -->
-          <span class="absolute bottom-3 left-1/2 -translate-x-1/2 text-white/70 text-sm tabular-nums">
+          <span
+            v-if="!zoomed"
+            class="absolute bottom-3 left-1/2 -translate-x-1/2 text-white/70 text-sm tabular-nums"
+          >
             {{ lightboxIndex + 1 }} / {{ formData.photos.length }}
           </span>
         </div>
