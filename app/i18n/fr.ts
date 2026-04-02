@@ -190,9 +190,21 @@ export default {
     projectName: 'Nom du projet',
     projectNamePlaceholder: 'Ex : CoiffurePro',
     sections: {
+      logo: {
+        title: '3. Logo',
+        description: 'Uploadez le logo du projet.',
+        tip: 'Le logo doit fonctionner en petit (favicon) et en grand. Prévoyez une version sur fond clair et sur fond sombre.'
+      },
+      moodboard: {
+        title: '1. Moodboard / Inspirations',
+        description: 'Ajoutez des captures d\'écran ou images d\'inspiration pour le design.',
+        tip: 'Cherchez 3 à 5 sites qui correspondent à l\'ambiance souhaitée. Notez ce qui vous plaît : couleurs, typo, mise en page, animations.',
+        uploadLabel: 'Ajouter une image'
+      },
       colors: {
-        title: '1. Palette de couleurs',
+        title: '4. Palette de couleurs',
         description: 'Choisissez 3-4 couleurs et vérifiez les contrastes (ratio ≥ 4.5:1 pour WCAG AA). Règle 60-30-10.',
+        tip: 'Règle 60-30-10 : 60% couleur dominante (fond), 30% secondaire (sections), 10% accent (boutons, CTA). Le ratio de contraste texte/fond doit être ≥ 4.5:1 (WCAG AA).',
         colorName: 'Nom',
         colorNamePlaceholder: 'Ex : Principale',
         colorHex: 'Code hex',
@@ -208,8 +220,9 @@ export default {
         realtimeColorsUrlButton: 'Ouvrir dans Realtime Colors'
       },
       typography: {
-        title: '2. Typographie',
+        title: '5. Typographie',
         description: 'Maximum 2 polices. Taille minimale : 16px. Interligne : 1.5 à 1.7.',
+        tip: 'Une police pour les titres, une pour le texte. Évitez les polices fantaisie. Taille body ≥ 16px pour la lisibilité mobile. Interligne 1.5 minimum.',
         fontName: 'Police',
         fontNamePlaceholder: 'Ex : Inter',
         fontUsage: 'Rôle',
@@ -229,20 +242,81 @@ export default {
         addTypeScale: 'Ajouter une taille'
       },
       spacings: {
-        title: '3. Espacements',
+        title: '7. Espacements',
         description: 'Définissez une grille d\'espacements cohérente (multiples de 4 ou 8).',
+        tip: 'Utilisez des multiples de 4 ou 8 (4, 8, 16, 24, 32, 48). Cela crée un rythme visuel harmonieux et facilite l\'alignement.',
         namePlaceholder: 'Nom (xs, sm…)',
         valuePlaceholder: 'Valeur (8px…)',
         add: 'Ajouter un espacement'
       },
+      borderRadius: {
+        title: '8. Bordures et arrondis',
+        description: 'Définissez les niveaux d\'arrondi utilisés dans l\'interface.',
+        tip: 'Des arrondis cohérents renforcent l\'identité. Petits arrondis = sérieux/pro. Grands arrondis = amical/moderne. Choisissez 3-4 niveaux max.',
+        namePlaceholder: 'Nom (sm, md…)',
+        valuePlaceholder: 'Valeur (8px…)',
+        add: 'Ajouter un arrondi'
+      },
+      shadows: {
+        title: '9. Ombres',
+        description: 'Définissez les niveaux d\'ombre pour créer de la profondeur.',
+        tip: 'Les ombres créent de la hiérarchie visuelle. Utilisez-les avec parcimonie : cartes, menus déroulants, modales. Évitez les ombres trop marquées.',
+        namePlaceholder: 'Nom (sm, md…)',
+        valuePlaceholder: 'Valeur CSS',
+        add: 'Ajouter une ombre'
+      },
+      icons: {
+        title: '6. Icônes',
+        description: 'Choisissez la librairie et le style d\'icônes pour le projet.',
+        tip: 'Utilisez une seule librairie pour la cohérence. Préférez le style outlined pour un look moderne. Taille standard : 20-24px.',
+        library: 'Librairie d\'icônes',
+        libraryPlaceholder: 'Choisir une librairie…',
+        libraries: {
+          lucide: 'Lucide Icons — simple, propre, open source',
+          heroicons: 'Heroicons — par l\'équipe Tailwind CSS',
+          phosphor: 'Phosphor Icons — flexible, 6 styles',
+          tabler: 'Tabler Icons — 5000+ icônes fines',
+          iconoir: 'Iconoir — minimaliste, 1500+ icônes',
+          fontawesome: 'Font Awesome — la plus connue, large choix',
+          materialdesign: 'Material Design Icons — par Google',
+          bootstrap: 'Bootstrap Icons — simple, cohérent',
+          feather: 'Feather Icons — léger, minimaliste',
+          other: 'Autre librairie'
+        },
+        style: 'Style',
+        stylePlaceholder: 'Choisir…',
+        styles: {
+          outlined: 'Outlined (contours)',
+          filled: 'Filled (rempli)',
+          duotone: 'Duotone (deux tons)',
+          solid: 'Solid (plein)'
+        },
+        notes: 'Notes complémentaires',
+        notesPlaceholder: 'Taille par défaut, couleur, conventions…'
+      },
       identity: {
-        title: '4. Identité visuelle',
-        description: 'Décrivez le style global, l\'ambiance et les principes de design.',
-        label: 'Description de l\'identité visuelle',
-        placeholder: 'Décrivez le style recherché : ambiance, inspirations, ton visuel.\n\nEx :\n- Style minimaliste et professionnel\n- Tons sarcelle et gris ardoise\n- Espace blanc généreux\n- Bordures arrondies et ombres subtiles'
+        title: '2. Identité visuelle',
+        description: 'Sélectionnez les caractéristiques qui définissent le style de votre projet.',
+        tip: 'L\'identité visuelle doit être cohérente avec le public cible. Un site médical ≠ un site gaming. Choisissez 2-3 traits principaux et tenez-vous-y.',
+        groups: {
+          ambiance: {
+            title: 'Ambiance',
+            options: ['Minimaliste', 'Coloré', 'Sombre', 'Lumineux', 'Ludique', 'Professionnel', 'Élégant', 'Moderne']
+          },
+          principles: {
+            title: 'Principes de design',
+            options: ['Mobile-first', 'Espace blanc généreux', 'Bordures arrondies', 'Ombres subtiles', 'Animations discrètes', 'Contraste fort', 'Grille stricte', 'Asymétrie volontaire']
+          },
+          tone: {
+            title: 'Ton',
+            options: ['Formel', 'Décontracté', 'Technique', 'Accessible', 'Jeune', 'Corporate']
+          }
+        },
+        notesLabel: 'Notes complémentaires',
+        notesPlaceholder: 'Précisions sur le style, inspirations, remarques…'
       },
       checklist: {
-        title: '5. Checklist de validation',
+        title: '10. Checklist',
         description: 'Vérifiez que toutes les étapes du design ont été réalisées.'
       }
     }

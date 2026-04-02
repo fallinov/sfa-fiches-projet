@@ -109,9 +109,12 @@ function handleKeydown(e: KeyboardEvent) {
   <UCard @keydown="handleKeydown">
     <template #header>
       <div>
-        <h2 class="text-lg font-bold">
-          {{ t.design.sections.colors.title }}
-        </h2>
+        <div class="flex items-center gap-2">
+          <h2 class="text-lg font-bold">
+            {{ t.design.sections.colors.title }}
+          </h2>
+          <DesignTip :content="t.design.sections.colors.tip" />
+        </div>
         <p class="text-sm lg:text-base text-muted mt-0.5">
           {{ t.design.sections.colors.description }}
         </p>

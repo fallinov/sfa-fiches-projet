@@ -31,7 +31,15 @@ export interface DesignData {
   fonts: FontEntry[]
   typeScale: SpacingEntry[]
   spacings: SpacingEntry[]
-  visualIdentity: string
+  logoUrl: string
+  moodboard: string[]
+  borderRadii: SpacingEntry[]
+  shadows: SpacingEntry[]
+  iconLibrary: string
+  iconVariant: string
+  iconNotes: string
+  identityTraits: string[]
+  identityNotes: string
   checklist: ChecklistItem[]
 }
 
@@ -72,6 +80,20 @@ const DEFAULT_TYPE_SCALE = [
   { name: 'small', value: '14px' }
 ]
 
+const DEFAULT_BORDER_RADII = [
+  { name: 'none', value: '0px' },
+  { name: 'sm', value: '4px' },
+  { name: 'md', value: '8px' },
+  { name: 'lg', value: '16px' },
+  { name: 'full', value: '9999px' }
+]
+
+const DEFAULT_SHADOWS = [
+  { name: 'sm', value: '0 1px 2px rgba(0,0,0,0.05)' },
+  { name: 'md', value: '0 4px 6px rgba(0,0,0,0.1)' },
+  { name: 'lg', value: '0 10px 15px rgba(0,0,0,0.15)' }
+]
+
 const DEFAULT_SPACINGS = [
   { name: 'xs', value: '4px' },
   { name: 'sm', value: '8px' },
@@ -102,7 +124,15 @@ function createDefaultData(): DesignData {
     ],
     typeScale: DEFAULT_TYPE_SCALE.map(s => ({ id: generateId(), ...s })),
     spacings: DEFAULT_SPACINGS.map(s => ({ id: generateId(), ...s })),
-    visualIdentity: '',
+    logoUrl: '',
+    moodboard: [],
+    borderRadii: DEFAULT_BORDER_RADII.map(s => ({ id: generateId(), ...s })),
+    shadows: DEFAULT_SHADOWS.map(s => ({ id: generateId(), ...s })),
+    iconLibrary: '',
+    iconVariant: '',
+    iconNotes: '',
+    identityTraits: [],
+    identityNotes: '',
     checklist: DEFAULT_CHECKLIST.map(text => ({
       id: generateId(),
       checked: false,
@@ -136,6 +166,22 @@ export function useDesignData() {
 
   function removeTypeScale(id: string) {
     formData.value.typeScale = formData.value.typeScale.filter(s => s.id !== id)
+  }
+
+  function addBorderRadius() {
+    formData.value.borderRadii.push(createSpacing())
+  }
+
+  function removeBorderRadius(id: string) {
+    formData.value.borderRadii = formData.value.borderRadii.filter(s => s.id !== id)
+  }
+
+  function addShadow() {
+    formData.value.shadows.push(createSpacing())
+  }
+
+  function removeShadow(id: string) {
+    formData.value.shadows = formData.value.shadows.filter(s => s.id !== id)
   }
 
   function addSpacing() {
@@ -179,6 +225,16 @@ export function useDesignData() {
         if (!s.id) s.id = generateId()
       })
     }
+    if (Array.isArray(data.borderRadii)) {
+      data.borderRadii.forEach((s) => {
+        if (!s.id) s.id = generateId()
+      })
+    }
+    if (Array.isArray(data.shadows)) {
+      data.shadows.forEach((s) => {
+        if (!s.id) s.id = generateId()
+      })
+    }
     if (data.checklist) {
       data.checklist.forEach((c) => {
         if (!c.id) c.id = generateId()
@@ -196,6 +252,10 @@ export function useDesignData() {
     removeFont,
     addTypeScale,
     removeTypeScale,
+    addBorderRadius,
+    removeBorderRadius,
+    addShadow,
+    removeShadow,
     addSpacing,
     removeSpacing,
     resetForm,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import t from '~/i18n/fr'
 
-const { formData, addSpacing, removeSpacing } = useDesignData()
+const { formData, addShadow, removeShadow } = useDesignData()
 </script>
 
 <template>
@@ -10,58 +10,58 @@ const { formData, addSpacing, removeSpacing } = useDesignData()
       <div>
         <div class="flex items-center gap-2">
           <h2 class="text-lg font-bold">
-            {{ t.design.sections.spacings.title }}
+            {{ t.design.sections.shadows.title }}
           </h2>
-          <DesignTip :content="t.design.sections.spacings.tip" />
+          <DesignTip :content="t.design.sections.shadows.tip" />
         </div>
         <p class="text-sm lg:text-base text-muted mt-0.5">
-          {{ t.design.sections.spacings.description }}
+          {{ t.design.sections.shadows.description }}
         </p>
       </div>
     </template>
 
     <div class="space-y-3">
       <div
-        v-for="(spacing, index) in formData.spacings"
-        :key="spacing.id"
+        v-for="(shadow, index) in formData.shadows"
+        :key="shadow.id"
         class="flex items-center gap-3"
       >
         <span class="text-sm font-semibold text-muted tabular-nums w-6 text-center shrink-0">
           {{ index + 1 }}
         </span>
         <UInput
-          v-model="spacing.name"
-          :placeholder="t.design.sections.spacings.namePlaceholder"
+          v-model="shadow.name"
+          :placeholder="t.design.sections.shadows.namePlaceholder"
           class="w-24"
         />
         <UInput
-          v-model="spacing.value"
-          :placeholder="t.design.sections.spacings.valuePlaceholder"
-          class="w-24"
+          v-model="shadow.value"
+          :placeholder="t.design.sections.shadows.valuePlaceholder"
+          class="flex-1"
         />
-        <!-- Visual preview bar -->
+        <!-- Visual preview -->
         <div
-          class="flex-1 h-4 bg-primary/20 rounded"
-          :style="{ maxWidth: spacing.value || '0px' }"
+          class="w-12 h-12 bg-white dark:bg-gray-700 rounded-lg shrink-0"
+          :style="{ boxShadow: shadow.value || 'none' }"
         />
         <UButton
           icon="i-lucide-trash-2"
           color="neutral"
           variant="ghost"
           size="sm"
-          :aria-label="`Supprimer espacement ${index + 1}`"
-          @click="removeSpacing(spacing.id)"
+          :aria-label="`Supprimer ombre ${index + 1}`"
+          @click="removeShadow(shadow.id)"
         />
       </div>
     </div>
 
     <UButton
-      :label="t.design.sections.spacings.add"
+      :label="t.design.sections.shadows.add"
       icon="i-lucide-plus"
       variant="outline"
       color="primary"
       class="mt-4"
-      @click="addSpacing()"
+      @click="addShadow()"
     />
   </UCard>
 </template>
