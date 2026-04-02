@@ -29,7 +29,7 @@ export interface DesignData {
   contrastNotes: string
   realtimeColorsUrl: string
   fonts: FontEntry[]
-  typeScale: string
+  typeScale: SpacingEntry[]
   spacings: SpacingEntry[]
   visualIdentity: string
   checklist: ChecklistItem[]
@@ -64,6 +64,14 @@ const DEFAULT_CHECKLIST = [
   'Pas de surcharge visuelle (sobriété)'
 ]
 
+const DEFAULT_TYPE_SCALE = [
+  { name: 'h1', value: '36px' },
+  { name: 'h2', value: '28px' },
+  { name: 'h3', value: '22px' },
+  { name: 'body', value: '16px' },
+  { name: 'small', value: '14px' }
+]
+
 const DEFAULT_SPACINGS = [
   { name: 'xs', value: '4px' },
   { name: 'sm', value: '8px' },
@@ -80,10 +88,11 @@ function createDefaultData(): DesignData {
     date: '',
     projectName: '',
     colors: [
+      { id: generateId(), hex: '', name: 'Texte', usage: 'Couleur du texte principal' },
+      { id: generateId(), hex: '', name: 'Fond', usage: 'Couleur de fond des pages' },
       { id: generateId(), hex: '', name: 'Principale', usage: 'Identité de marque, boutons primaires' },
       { id: generateId(), hex: '', name: 'Secondaire', usage: 'Accents, éléments secondaires' },
-      { id: generateId(), hex: '', name: 'Neutre', usage: 'Texte, bordures, fonds' },
-      { id: generateId(), hex: '', name: 'Statut', usage: 'Succès, erreur, avertissement' }
+      { id: generateId(), hex: '', name: 'Accent', usage: 'Mise en avant, CTA, liens' }
     ],
     contrastNotes: '',
     realtimeColorsUrl: '',
@@ -91,7 +100,7 @@ function createDefaultData(): DesignData {
       { id: generateId(), name: '', usage: 'headings', sampleUrl: '' },
       { id: generateId(), name: '', usage: 'body', sampleUrl: '' }
     ],
-    typeScale: '',
+    typeScale: DEFAULT_TYPE_SCALE.map(s => ({ id: generateId(), ...s })),
     spacings: DEFAULT_SPACINGS.map(s => ({ id: generateId(), ...s })),
     visualIdentity: '',
     checklist: DEFAULT_CHECKLIST.map(text => ({
@@ -121,6 +130,14 @@ export function useDesignData() {
     formData.value.fonts = formData.value.fonts.filter(f => f.id !== id)
   }
 
+  function addTypeScale() {
+    formData.value.typeScale.push(createSpacing())
+  }
+
+  function removeTypeScale(id: string) {
+    formData.value.typeScale = formData.value.typeScale.filter(s => s.id !== id)
+  }
+
   function addSpacing() {
     formData.value.spacings.push(createSpacing())
   }
@@ -146,6 +163,17 @@ export function useDesignData() {
         if (!f.id) f.id = generateId()
       })
     }
+    // Legacy: typeScale was a string
+    const rawTypeScale = data.typeScale as unknown
+    if (typeof rawTypeScale === 'string') {
+      data.typeScale = rawTypeScale
+        ? rawTypeScale.split('\n').filter((l: string) => l.trim()).map((l: string) => ({ id: generateId(), name: l.trim(), value: '' }))
+        : []
+    } else if (Array.isArray(data.typeScale)) {
+      data.typeScale.forEach((s) => {
+        if (!s.id) s.id = generateId()
+      })
+    }
     if (data.spacings) {
       data.spacings.forEach((s) => {
         if (!s.id) s.id = generateId()
@@ -166,6 +194,8 @@ export function useDesignData() {
     removeColor,
     addFont,
     removeFont,
+    addTypeScale,
+    removeTypeScale,
     addSpacing,
     removeSpacing,
     resetForm,
