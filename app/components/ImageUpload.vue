@@ -13,11 +13,9 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const toast = useToast()
 const lightboxOpen = ref(false)
 
-async function handleFile(event: Event) {
-  const input = event.target as HTMLInputElement
-  const file = input.files?.[0]
-  if (!file) return
+const isDragOver = ref(false)
 
+async function processFile(file: File) {
   const url = await uploadImage(file)
   if (url) {
     modelValue.value = url
@@ -25,8 +23,32 @@ async function handleFile(event: Event) {
   } else {
     toast.add({ title: error.value || t.upload.error, color: 'error' })
   }
+}
 
+async function handleFile(event: Event) {
+  const input = event.target as HTMLInputElement
+  const file = input.files?.[0]
+  if (!file) return
+  await processFile(file)
   input.value = ''
+}
+
+function onDragOver(e: DragEvent) {
+  e.preventDefault()
+  isDragOver.value = true
+}
+
+function onDragLeave() {
+  isDragOver.value = false
+}
+
+async function onDrop(e: DragEvent) {
+  e.preventDefault()
+  isDragOver.value = false
+  const file = e.dataTransfer?.files?.[0]
+  if (file && file.type.startsWith('image/')) {
+    await processFile(file)
+  }
 }
 
 function removeImage() {
@@ -95,8 +117,12 @@ function openLightbox() {
     <!-- Upload zone (only in edit mode) -->
     <div
       v-else-if="!readOnly"
-      class="border-2 border-dashed border-default rounded-lg p-6 text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-colors"
+      class="border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors"
+      :class="isDragOver ? 'border-primary bg-primary/10' : 'border-default hover:border-primary hover:bg-primary/5'"
       @click="triggerUpload"
+      @dragover="onDragOver"
+      @dragleave="onDragLeave"
+      @drop="onDrop"
     >
       <UIcon
         v-if="!isUploading"
