@@ -205,7 +205,7 @@ export default {
         realtimeColorsUrl: 'Lien Realtime Colors',
         realtimeColorsUrlPlaceholder: 'https://www.realtimecolors.com/?colors=...&fonts=...',
         realtimeColorsUrlDescription: 'Collez ici votre lien Realtime Colors avec vos couleurs et polices. L\'enseignant pourra voir votre palette appliquée sur un vrai site.',
-        realtimeColorsUrlButton: 'Voir la palette sur Realtime Colors'
+        realtimeColorsUrlButton: 'Ouvrir dans Realtime Colors'
       },
       typography: {
         title: '2. Typographie',
@@ -224,7 +224,9 @@ export default {
         fontUrlPlaceholder: 'Ex : Google Fonts, self-hosted',
         addFont: 'Ajouter une police',
         typeScale: 'Échelle typographique',
-        typeScalePlaceholder: 'h1 : 32px / h2 : 24px / h3 : 20px / body : 16px / small : 14px'
+        typeScaleNamePlaceholder: 'Élément (ex : h1)',
+        typeScaleValuePlaceholder: 'Taille (ex : 36px)',
+        addTypeScale: 'Ajouter une taille'
       },
       spacings: {
         title: '3. Espacements',
