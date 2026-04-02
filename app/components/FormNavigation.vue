@@ -2,6 +2,7 @@
 import t from '~/i18n/fr'
 
 const route = useRoute()
+const { appVersion } = useRuntimeConfig().public
 
 const fiches = [
   { path: '/cadrage', label: t.dashboard.cadrage.title, phase: 'Phase 1', courseUrl: 'https://devjs.ch/preparer-projet-web/01-cadrage' },
@@ -83,5 +84,6 @@ const next = computed(() => currentIndex.value < fiches.length - 1 ? fiches[curr
         class="w-3 h-3"
       />
     </a>
+    <span class="text-xs text-muted/50 ml-3">v{{ appVersion }}</span>
   </div>
 </template>
