@@ -4,6 +4,8 @@ import t from '~/i18n/fr'
 const { formData, addArchitectureNode, removeArchitectureNode } = useCardSortingData()
 
 const MAX_DEPTH = 3
+const containerRef = ref<HTMLElement | null>(null)
+const pendingFocusId = ref<string | null>(null)
 
 function canIndent(index: number): boolean {
   if (index === 0) return false
@@ -39,12 +41,36 @@ function moveDown(index: number) {
   ;[nodes[index], nodes[index + 1]] = [nodes[index + 1]!, nodes[index]!]
 }
 
+function addAndFocus(depth = 0, afterIndex?: number) {
+  const node = addArchitectureNode(depth, afterIndex)
+  if (node) pendingFocusId.value = node.id
+}
+
+function handleInputKeydown(e: KeyboardEvent, index: number) {
+  if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) {
+    e.preventDefault()
+    const currentNode = formData.value.architecture[index]
+    if (currentNode) {
+      addAndFocus(currentNode.depth, index)
+    }
+  }
+}
+
 function handleKeydown(e: KeyboardEvent) {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
     e.preventDefault()
-    addArchitectureNode()
+    addAndFocus()
   }
 }
+
+watch(pendingFocusId, (id) => {
+  if (!id) return
+  nextTick(() => {
+    const input = containerRef.value?.querySelector<HTMLInputElement>(`[data-node-id="${id}"] input`)
+    input?.focus()
+    pendingFocusId.value = null
+  })
+})
 </script>
 
 <template>
@@ -60,10 +86,14 @@ function handleKeydown(e: KeyboardEvent) {
       </div>
     </template>
 
-    <div class="space-y-2">
+    <div
+      ref="containerRef"
+      class="space-y-2"
+    >
       <div
         v-for="(node, index) in formData.architecture"
         :key="node.id"
+        :data-node-id="node.id"
         class="flex items-center gap-1"
         :style="{ marginLeft: `${node.depth * 24}px` }"
       >
@@ -79,6 +109,7 @@ function handleKeydown(e: KeyboardEvent) {
           :placeholder="t.cardSorting.sections.architecture.placeholder"
           size="sm"
           class="flex-1"
+          @keydown="handleInputKeydown($event, index)"
         />
 
         <div class="flex items-center gap-0.5 shrink-0">
@@ -87,6 +118,7 @@ function handleKeydown(e: KeyboardEvent) {
             color="neutral"
             variant="ghost"
             size="xs"
+            :tabindex="-1"
             :disabled="!canOutdent(index)"
             :aria-label="t.cardSorting.sections.architecture.outdent"
             @click="outdent(index)"
@@ -96,6 +128,7 @@ function handleKeydown(e: KeyboardEvent) {
             color="neutral"
             variant="ghost"
             size="xs"
+            :tabindex="-1"
             :disabled="!canIndent(index)"
             :aria-label="t.cardSorting.sections.architecture.indent"
             @click="indent(index)"
@@ -105,6 +138,7 @@ function handleKeydown(e: KeyboardEvent) {
             color="neutral"
             variant="ghost"
             size="xs"
+            :tabindex="-1"
             :disabled="index === 0"
             :aria-label="t.cardSorting.sections.architecture.moveUp"
             @click="moveUp(index)"
@@ -114,6 +148,7 @@ function handleKeydown(e: KeyboardEvent) {
             color="neutral"
             variant="ghost"
             size="xs"
+            :tabindex="-1"
             :disabled="index === formData.architecture.length - 1"
             :aria-label="t.cardSorting.sections.architecture.moveDown"
             @click="moveDown(index)"
@@ -123,6 +158,7 @@ function handleKeydown(e: KeyboardEvent) {
             color="neutral"
             variant="ghost"
             size="xs"
+            :tabindex="-1"
             :disabled="formData.architecture.length <= 1"
             :aria-label="t.cardSorting.sections.architecture.remove"
             @click="removeArchitectureNode(node.id)"
@@ -137,7 +173,7 @@ function handleKeydown(e: KeyboardEvent) {
       variant="outline"
       color="primary"
       class="mt-4"
-      @click="addArchitectureNode()"
+      @click="addAndFocus()"
     />
   </UCard>
 </template>
