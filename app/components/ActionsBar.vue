@@ -23,11 +23,6 @@ const progressLabel = computed(() =>
 )
 
 async function handleCopyLink() {
-  const errors = props.validate()
-  if (errors.length > 0) {
-    toast.add({ title: t.validation.fixErrors, color: 'warning' })
-    return
-  }
   const success = await props.copyShareLink()
   if (success) {
     toast.add({ title: t.toasts.linkCopied, color: 'success' })
