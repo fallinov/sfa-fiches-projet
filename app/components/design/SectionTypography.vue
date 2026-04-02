@@ -59,9 +59,12 @@ const realtimeColorsUrl = computed(() => {
   <UCard>
     <template #header>
       <div>
-        <h2 class="text-lg font-bold">
-          {{ t.design.sections.typography.title }}
-        </h2>
+        <div class="flex items-center gap-2">
+          <h2 class="text-lg font-bold">
+            {{ t.design.sections.typography.title }}
+          </h2>
+          <DesignTip :content="t.design.sections.typography.tip" />
+        </div>
         <p class="text-sm lg:text-base text-muted mt-0.5">
           {{ t.design.sections.typography.description }}
         </p>

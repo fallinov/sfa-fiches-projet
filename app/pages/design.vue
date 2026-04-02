@@ -49,10 +49,15 @@ onMounted(() => {
       :read-only="persistence.isSharedView.value"
     />
     <DesignHeader />
+    <DesignSectionMoodboard :read-only="persistence.isSharedView.value" />
+    <DesignSectionIdentity />
+    <DesignSectionLogo :read-only="persistence.isSharedView.value" />
     <DesignSectionColors />
     <DesignSectionTypography />
+    <DesignSectionIcons />
     <DesignSectionSpacings />
-    <DesignSectionIdentity />
+    <DesignSectionBorderRadius />
+    <DesignSectionShadows />
     <DesignSectionChecklist />
     <FormNavigation />
   </div>

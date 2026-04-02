@@ -28,13 +28,18 @@ export function useDesignValidation() {
   }
 
   function sectionProgress(): { filled: number, total: number } {
-    const total = 5
+    const total = 10
     let filled = 0
 
     if (formData.value.colors.some(c => c.hex.trim())) filled++
     if (formData.value.fonts.some(f => f.name.trim())) filled++
     if (formData.value.typeScale.some(s => s.value.trim()) || formData.value.spacings.some(s => s.value.trim())) filled++
-    if (formData.value.visualIdentity.trim()) filled++
+    if (formData.value.logoUrl?.trim()) filled++
+    if (formData.value.moodboard?.length > 0) filled++
+    if (formData.value.borderRadii?.some(s => s.value.trim())) filled++
+    if (formData.value.shadows?.some(s => s.value.trim())) filled++
+    if (formData.value.iconLibrary?.trim()) filled++
+    if (formData.value.identityTraits?.length > 0) filled++
     if (formData.value.checklist.some(c => c.checked)) filled++
 
     return { filled, total }
