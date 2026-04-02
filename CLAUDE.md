@@ -55,7 +55,7 @@ app/
   composables/
     useCadrageData.ts          # State + CRUD fiche cadrage (+ repoUrl, siteUrl)
     useCardSortingData.ts      # State + CRUD card sorting (ArchitectureNode[], photos[])
-    useDesignData.ts           # State + CRUD design (+ realtimeColorsUrl)
+    useDesignData.ts           # State + CRUD design (couleurs, polices, logo, moodboard, arrondis, ombres, icônes, identité)
     useMaquettesData.ts        # State + CRUD maquettes (+ mockupUrl, screenshotUrl)
     useChecklistData.ts        # State + CRUD checklist (101 items)
     use*Validation.ts          # Validation + progression par fiche
@@ -69,7 +69,7 @@ app/
     FormNavigation.vue         # Navigation précédent/suivant + lien cours devjs.ch + version
     cadrage/                   # Composants Phase 1
     card-sorting/              # Composants Phase 2 (arborescence interactive, photos avec lightbox nav/zoom, impression cartes)
-    design/                    # Composants Phase 3
+    design/                    # Composants Phase 3 (10 sections : moodboard, identité, logo, couleurs/contraste, typo, icônes, espacements, arrondis, ombres, checklist + tooltips bonnes pratiques)
     maquettes/                 # Composants Phase 5
     checklist/                 # Composants Phase 9
   utils/url-encoding.ts        # Encodage/décodage base64 + conversion legacy
