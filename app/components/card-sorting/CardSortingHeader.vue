@@ -3,12 +3,6 @@ import t from '~/i18n/fr'
 
 const { formData } = useCardSortingData()
 
-const sortingTypeItems = [
-  { label: t.cardSorting.sections.sortingType.options.open, value: 'open' },
-  { label: t.cardSorting.sections.sortingType.options.closed, value: 'closed' },
-  { label: t.cardSorting.sections.sortingType.options.hybrid, value: 'hybrid' }
-]
-
 onMounted(() => {
   if (!formData.value.date) {
     formData.value.date = new Date().toISOString().slice(0, 10)
@@ -68,20 +62,11 @@ onMounted(() => {
         </UFormField>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+      <div class="mt-4">
         <UFormField :label="t.cardSorting.projectName">
           <UInput
             v-model="formData.projectName"
             :placeholder="t.cardSorting.projectNamePlaceholder"
-            class="w-full"
-          />
-        </UFormField>
-
-        <UFormField :label="t.cardSorting.sections.sortingType.title">
-          <USelect
-            v-model="formData.sortingType"
-            :items="sortingTypeItems"
-            :placeholder="t.cardSorting.sections.sortingType.placeholder"
             class="w-full"
           />
         </UFormField>

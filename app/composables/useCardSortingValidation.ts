@@ -28,11 +28,8 @@ export function useCardSortingValidation() {
   }
 
   function sectionProgress(): { filled: number, total: number } {
-    const total = 6
+    const total = 5
     let filled = 0
-
-    // Sorting type
-    if (formData.value.sortingType) filled++
 
     // Section 1: Cards
     if (formData.value.cards.some(c => c.label.trim())) filled++

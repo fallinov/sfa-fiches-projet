@@ -18,7 +18,6 @@ export interface CardSortingData {
   studentFirstName: string
   date: string
   projectName: string
-  sortingType: '' | 'open' | 'closed' | 'hybrid'
   cards: Card[]
   participants: Participant[]
   resultsSummary: string
@@ -58,7 +57,6 @@ function createDefaultData(): CardSortingData {
     studentFirstName: '',
     date: '',
     projectName: '',
-    sortingType: '',
     cards: Array.from({ length: 5 }, () => createCard()),
     participants: [createParticipant()],
     resultsSummary: '',
