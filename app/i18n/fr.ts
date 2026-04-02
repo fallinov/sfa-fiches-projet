@@ -136,15 +136,6 @@ export default {
     projectName: 'Nom du projet',
     projectNamePlaceholder: 'Ex : CoiffurePro',
     sections: {
-      sortingType: {
-        title: 'Type de tri utilisé',
-        placeholder: 'Choisir…',
-        options: {
-          open: 'Ouvert — l\'utilisateur crée les catégories',
-          closed: 'Fermé — catégories prédéfinies',
-          hybrid: 'Hybride — catégories + liberté d\'en créer'
-        }
-      },
       cards: {
         title: '1. Cartes d\'information',
         description: 'Listez toutes les pages, contenus ou fonctionnalités de votre site (1 carte = 1 élément).',
