@@ -54,7 +54,7 @@ app/
     capture-url-data.client.ts # Capture ?d= avant que vue-router ne le supprime
   composables/
     useCadrageData.ts          # State + CRUD fiche cadrage (+ repoUrl, siteUrl)
-    useCardSortingData.ts      # State + CRUD card sorting (+ photos[])
+    useCardSortingData.ts      # State + CRUD card sorting (ArchitectureNode[], photos[])
     useDesignData.ts           # State + CRUD design (+ realtimeColorsUrl)
     useMaquettesData.ts        # State + CRUD maquettes (+ mockupUrl, screenshotUrl)
     useChecklistData.ts        # State + CRUD checklist (101 items)
@@ -65,10 +65,10 @@ app/
     useStudentIdentity.ts      # Identité partagée entre fiches (localStorage)
   components/
     ActionsBar.vue             # Barre d'actions générique (props, mode consultation)
-    ImageUpload.vue            # Upload image réutilisable (drop, preview, lightbox)
-    FormNavigation.vue         # Navigation précédent/suivant + lien vers cours devjs.ch
+    ImageUpload.vue            # Upload image réutilisable (clic + drag & drop, preview, lightbox)
+    FormNavigation.vue         # Navigation précédent/suivant + lien cours devjs.ch + version
     cadrage/                   # Composants Phase 1
-    card-sorting/              # Composants Phase 2 (+ SectionPhotos)
+    card-sorting/              # Composants Phase 2 (arborescence interactive, photos avec lightbox nav/zoom, impression cartes)
     design/                    # Composants Phase 3
     maquettes/                 # Composants Phase 5
     checklist/                 # Composants Phase 9
@@ -85,7 +85,7 @@ public/
 
 - **Composables par fiche** : chaque fiche a son propre `use*Data.ts` avec types, defaults, CRUD
 - **Composables génériques** : `useFormPersistence` et `useFormExport` reçoivent `formData` + `importData` en paramètres
-- **ActionsBar** : générique, reçoit les fonctions via props (pas d'import direct de composables)
+- **ActionsBar** : générique, reçoit les fonctions via props (pas d'import direct de composables). Le partage ne valide plus les champs obligatoires
 - **localStorage** : une clé par fiche (`fiche-cadrage-data`, `card-sorting-data`, etc.) + `student-identity` partagé
 - **Identité partagée** : `useStudentIdentity` sauve Nom/Prénom/Projet dans un localStorage commun, pré-remplit les nouvelles fiches
 - **Auto-save** : debounce 500ms + beforeunload + visibilitychange. Désactivé en mode consultation (?d=)
@@ -93,6 +93,9 @@ public/
 - **useState = shallowRef** : toujours `formData.value = { ...formData.value, ...raw }` + `triggerRef(formData)`, jamais `Object.assign`
 - **Icônes** : bundlées côté client via `icon.clientBundle.scan: true` (pas de CDN iconify)
 - **URL partagée** : le `?d=` est capturé par un plugin client AVANT que vue-router ne le supprime en SSG
+- **Architecture card sorting** : `ArchitectureNode[]` (id, label, depth) — liste plate avec indentation visuelle, rétrocompatible avec l'ancien format string
+- **Version** : exposée via `runtimeConfig.public.appVersion` depuis `package.json`, affichée dans le footer
+- **Lightbox photos** : navigation clavier (←/→/Escape), boutons prev/next, zoom au clic, compteur
 
 ## Pièges SSG connus
 
