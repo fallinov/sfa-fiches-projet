@@ -44,7 +44,7 @@ export function useCardSortingValidation() {
     if (formData.value.photos.length > 0) filled++
 
     // Section 5: Architecture
-    if (formData.value.architecture.trim()) filled++
+    if (formData.value.architecture.some(n => n.label.trim())) filled++
 
     return { filled, total }
   }

@@ -145,7 +145,7 @@ export default {
       },
       participants: {
         title: '2. Participants',
-        description: 'Notez les personnes qui ont participé au tri (minimum 5 recommandé).',
+        description: 'Notez les personnes qui ont participé au tri (minimum 3, autres que vous).',
         label: 'Participant',
         name: 'Nom / pseudo',
         namePlaceholder: 'Ex : Alice',
@@ -168,9 +168,14 @@ export default {
       },
       architecture: {
         title: '5. Architecture de navigation',
-        description: 'Décrivez la structure de navigation finale de votre site.',
-        label: 'Structure de navigation',
-        placeholder: 'Décrivez l\'arborescence du site basée sur les résultats du tri.\n\nEx :\n- Accueil\n- Services\n  - Coupe\n  - Coloration\n- Rendez-vous\n- Contact'
+        description: 'Construisez l\'arborescence de navigation de votre site. Utilisez les flèches pour réorganiser et les boutons d\'indentation pour créer la hiérarchie.',
+        placeholder: 'Nom de la page (ex : Accueil)',
+        add: 'Ajouter une page',
+        indent: 'Indenter',
+        outdent: 'Désindenter',
+        moveUp: 'Monter',
+        moveDown: 'Descendre',
+        remove: 'Supprimer la page'
       },
       checklist: {
         title: '6. Checklist de validation',
