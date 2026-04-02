@@ -141,7 +141,8 @@ export default {
         description: 'Listez toutes les pages, contenus ou fonctionnalités de votre site (1 carte = 1 élément).',
         labelPlaceholder: 'Nom de la carte (ex : Page d\'accueil)',
         descriptionPlaceholder: 'Description courte (optionnel)',
-        add: 'Ajouter une carte'
+        add: 'Ajouter une carte',
+        printCards: 'Imprimer les cartes à découper'
       },
       participants: {
         title: '2. Participants',
